@@ -43,7 +43,7 @@ function RenameForm({ user, notebook, setShowRenameModal }) {
             </ul>
             <form onSubmit={submitNewName}>
                 <input onChange={(e) => setNewName(e.target.value)} value={newName} type='text' placeholder='New name' />
-                <button disabled={validErrors.length > 0}>Rename</button>
+                <button disabled={validErrors.length > 0}>Submit</button>
             </form>
         </>
     )

@@ -11,7 +11,7 @@ function ActionsButton({ user, notebook }) {
         if (showActions) return;
         setShowActions(true);
     };
-    
+
     const deleteBtn = () => {
         return dispatch(notebookActions.deleteNotebook(user, notebook.id));
     };
@@ -39,7 +39,7 @@ function ActionsButton({ user, notebook }) {
               <RenameModal user={user} notebook={notebook} />
             </li>
             <li>
-                <button onClick={deleteBtn}>DELETE</button>
+              <button onClick={deleteBtn}>DELETE</button>
             </li>
           </ul>
         )}
