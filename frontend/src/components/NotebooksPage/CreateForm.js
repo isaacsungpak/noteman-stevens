@@ -39,7 +39,7 @@ function CreateForm({ notebooks, setShowCreateModal }) {
 
     return (
         <>
-            <p>Create a new notebook</p>
+            <p className="modal-title">Create a new notebook</p>
             <p>Enter new notebook name:</p>
             <ul>
                 {validErrors.length > 0 && validErrors.map((err, i) => (<li key={i}>{err}</li>))}

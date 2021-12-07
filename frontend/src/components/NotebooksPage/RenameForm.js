@@ -44,7 +44,7 @@ function RenameForm({ notebook, setShowRenameModal }) {
 
     return (
         <>
-            <p>Rename</p>
+            <p className="modal-title">Rename</p>
             <p>Enter new name:</p>
             <ul>
                 {validErrors.length > 0 && validErrors.map((err, i) => (

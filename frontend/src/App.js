@@ -16,20 +16,22 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/notebooks">
-            <NotebooksPage />
-          </Route>
-        </Switch>
-      )}
+      <div id="big-body">
+        <Navigation isLoaded={isLoaded} id="nav-bar"/>
+        {isLoaded && (
+          <Switch>
+            <Route path="/login">
+              <LoginFormPage />
+            </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route path="/notebooks">
+              <NotebooksPage />
+            </Route>
+          </Switch>
+        )}
+      </div>
     </>
   );
 }

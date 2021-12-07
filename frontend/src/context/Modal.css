@@ -22,3 +22,8 @@
     position: absolute;
     background-color:white;
   }
+
+  .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+  }

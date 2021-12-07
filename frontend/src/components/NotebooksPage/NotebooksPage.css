@@ -1,0 +1,49 @@
+#notebook-page-top-bar {
+    display: flex;
+
+    align-items: center;
+    font-size: 20px;
+    margin-left: auto;
+    width: 100%;
+    min-height: 80px;
+}
+
+#notebook-header {
+    color: #4464AD;
+}
+
+.note-grid-top {
+    display: flex;
+    font-size: 15px;
+    color: #FF9D00;
+    align-items: center;
+}
+
+th {
+    color: #4464AD;
+    font-size: 12px;
+    font-weight: lighter;
+    box-shadow: 0px 1px 1px rgba(23, 10, 28, 0.3);
+    height: 20px;
+}
+
+.odd-row {
+    background-color: rgba(156, 149, 220, 0.3);
+}
+
+.odd-row:not(th) .even-row {
+    height: 25px;
+}
+
+.note-title {
+    width: 50%;
+}
+
+td {
+    padding: 8px;
+}
+
+table {
+    border-collapse: collapse;
+}
+

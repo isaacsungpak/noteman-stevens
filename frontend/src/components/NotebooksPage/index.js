@@ -35,44 +35,46 @@ function NotebooksPage() {
 
     return (
         <>
-            <div className='notebook-page-top-bar'>
-                <p className='notebook-header'>Notebooks</p>
+            <div id='notebook-page-top-bar'>
+                <div id='notebook-header'>Notebooks</div>
                 <form>
                     <input onChange={(e) => setNotebookName(e.target.value)} value={notebookName} type='text' placeholder='Searchman' />
                 </form>
             </div>
 
-            <div className='notebook-page-grid-top'>
-                <p className='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
+            <div className='note-grid-top'>
+                <p id='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
                 <button onClick={() => setShowCreateModal(true)}>
                     New Notebook
                 </button>
                 {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>}
             </div>
 
-            <div className='notebook-page-grid'>
+            <div className='note-grid'>
                 <table>
                     <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Created By</th>
-                            <th>Created On</th>
-                            <th>Last Updated</th>
-                            <th>Actions</th>
+                        <tr className="odd-row">
+                            <th className="note-title">TITLE</th>
+                            <th className="note-author">CREATED BY</th>
+                            <th className="note-created">CREATED ON</th>
+                            <th className="note-updated">LAST UPDATED</th>
+                            <th className="note-actions">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {visibleNotebooks.length > 0 && visibleNotebooks.map((nb, i) => (
-                            <tr key={i}>
-                                <td>{nb.title}</td>
-                                <td>{nb.User.username}</td>
-                                <td>{`${nb.createdAt.slice(5,7)}/${nb.createdAt.slice(8,10)}/${nb.createdAt.slice(0,4)}`}</td>
-                                <td>{`${nb.updatedAt.slice(5,7)}/${nb.updatedAt.slice(8,10)}/${nb.updatedAt.slice(0,4)}`}</td>
-                                <td>
-                                    <ActionsButton notebook={nb}/>
-                                </td>
-                            </tr>
-                        ))}
+                        {visibleNotebooks.length > 0 && visibleNotebooks.map((nb, i) =>
+                                <tr key={i} className={i % 2 === 0 ? "even-row" : "odd-row"}>
+                                    <td className="note-title">
+                                        <Link className="note-link" to={`/notebooks/${nb.id}`}>{nb.title}</Link>
+                                    </td>
+                                    <td className="note-author">{nb.User.username}</td>
+                                    <td className="note-created">{`${nb.createdAt.slice(5,7)}/${nb.createdAt.slice(8,10)}/${nb.createdAt.slice(0,4)}`}</td>
+                                    <td className="note-updated">{`${nb.updatedAt.slice(5,7)}/${nb.updatedAt.slice(8,10)}/${nb.updatedAt.slice(0,4)}`}</td>
+                                    <td className="note-actions">
+                                        <ActionsButton notebook={nb}/>
+                                    </td>
+                                </tr>
+                        )}
                     </tbody>
                 </table>
             </div>
