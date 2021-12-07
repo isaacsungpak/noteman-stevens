@@ -29,8 +29,8 @@ export const createNotebook = (title) => async (dispatch) => {
     return response;
 }
 
-export const getNotebooks = (user) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/users/${user.id}`);
+export const getNotebooks = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/notebooks/user/`);
     const data = await response.json();
     dispatch(setNotebooks(data.notebooks));
     return response;

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
 import RenameModal from "./RenameModal";
 
-function ActionsButton({ user, notebook }) {
+function ActionsButton({ notebook }) {
     const dispatch = useDispatch();
     const [showActions, setShowActions] = useState(false);
     const [actionsMenuInUse, setActionsMenuInUse] = useState(false);
@@ -37,7 +37,7 @@ function ActionsButton({ user, notebook }) {
         {showActions && (
           <ul className="actions-dropdown">
             <li>
-              <RenameModal user={user} notebook={notebook} setActionsMenuInUse={setActionsMenuInUse} />
+              <RenameModal notebook={notebook} setActionsMenuInUse={setActionsMenuInUse} />
             </li>
             <li>
               <button onClick={deleteBtn}>DELETE</button>

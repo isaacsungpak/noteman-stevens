@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
 
-function RenameForm({ user, notebook, setShowRenameModal, setActionsMenuInUse }) {
+function RenameForm({ notebook, setShowRenameModal, setActionsMenuInUse }) {
     const dispatch = useDispatch();
     const [newName, setNewName] = useState('');
     const [validErrors, setValidErrors] = useState([]);
     const notebooks = useSelector((state) => state.notebook.notebooks);
 
     useEffect(() => {
-        dispatch(notebookActions.getNotebooks(user));
-    }, [dispatch, user])
+        dispatch(notebookActions.getNotebooks());
+    }, [dispatch])
 
     const submitNewName = (e) => {
         e.preventDefault();

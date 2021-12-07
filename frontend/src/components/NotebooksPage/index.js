@@ -14,12 +14,11 @@ function NotebooksPage() {
 
     const newNotebook = () => {
         return dispatch(notebookActions.createNotebook(Math.random().toFixed(4).toString()));
-        // dispatch(notebookActions.getNotebooks(user.Id));
     }
 
     useEffect(() => {
-        dispatch(notebookActions.getNotebooks(user));
-    }, [dispatch, user])
+        dispatch(notebookActions.getNotebooks());
+    }, [dispatch])
 
     let visibleNotebooks = notebooks.sort((a,b) => (
         b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
@@ -72,7 +71,7 @@ function NotebooksPage() {
                                 <td>{`${nb.createdAt.slice(5,7)}/${nb.createdAt.slice(8,10)}/${nb.createdAt.slice(0,4)}`}</td>
                                 <td>{`${nb.updatedAt.slice(5,7)}/${nb.updatedAt.slice(8,10)}/${nb.updatedAt.slice(0,4)}`}</td>
                                 <td>
-                                    <ActionsButton user={user} notebook={nb} />
+                                    <ActionsButton notebook={nb} />
                                 </td>
                             </tr>
                         ))}

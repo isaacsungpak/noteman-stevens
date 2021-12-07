@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import RenameForm from './RenameForm';
 
-function RenameModal({ user, notebook, setActionsMenuInUse }) {
+function RenameModal({ notebook, setActionsMenuInUse }) {
   const [showRenameModal, setShowRenameModal] = useState(false);
 
   const renameBtnOnClick = () => {
@@ -20,7 +20,7 @@ function RenameModal({ user, notebook, setActionsMenuInUse }) {
       <button onClick={renameBtnOnClick}>Edit</button>
       {showRenameModal && (
         <Modal onClose={renameBtnOnClose}>
-          <RenameForm user={user} notebook={notebook} setShowRenameModal={setShowRenameModal} setActionsMenuInUse={setActionsMenuInUse}/>
+          <RenameForm notebook={notebook} setShowRenameModal={setShowRenameModal} setActionsMenuInUse={setActionsMenuInUse}/>
         </Modal>
       )}
     </>
