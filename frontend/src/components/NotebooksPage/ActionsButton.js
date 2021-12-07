@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
+import RenameModal from "./RenameModal";
 
 function ActionsButton({ user, notebook }) {
     const dispatch = useDispatch();
@@ -10,11 +11,7 @@ function ActionsButton({ user, notebook }) {
         if (showActions) return;
         setShowActions(true);
     };
-
-    const renameBtn = () => {
-      return dispatch(notebookActions.updateNotebook(user, notebook.id, (Math.random().toFixed(4) * 10000).toString()));
-    };
-
+    
     const deleteBtn = () => {
         return dispatch(notebookActions.deleteNotebook(user, notebook.id));
     };
@@ -39,7 +36,7 @@ function ActionsButton({ user, notebook }) {
         {showActions && (
           <ul className="actions-dropdown">
             <li>
-              <button onClick={renameBtn}>RENAME</button>
+              <RenameModal user={user} notebook={notebook} />
             </li>
             <li>
                 <button onClick={deleteBtn}>DELETE</button>

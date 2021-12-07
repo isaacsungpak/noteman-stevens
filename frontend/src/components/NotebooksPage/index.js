@@ -19,7 +19,7 @@ function NotebooksPage() {
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks(user));
-    }, [dispatch])
+    }, [dispatch, user])
 
     let visibleNotebooks = notebooks.sort((a,b) => (
         b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
@@ -29,10 +29,10 @@ function NotebooksPage() {
         b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
         b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
 
-        useEffect(() => {
-        if (!notebookName.trim()) visibleNotebooks = notebooks;
-        else visibleNotebooks = notebooks.filter(nb => nb.title.toLowerCase().includes(notebookName.trim().toLowerCase));
-    }, [notebookName])
+    // useEffect(() => {
+    //     if (!notebookName.trim()) visibleNotebooks = notebooks;
+    //     else visibleNotebooks = notebooks.filter(nb => nb.title.toLowerCase().includes(notebookName.trim().toLowerCase));
+    // }, [notebookName])
 
     // const today = new Date();
     // const todayDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
