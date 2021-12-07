@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
 
-function RenameForm({ user, notebook, setShowRenameModal }) {
+function RenameForm({ user, notebook, setShowRenameModal, setActionsMenuInUse }) {
     const dispatch = useDispatch();
     const [newName, setNewName] = useState('');
     const [validErrors, setValidErrors] = useState([]);
@@ -19,6 +19,7 @@ function RenameForm({ user, notebook, setShowRenameModal }) {
             dispatch(notebookActions.updateNotebook(user, notebook.id, newName.trim()));
             setShowRenameModal(false);
         };
+        setActionsMenuInUse(false);
     }
 
     useEffect(() => {
