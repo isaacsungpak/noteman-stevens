@@ -17,14 +17,11 @@ const setNotebooks = (notebooks) => {
 //     };
 // };
 
-export const createNotebook = (user, title) => async (dispatch) => {
-    const userId = user.id;
-
+export const createNotebook = (title) => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks/`, {
         method: 'POST',
         body: JSON.stringify({
-            title,
-            userId
+            title
         })
     });
     const data = await response.json();
@@ -39,14 +36,11 @@ export const getNotebooks = (user) => async (dispatch) => {
     return response;
 }
 
-export const updateNotebook = (user, notebookId, title) => async (dispatch) => {
-    const userId = user.id;
-
+export const updateNotebook = (notebookId, title) => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
         method: 'PATCH',
         body: JSON.stringify({
-            title,
-            userId
+            title
         })
     });
     const data = await response.json();
@@ -54,15 +48,9 @@ export const updateNotebook = (user, notebookId, title) => async (dispatch) => {
     return response;
 }
 
-export const deleteNotebook = (user, notebookId) => async (dispatch) => {
-    const userId = user.id;
-    // const notebookId = notebook.id;
-
+export const deleteNotebook = (notebookId) => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
         method: 'DELETE',
-        body: JSON.stringify({
-            userId
-        })
     });
     const data = await response.json();
     dispatch(setNotebooks(data.notebooks));

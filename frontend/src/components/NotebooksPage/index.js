@@ -13,7 +13,7 @@ function NotebooksPage() {
     const [notebookName, setNotebookName] = useState('');
 
     const newNotebook = () => {
-        return dispatch(notebookActions.createNotebook(user, Math.random().toFixed(4).toString()));
+        return dispatch(notebookActions.createNotebook(Math.random().toFixed(4).toString()));
         // dispatch(notebookActions.getNotebooks(user.Id));
     }
 

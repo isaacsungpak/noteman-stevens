@@ -18,10 +18,13 @@ const validateTitle = [
     handleValidationErrors
 ];
 
-router.post('/', validateTitle, asyncHandler(async (req, res, next) => {
-    const { title, userId } = req.body;
+router.post('/', requireAuth, validateTitle, asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
+
+    const { title } = req.body;
 
     const exists = await db.Notebook.findOne({ where: { title, userId } });
+
     if (exists) {
         const err = new Error('Title is not unique');
         err.status = 400;
@@ -30,18 +33,18 @@ router.post('/', validateTitle, asyncHandler(async (req, res, next) => {
         return next(err);
     }
 
-    const notebook = await db.Notebook.create({ title, userId });
+    await db.Notebook.create({ title, userId });
 
     const notebooks = await db.Notebook.findAll({ where: { userId }, include: db.User });
     return res.json({ notebooks });
 }));
 
-router.get('/users/:userId(\\d+)', asyncHandler(async (req, res, next) => {
+router.get('/users/:userId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
     const { userId } = req.params;
 
     const user = await db.User.findByPk(userId);
 
-    if (!user) {
+    if (!user || Number(userId) !== req.user.id) {
         const err = new Error('Account does not exist');
         err.status = 400;
         err.title = 'Account does not exist';
@@ -55,9 +58,10 @@ router.get('/users/:userId(\\d+)', asyncHandler(async (req, res, next) => {
     });
 }));
 
-router.patch('/:notebookId(\\d+)', validateTitle, asyncHandler(async (req, res, next) => {
+router.patch('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(async (req, res, next) => {
     const { notebookId } = req.params;
-    const { title, userId } = req.body;
+    const { title } = req.body;
+    const userId = req.user.id;
 
     const notebook = await db.Notebook.findByPk(notebookId);
 
@@ -84,8 +88,8 @@ router.patch('/:notebookId(\\d+)', validateTitle, asyncHandler(async (req, res, 
     return res.json({ notebooks });
 }));
 
-router.delete(`/:notebookId(\\d+)`, asyncHandler(async (req, res, next) => {
-    const { userId } = req.body;
+router.delete(`/:notebookId(\\d+)`, requireAuth, asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
     const { notebookId } = req.params;
 
     const notebook = await db.Notebook.findByPk(notebookId);
