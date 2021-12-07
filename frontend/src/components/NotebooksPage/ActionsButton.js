@@ -14,7 +14,7 @@ function ActionsButton({ user, notebook }) {
     };
 
     const deleteBtn = () => {
-        return dispatch(notebookActions.deleteNotebook(user, notebook.id));
+        return dispatch(notebookActions.deleteNotebook(notebook.id));
     };
 
     useEffect(() => {

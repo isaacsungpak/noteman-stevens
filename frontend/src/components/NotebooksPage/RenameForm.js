@@ -16,7 +16,7 @@ function RenameForm({ user, notebook, setShowRenameModal, setActionsMenuInUse })
         e.preventDefault();
         if (!newName) setShowRenameModal(false);
         else {
-            dispatch(notebookActions.updateNotebook(user, notebook.id, newName.trim()));
+            dispatch(notebookActions.updateNotebook(notebook.id, newName.trim()));
             setShowRenameModal(false);
         };
         setActionsMenuInUse(false);
