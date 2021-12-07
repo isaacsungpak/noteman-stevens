@@ -1,28 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from '../../context/Modal';
 import RenameForm from './RenameForm';
 
-function RenameModal({ notebook, setActionsMenuInUse }) {
-  const [showRenameModal, setShowRenameModal] = useState(false);
-
-  const renameBtnOnClick = () => {
-    setShowRenameModal(true);
-    setActionsMenuInUse(true);
-  }
-
-  const renameBtnOnClose = () => {
-    setShowRenameModal(false);
-    setActionsMenuInUse(false);
-  }
-
+function RenameModal({ notebook, setShowRenameModal }) {
   return (
     <>
-      <button onClick={renameBtnOnClick}>Edit</button>
-      {showRenameModal && (
-        <Modal onClose={renameBtnOnClose}>
-          <RenameForm notebook={notebook} setShowRenameModal={setShowRenameModal} setActionsMenuInUse={setActionsMenuInUse}/>
+        <Modal onClose={() => setShowRenameModal(false)}>
+          <RenameForm notebook={notebook} setShowRenameModal={setShowRenameModal} />
         </Modal>
-      )}
     </>
   );
 }

@@ -7,7 +7,6 @@ import './NotebooksPage.css';
 
 function NotebooksPage() {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.session.user);
     const notebooks = useSelector((state) => state.notebook.notebooks);
 
     const [notebookName, setNotebookName] = useState('');

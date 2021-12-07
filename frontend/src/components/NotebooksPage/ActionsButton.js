@@ -6,7 +6,7 @@ import RenameModal from "./RenameModal";
 function ActionsButton({ notebook }) {
     const dispatch = useDispatch();
     const [showActions, setShowActions] = useState(false);
-    const [actionsMenuInUse, setActionsMenuInUse] = useState(false);
+    const [showRenameModal, setShowRenameModal] = useState(false);
 
     const openActions = () => {
         if (showActions) return;
@@ -21,23 +21,24 @@ function ActionsButton({ notebook }) {
         if (!showActions) return;
 
         const closeActions = () => {
-            if (!actionsMenuInUse) setShowActions(false);
+            setShowActions(false);
         };
 
         document.addEventListener('click', closeActions);
 
         return () => document.removeEventListener('click', closeActions);
-    }, [showActions, actionsMenuInUse]);
+    }, [showActions]);
 
     return (
       <>
-        <button onClick={() => setShowActions(!showActions)}>
+        <button onClick={openActions}>
             {/* <i className="fa-solid fa-ellipsis" /> */}%%%%
         </button>
+        {showRenameModal && <RenameModal notebook={notebook} setShowRenameModal={setShowRenameModal} />}
         {showActions && (
           <ul className="actions-dropdown">
             <li>
-              <RenameModal notebook={notebook} setActionsMenuInUse={setActionsMenuInUse} />
+                <button onClick={() => setShowRenameModal(true)}>Edit</button>
             </li>
             <li>
               <button onClick={deleteBtn}>DELETE</button>
