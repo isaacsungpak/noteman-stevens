@@ -34,8 +34,12 @@ function ActionsButton({ user, notebook }) {
         </button>
         {showActions && (
           <ul className="actions-dropdown">
-            <li>%%%%% RENAME %%%%%</li>
-            <button onClick={deleteBtn}>DELETE</button>
+            <li>
+                <div>RENAME</div>
+            </li>
+            <li>
+                <div onClick={deleteBtn}>DELETE</div>
+            </li>
           </ul>
         )}
       </>

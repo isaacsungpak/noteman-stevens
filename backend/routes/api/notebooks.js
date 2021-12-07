@@ -7,10 +7,36 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-router.post('/', asyncHandler(async (req, res, next) => {
-    const { userId } = req.body;
+const validateTitle = [
+    check('title')
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a title")
+    .isLength({ max: 50 })
+    .withMessage("Title length cannot exceed 50 characters."),
+    // .custom((value) => {
+    //     return db.Notebook.findOne({ where: { title: value, userId: 'userId' } })
+    //     .then((notebook) => {
+    //         if (notebook) {
+    //             return Promise.reject('The provided title is already in use by another notebook belonging to this account.');
+    //         }
+    //     });
+    // }),
+    handleValidationErrors
+];
 
-    const user = await db.User.findByPk(userId)
+router.post('/', validateTitle, asyncHandler(async (req, res, next) => {
+    const { title, userId } = req.body;
+
+    const notebook = await db.Notebook.create({ title, userId });
+    const notebooks = await db.Notebook.findAll({ where: { userId } });
+
+    return res.json({ notebooks });
+}));
+
+router.get('/users/:userId(\\d+)', asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+
+    const user = await db.User.findByPk(Number(userId))
 
     if (!user) {
         const err = new Error('Account does not exist');
@@ -27,7 +53,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
     });
 }));
 
-router.delete(`/:notebookId(\d+)`, asyncHandler(async (req, res, next) => {
+router.delete(`/:notebookId(\\d+)`, asyncHandler(async (req, res, next) => {
     const { userId } = req.body;
     const { notebookId } = req.params;
 

@@ -10,24 +10,32 @@ function NotebooksPage() {
     const user = useSelector((state) => state.session.user);
     const notebooks = useSelector((state) => state.notebook.notebooks);
 
-    const [notebookName, setNotebookName] = useState();
+    const [notebookName, setNotebookName] = useState('');
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks(user));
     }, [dispatch])
-    console.log(notebooks);
+
+    let visibleNotebooks = notebooks;
+
+    useEffect(() => {
+        if (!notebookName.trim()) visibleNotebooks = notebooks;
+        else visibleNotebooks = notebooks.filter(nb => nb.title.includes(notebookName.trim()));
+    }, [notebookName])
 
     return (
         <>
             <div className='notebook-page-top-bar'>
                 <p className='notebook-header'>Notebooks</p>
-                <input type='text' placeholder='Searchman' />
+                <form>
+                    <input onChange={(e) => setNotebookName(e.target.value)} value={notebookName} type='text' placeholder='Searchman' />
+                </form>
             </div>
 
             <div className='notebook-page-grid-top'>
-                <p className='notebook-count'>{`${notebooks.length} notebooks`}</p>
+                <p className='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
                 <button>
-                    <i className="far fa-user-circle" />
+                    New Notebook
                 </button>
             </div>
 
@@ -43,7 +51,7 @@ function NotebooksPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {notebooks.map((nb, i) => (
+                        {visibleNotebooks.length > 0 && visibleNotebooks.map((nb, i) => (
                             <tr key={i}>
                                 <td>{nb.title}</td>
                                 <td>{nb.User.username}</td>
