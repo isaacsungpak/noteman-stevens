@@ -17,14 +17,14 @@ const setNotebooks = (notebooks) => {
 //     };
 // };
 
-export const createNotebook = (userId, title) => async (dispatch) => {
-    // const userId = user.id;
+export const createNotebook = (user, title) => async (dispatch) => {
+    const userId = user.id;
 
     const response = await csrfFetch(`/api/notebooks/`, {
         method: 'POST',
         body: JSON.stringify({
-            userId,
-            title
+            title,
+            userId
         })
     });
     const data = await response.json();
@@ -36,6 +36,21 @@ export const getNotebooks = (user) => async (dispatch) => {
     const userId = user.id;
 
     const response = await csrfFetch(`/api/notebooks/users/${userId}`);
+    const data = await response.json();
+    dispatch(setNotebooks(data.notebooks));
+    return response;
+}
+
+export const updateNotebook = (user, title) => async (dispatch) => {
+    const userId = user.id;
+
+    const response = await csrfFetch(`/api/notebooks/`, {
+        method: 'POST',
+        body: JSON.stringify({
+            title,
+            userId
+        })
+    });
     const data = await response.json();
     dispatch(setNotebooks(data.notebooks));
     return response;

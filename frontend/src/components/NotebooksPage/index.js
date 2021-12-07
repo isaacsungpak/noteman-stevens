@@ -12,12 +12,16 @@ function NotebooksPage() {
 
     const [notebookName, setNotebookName] = useState('');
 
+    const newNotebook = () => {
+        dispatch(notebookActions.createNotebook(user, Math.random().toFixed(4)));
+        dispatch(notebookActions.getNotebooks(user));
+    }
+
     useEffect(() => {
         dispatch(notebookActions.getNotebooks(user));
     }, [dispatch])
 
     let visibleNotebooks = notebooks;
-
     useEffect(() => {
         if (!notebookName.trim()) visibleNotebooks = notebooks;
         else visibleNotebooks = notebooks.filter(nb => nb.title.includes(notebookName.trim()));
@@ -34,7 +38,7 @@ function NotebooksPage() {
 
             <div className='notebook-page-grid-top'>
                 <p className='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
-                <button>
+                <button onClick={newNotebook}>
                     New Notebook
                 </button>
             </div>

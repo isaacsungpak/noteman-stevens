@@ -13,22 +13,23 @@ const validateTitle = [
     .withMessage("Please provide a title")
     .isLength({ max: 50 })
     .withMessage("Title length cannot exceed 50 characters."),
-    // .custom((value) => {
-    //     return db.Notebook.findOne({ where: { title: value, userId: 'userId' } })
-    //     .then((notebook) => {
-    //         if (notebook) {
-    //             return Promise.reject('The provided title is already in use by another notebook belonging to this account.');
-    //         }
-    //     });
-    // }),
     handleValidationErrors
 ];
 
 router.post('/', validateTitle, asyncHandler(async (req, res, next) => {
     const { title, userId } = req.body;
 
+    const exists = await db.Notebook.findOne({ where: { title, userId } });
+    if (exists) {
+        const err = new Error('Title is not unique');
+        err.status = 400;
+        err.title = 'Title is not unique';
+        err.errors = ['The provided title is already in use by another notebook belonging to this account.'];
+        return next(err);
+    }
+
     const notebook = await db.Notebook.create({ title, userId });
-    const notebooks = await db.Notebook.findAll({ where: { userId } });
+    const notebooks = await db.Notebook.findAll({ where: { userId }, include: db.User });
 
     return res.json({ notebooks });
 }));
@@ -36,7 +37,7 @@ router.post('/', validateTitle, asyncHandler(async (req, res, next) => {
 router.get('/users/:userId(\\d+)', asyncHandler(async (req, res, next) => {
     const { userId } = req.params;
 
-    const user = await db.User.findByPk(Number(userId))
+    const user = await db.User.findByPk(userId);
 
     if (!user) {
         const err = new Error('Account does not exist');
@@ -69,7 +70,7 @@ router.delete(`/:notebookId(\\d+)`, asyncHandler(async (req, res, next) => {
 
     await notebook.destroy();
 
-    const notebooks = db.Notebook.findAll({ where: { userId } });
+    const notebooks = await db.Notebook.findAll({ where: { userId }, include: db.User });
     return res.json({
         notebooks
     });
