@@ -34,8 +34,8 @@ function DeleteForm({ notebook, setShowDeleteModal }) {
             <p>{`To confirm, type "${username}/${notebook.title}" in the box below.`}</p>
             <form onSubmit={submitDeleteReq}>
                 <input onChange={(e) => setConfirmString(e.target.value)} value={confirmString} type='text' placeholder='username/notebook-name' />
-                <button onClick={cancelBtn}>Cancel</button>
                 <button disabled={validErrors.length > 0}>Confirm</button>
+                <button onClick={cancelBtn}>Cancel</button>
             </form>
         </>
     )

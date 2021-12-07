@@ -4,16 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
 import ActionsButton from './ActionsButton'
 import './NotebooksPage.css';
+import CreateModal from './CreateModal';
 
 function NotebooksPage() {
     const dispatch = useDispatch();
     const notebooks = useSelector((state) => state.notebook.notebooks);
 
     const [notebookName, setNotebookName] = useState('');
-
-    const newNotebook = () => {
-        return dispatch(notebookActions.createNotebook(Math.random().toFixed(4).toString()));
-    }
+    const [showCreateModal, setShowCreateModal] = useState('');
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks());
@@ -46,9 +44,10 @@ function NotebooksPage() {
 
             <div className='notebook-page-grid-top'>
                 <p className='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
-                <button onClick={newNotebook}>
+                <button onClick={() => setShowCreateModal(true)}>
                     New Notebook
                 </button>
+                {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>}
             </div>
 
             <div className='notebook-page-grid'>
@@ -70,7 +69,7 @@ function NotebooksPage() {
                                 <td>{`${nb.createdAt.slice(5,7)}/${nb.createdAt.slice(8,10)}/${nb.createdAt.slice(0,4)}`}</td>
                                 <td>{`${nb.updatedAt.slice(5,7)}/${nb.updatedAt.slice(8,10)}/${nb.updatedAt.slice(0,4)}`}</td>
                                 <td>
-                                    <ActionsButton notebook={nb} />
+                                    <ActionsButton notebook={nb}/>
                                 </td>
                             </tr>
                         ))}

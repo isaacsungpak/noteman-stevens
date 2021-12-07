@@ -4,10 +4,10 @@ import * as notebookActions from '../../store/notebooks';
 
 function RenameForm({ notebook, setShowRenameModal }) {
     const dispatch = useDispatch();
+    const notebooks = useSelector((state) => state.notebook.notebooks);
     const [newName, setNewName] = useState('');
     const [validErrors, setValidErrors] = useState([]);
     const [canSubmit, setCanSubmit] = useState(false);
-    const notebooks = useSelector((state) => state.notebook.notebooks);
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks());
@@ -15,11 +15,8 @@ function RenameForm({ notebook, setShowRenameModal }) {
 
     const submitNewName = (e) => {
         e.preventDefault();
-        if (!newName) setShowRenameModal(false);
-        else {
-            dispatch(notebookActions.updateNotebook(notebook.id, newName.trim()));
-            setShowRenameModal(false);
-        };
+        dispatch(notebookActions.updateNotebook(notebook.id, newName.trim()));
+        setShowRenameModal(false);
     };
 
     const cancelBtn = (e) => {
@@ -56,8 +53,8 @@ function RenameForm({ notebook, setShowRenameModal }) {
             </ul>
             <form onSubmit={submitNewName}>
                 <input onChange={(e) => setNewName(e.target.value)} value={newName} type='text' placeholder='New name' />
-                <button onClick={cancelBtn}>Cancel</button>
                 <button disabled={!canSubmit}>Submit</button>
+                <button onClick={cancelBtn}>Cancel</button>
             </form>
         </>
     )
