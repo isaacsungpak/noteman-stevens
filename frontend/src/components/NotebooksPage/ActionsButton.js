@@ -11,9 +11,13 @@ function ActionsButton({ user, notebook }) {
         setShowActions(true);
     };
 
+    const renameBtn = () => {
+      return dispatch(notebookActions.updateNotebook(user, notebook.id, (Math.random().toFixed(4) * 10000).toString()));
+    };
+
     const deleteBtn = () => {
-        return dispatch(notebookActions.deleteNotebook(user, notebook));
-    }
+        return dispatch(notebookActions.deleteNotebook(user, notebook.id));
+    };
 
     useEffect(() => {
         if (!showActions) return;
@@ -35,10 +39,10 @@ function ActionsButton({ user, notebook }) {
         {showActions && (
           <ul className="actions-dropdown">
             <li>
-                <div>RENAME</div>
+              <button onClick={renameBtn}>RENAME</button>
             </li>
             <li>
-                <div onClick={deleteBtn}>DELETE</div>
+                <button onClick={deleteBtn}>DELETE</button>
             </li>
           </ul>
         )}
