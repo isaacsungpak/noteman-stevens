@@ -42,15 +42,15 @@ router.post('/', requireAuth, validateTitle, asyncHandler(async (req, res, next)
 router.get('/', requireAuth, asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
 
-    const user = await db.User.findByPk(userId);
+    // const user = await db.User.findByPk(userId);
 
-    if (!user || Number(userId) !== req.user.id) {
-        const err = new Error('Account does not exist');
-        err.status = 400;
-        err.title = 'Account does not exist';
-        err.errors = ['The provided account was invalid.'];
-        return next(err);
-    }
+    // if (!user || Number(userId) !== req.user.id) {
+    //     const err = new Error('Account does not exist');
+    //     err.status = 400;
+    //     err.title = 'Account does not exist';
+    //     err.errors = ['The provided account was invalid.'];
+    //     return next(err);
+    // }
 
     const notebooks = await db.Notebook.findAll({ where: { userId: user.id }, include: db.User });
     return res.json({

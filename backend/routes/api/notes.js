@@ -22,6 +22,7 @@ router.get('/', requireAuth, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
 
     const notes = db.Notes.findAll({ where: {userId} });
+    
 }))
 
 module.exports = router;
