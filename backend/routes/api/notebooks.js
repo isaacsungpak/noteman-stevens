@@ -39,7 +39,7 @@ router.post('/', requireAuth, validateTitle, asyncHandler(async (req, res, next)
     return res.json({ notebooks });
 }));
 
-router.get('/user', requireAuth, asyncHandler(async (req, res, next) => {
+router.get('/', requireAuth, asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
 
     const user = await db.User.findByPk(userId);
