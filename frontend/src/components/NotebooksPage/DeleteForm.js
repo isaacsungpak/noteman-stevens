@@ -31,7 +31,7 @@ function DeleteForm({ notebook, setShowDeleteModal }) {
     return (
         <>
             <p className="modal-title">Delete</p>
-            <p className="modal-message">To confirm, type "<p className="deletion-path">{`${username}/${notebook.title}`}</p>":</p>
+            <p className="modal-message">To confirm, type "<b>{`${username}/${notebook.title}`}</b>":</p>
             <form onSubmit={submitDeleteReq}>
                 <input onChange={(e) => setConfirmString(e.target.value)} value={confirmString} type='text' placeholder='username/notebook-name' />
                 <div className="submit-cancel-button-holder">
