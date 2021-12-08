@@ -26,7 +26,7 @@ function ActionsButton({ notebook }) {
 
     return (
       <>
-        <button onClick={openActions} className={showActions && 'menu-active'}>
+        <button onClick={openActions} className={showActions ? 'menu-active' : undefined}>
             {/* <i className="fa-solid fa-ellipsis" /> */}%%%%
         </button>
         {showRenameModal && <RenameModal notebook={notebook} setShowRenameModal={setShowRenameModal} />}

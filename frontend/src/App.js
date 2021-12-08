@@ -5,6 +5,7 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import Navigation from './components/Navigation';
 import NotebooksPage from './components/NotebooksPage';
+import NotesPage from './components/NotesPage';
 import * as sessionActions from './store/session';
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route exact path="/notebooks">
               <NotebooksPage />
+            </Route>
+            <Route exact path="/notes">
+              <NotesPage />
             </Route>
           </Switch>
         )}

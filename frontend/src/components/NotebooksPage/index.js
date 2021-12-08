@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
@@ -9,6 +10,7 @@ import CreateModal from './CreateModal';
 function NotebooksPage() {
     const dispatch = useDispatch();
     const notebooks = useSelector((state) => state.notebook.notebooks);
+    const user = useSelector((state) => state.session?.user);
 
     const [notebookName, setNotebookName] = useState('');
     const [showCreateModal, setShowCreateModal] = useState('');
@@ -35,6 +37,7 @@ function NotebooksPage() {
 
     return (
         <>
+            {!user && <Redirect to="/" />}
             <div id='notebook-page-top-bar'>
                 <div id='notebook-header'>Notebooks</div>
                 <form>
