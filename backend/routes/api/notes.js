@@ -21,7 +21,7 @@ const validateTitle = [
 router.get('/', requireAuth, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
 
-    const notes = await db.Notes.findAll({ where: { userId }, include: db.Notebook });
+    const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
     return res.json({ notes });
 }));
 
@@ -47,12 +47,11 @@ router.post('/', requireAuth, validateTitle, asyncHandler(async(req, res, next) 
         return next(err);
     }
 
-    await db.Notes.create({ title, content, userId, notebookId });
+    await db.Note.create({ title, content, userId, notebookId });
 
-    const notebook = await db.Notebook.findByPk(notebookId);
     await notebook.update({updatedAt: new Date()});
 
-    const notes = await db.Notes.findAll({ where: { userId }, include: db.Notebook });
+    const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
     return res.json({ notes });
 }));
 
@@ -85,7 +84,7 @@ router.patch('/:noteId(\\d+)', requireAuth, validateTitle, asyncHandler(async(re
     const notebook = await db.Notebook.findByPk(notebookId);
     await notebook.update({updatedAt: new Date()});
 
-    const notes = await db.Notes.findAll({ where: { userId }, include: db.Notebook });
+    const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
     return res.json({ notes });
 }));
 
@@ -106,7 +105,7 @@ router.delete('/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) 
     const notebook = await db.Notebook.findByPk(notebookId);
     await notebook.update({updatedAt: new Date()});
 
-    const notes = await db.Notes.findAll({ where: { userId }, include: db.Notebook });
+    const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
     return res.json({ notes });
 }));
 

@@ -72,7 +72,7 @@ function NotesPage() {
                 </div>
                 <div id="notepad-container">
                     <input type="text" placeholder="Note title"/>
-                    <textarea placeholder="Note content"></textarea>
+                    <textarea value={notes[0].content} placeholder="Note content"></textarea>
                 </div>
             </div>
         </>
