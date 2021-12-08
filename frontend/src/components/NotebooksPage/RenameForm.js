@@ -45,16 +45,18 @@ function RenameForm({ notebook, setShowRenameModal }) {
     return (
         <>
             <p className="modal-title">Rename</p>
-            <p>Enter new name:</p>
-            <ul>
+            <p className="modal-message">Enter new name:</p>
+            <ul className="validation-errors">
                 {validErrors.length > 0 && validErrors.map((err, i) => (
                     <li key={i}>{err}</li>
                 ))}
             </ul>
             <form onSubmit={submitNewName}>
                 <input onChange={(e) => setNewName(e.target.value)} value={newName} type='text' placeholder='New name' />
-                <button disabled={!canSubmit}>Submit</button>
-                <button onClick={cancelBtn}>Cancel</button>
+                <div className="submit-cancel-button-holder">
+                    <button disabled={!canSubmit} id={!canSubmit ? 'disabled' : undefined}>Submit</button>
+                    <button onClick={cancelBtn}>Cancel</button>
+                </div>
             </form>
         </>
     )

@@ -1,20 +1,23 @@
 #notebook-page-top-bar {
+    width: 80%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     font-size: 20px;
-    width: 100%;
     min-height: 80px;
 }
 
 #notebook-header {
     color: #4464AD;
+    font-weight: 500;
 }
 
 .note-grid-top {
-    display: flex;
+    width: 80%;
     font-size: 15px;
     color: #FF9D00;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -84,6 +87,7 @@ th, td {
     border-radius: 0px;
     padding: 3px 20px;
     width: 100%;
+    color: #303036;
 }
 
 .dropdown-box button:hover {

@@ -31,11 +31,13 @@ function DeleteForm({ notebook, setShowDeleteModal }) {
     return (
         <>
             <p className="modal-title">Delete</p>
-            <p>{`To confirm, type "${username}/${notebook.title}" in the box below.`}</p>
+            <p className="modal-message">To confirm, type "<p className="deletion-path">{`${username}/${notebook.title}`}</p>" in the box below.</p>
             <form onSubmit={submitDeleteReq}>
                 <input onChange={(e) => setConfirmString(e.target.value)} value={confirmString} type='text' placeholder='username/notebook-name' />
-                <button disabled={validErrors.length > 0}>Confirm</button>
-                <button onClick={cancelBtn}>Cancel</button>
+                <div className="submit-cancel-button-holder">
+                    <button disabled={validErrors.length > 0} id={validErrors.length > 0 ? 'disabled' : undefined}>Confirm</button>
+                    <button onClick={cancelBtn}>Cancel</button>
+                </div>
             </form>
         </>
     )

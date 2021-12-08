@@ -44,7 +44,7 @@ function NotebooksPage() {
 
             <div className='note-grid-top'>
                 <p id='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
-                <button onClick={() => setShowCreateModal(true)}>
+                <button className="new-note-btn" onClick={() => setShowCreateModal(true)}>
                     New Notebook
                 </button>
                 {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>}
@@ -57,7 +57,7 @@ function NotebooksPage() {
                             <th className="note-title">TITLE</th>
                             <th className="note-author">CREATED BY</th>
                             <th className="note-created">CREATED ON</th>
-                            <th className="note-updated">LAST UPDATED</th>
+                            <th className="note-updated">UPDATED</th>
                             <th className="note-actions">ACTIONS</th>
                         </tr>
                     </thead>

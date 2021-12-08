@@ -40,14 +40,16 @@ function CreateForm({ notebooks, setShowCreateModal }) {
     return (
         <>
             <p className="modal-title">Create a new notebook</p>
-            <p>Enter new notebook name:</p>
-            <ul>
+            <p className="modal-message">Enter new notebook name:</p>
+            <ul className="validation-errors">
                 {validErrors.length > 0 && validErrors.map((err, i) => (<li key={i}>{err}</li>))}
             </ul>
             <form onSubmit={newNotebook}>
                 <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Notebook name' />
-                <button disabled={!canSubmit}>Submit</button>
-                <button onClick={cancelBtn}>Cancel</button>
+                <div className="submit-cancel-button-holder">
+                    <button disabled={!canSubmit} id={!canSubmit ? 'disabled' : undefined}>Submit</button>
+                    <button onClick={cancelBtn}>Cancel</button>
+                </div>
             </form>
 
         </>

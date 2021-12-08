@@ -30,16 +30,30 @@ ul {
 button {
     border-style: none;
     border-radius: 5px;
-    background-color: #85A8D5;
+    background-color: #FF9D00;
     box-shadow: 0px 1px 2px rgba(23, 10, 28, 0.2);
     height: 20px;
-    cursor: pointer;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover:not(#disabled) {
+    background-color: rgb(246, 116, 17);
+    cursor: pointer;
+}
+
+button.menu-active {
+    background-color: rgb(238, 86, 34);
+}
+
+button#disabled {
+    background-color: rgba(48, 48, 54, 0.4);
 }
 
 a {
@@ -54,7 +68,7 @@ a:hover {
 }
 
 table {
-    margin: 2.5% 10% 5% 10%;
+    margin: 7px 10% 5% 10%;
     border-collapse: collapse;
     width: 80%;
 }
