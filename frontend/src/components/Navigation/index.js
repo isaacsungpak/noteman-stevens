@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
     return (
       <div id="nav-div">
         <ul id="nav-bar">
-          <NavLink to="/notebooks">Notebooks</NavLink>
+          {sessionUser && <NavLink to="/notebooks">Notebooks</NavLink>}
           <li id="logo-link-container">
             <NavLink exact to="/" id="logo-link">
               <img src='/noteman-stevens-logo.png' id="ns-logo" alt="logo" />
