@@ -23,6 +23,16 @@ function LoginFormPage() {
           });
     }
 
+    const demoUser = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: 'demo-user', password: 'password' }))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <ul>
@@ -37,6 +47,7 @@ function LoginFormPage() {
                 <input onChange={(e) => setPassword(e.target.value)} type="password" value={password} required />
             </label>
             <button type="submit">Log In</button>
+            <button onClick={demoUser}>Demo User</button>
         </form>
     )
 }

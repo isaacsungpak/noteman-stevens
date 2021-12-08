@@ -10,22 +10,22 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) sessionLinks = (<ProfileButton user={sessionUser} />);
     else sessionLinks = (
-        <>
+        <div>
           <NavLink to="/login">Log In</NavLink>
           <NavLink to="/signup">Sign Up</NavLink>
-        </>
+        </div>
     );
 
     return (
       <div id="nav-div">
         <ul id="nav-bar">
+          <NavLink to="/notebooks">Notebooks</NavLink>
           <li id="logo-link-container">
-            <div>[navigation]</div>
             <NavLink exact to="/" id="logo-link">
-              <img src='/noteman-stevens-logo.png' id="ns-logo"></img>
+              <img src='/noteman-stevens-logo.png' id="ns-logo" alt="logo" />
             </NavLink>
-            {isLoaded && sessionLinks}
           </li>
+            {isLoaded && sessionLinks}
         </ul>
       </div>
     );
