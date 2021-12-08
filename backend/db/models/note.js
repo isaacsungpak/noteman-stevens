@@ -9,11 +9,15 @@ module.exports = (sequelize, DataTypes) => {
     notebookId: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {});
   Note.associate = function(models) {
     // associations can be defined here
-    Note.belongsTo(models.Notebook, { foreignKey: 'notebookId' });
+    Note.belongsTo(models.Notebook, { foreignKey: 'notebookId', onDelete: 'cascade', hooks: true });
   };
   return Note;
 };
