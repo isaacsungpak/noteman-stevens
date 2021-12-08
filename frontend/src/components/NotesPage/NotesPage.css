@@ -1,0 +1,22 @@
+#note-page-container {
+    width: 80%;
+    display: grid;
+    grid-template-areas:
+    "coll pad";
+}
+
+#notes-collection-container {
+    width: 40%;
+    grid-area: "coll";
+}
+
+#notepad-container {
+    width: 60%;
+    grid-area: "pad";
+}
+
+textarea {
+    border-style: none;
+    resize: none;
+    width: 100%;
+}
