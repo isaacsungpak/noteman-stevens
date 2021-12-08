@@ -35,10 +35,10 @@ function ActionsButton({ notebook }) {
           <div className={`dropdown-box`}>
             <ul className="actions-dropdown">
               <li className="action-button-container">
-                  <button onClick={() => setShowRenameModal(true)}>Edit</button>
+                  <button className="button-in-dropdown" onClick={() => setShowRenameModal(true)}>Edit</button>
               </li>
               <li className="action-button-container">
-                <button onClick={() => setShowDeleteModal(true)}>Delete</button>
+                <button className="button-in-dropdown" onClick={() => setShowDeleteModal(true)}>Delete</button>
               </li>
             </ul>
           </div>

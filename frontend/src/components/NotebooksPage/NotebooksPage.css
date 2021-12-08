@@ -88,8 +88,9 @@ th, td {
     padding: 3px 20px;
     width: 100%;
     color: #303036;
+    transition: all 0.3s ease-in-out;
 }
 
-.dropdown-box button:hover {
+.dropdown-box button.button-in-dropdown:hover {
     background-color: rgba(255, 157, 0, 0.3);
 }
