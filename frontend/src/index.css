@@ -2,12 +2,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: #303036;
-    background-color: #497DC1;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
+    background-color: #141B41;
 }
 
 #big-body {
@@ -22,9 +17,48 @@ ul {
     align-items: center;
 }
 
-#nav-bar {
-    display: flex;
+ul {
+    list-style: none;
+    padding: 0;
+}
 
+#nav-div {
+    width: 80%;
+    margin: 4% 10%;
+}
+
+/* #nav-bar {
+    display: flex;
+    justify-content: center;
+} */
+
+#logo-link-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a#logo-link {
+    display: absolute;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+#ns-logo {
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+#ns-logo:hover {
+    width: 100%;
+    transform: scale(102%);
 }
 
 button {
@@ -148,7 +182,7 @@ th, td {
 }
 
 .dropdown-box {
-    position: fixed;
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;

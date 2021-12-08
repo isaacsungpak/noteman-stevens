@@ -29,7 +29,7 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
+    <div id="prof-dropdown-button-and-menu">
       <button onClick={openMenu} className={showMenu ? 'menu-active': undefined}>
         <i className={`far fa-user-circle`} />
       </button>
@@ -43,8 +43,9 @@ function ProfileButton({ user }) {
             </li>
           </ul>
         </div>
+
       )}
-    </>
+    </div>
   );
 }
 

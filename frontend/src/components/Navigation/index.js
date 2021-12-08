@@ -17,12 +17,17 @@ function Navigation({ isLoaded }) {
     );
 
     return (
-      <ul>
-        <li>
-          <NavLink exact to="/">Home</NavLink>
-          {isLoaded && sessionLinks}
-        </li>
-      </ul>
+      <div id="nav-div">
+        <ul id="nav-bar">
+          <li id="logo-link-container">
+            <div>[navigation]</div>
+            <NavLink exact to="/" id="logo-link">
+              <img src='/noteman-stevens-logo.png' id="ns-logo"></img>
+            </NavLink>
+            {isLoaded && sessionLinks}
+          </li>
+        </ul>
+      </div>
     );
 }
 
