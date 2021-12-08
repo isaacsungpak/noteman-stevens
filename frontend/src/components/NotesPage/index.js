@@ -74,7 +74,7 @@ function NotesPage() {
                 </div>
                 <div id="notepad-container">
                     <input type="text" placeholder="Note title"/>
-                    <textarea value={notes[0]?.content} placeholder="Note content" disabled={notes.length < 1}></textarea>
+                    <textarea value={notes[0]?.content} placeholder="Note content" disabled={notes.length === 0}></textarea>
                 </div>
             </div>
         </>
