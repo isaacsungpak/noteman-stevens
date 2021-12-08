@@ -48,7 +48,7 @@ function NotebooksPage() {
             <div className='note-grid-top'>
                 <p id='notebook-count'>{`${visibleNotebooks.length ? visibleNotebooks.length : 0} notebooks`}</p>
                 <button className="new-note-btn" onClick={() => setShowCreateModal(true)}>
-                    New Notebook
+                    <i class="fas fa-plus"></i>
                 </button>
                 {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>}
             </div>

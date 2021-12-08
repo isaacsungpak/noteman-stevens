@@ -49,7 +49,7 @@ function NotesPage() {
                     <thead>
                         <tr className="odd-row">
                             <th className="note-title">TITLE</th>
-                            <th className="note-author">CREATED BY</th>
+                            <th className="note-author">LOCATED IN</th>
                             <th className="note-created">CREATED ON</th>
                             <th className="note-updated">UPDATED</th>
                             <th className="note-actions">ACTIONS</th>
@@ -58,9 +58,7 @@ function NotesPage() {
                     <tbody>
                         {visibleNotes.length > 0 && visibleNotes.map((note, i) =>
                                 <tr key={i} className={i % 2 === 0 ? "even-row" : "odd-row"}>
-                                    <td className="note-title">
-                                        {/* <Link className="note-link" to={`/notebooks/${note.id}`}>{note.title}</Link> */}
-                                    </td>
+                                    <td className="note-title">{note.title}</td>
                                     <td className="note-author">{note.Notebook.title}</td>
                                     <td className="note-created">{`${note.createdAt.slice(5,7)}/${note.createdAt.slice(8,10)}/${note.createdAt.slice(0,4)}`}</td>
                                     <td className="note-updated">{`${note.updatedAt.slice(5,7)}/${note.updatedAt.slice(8,10)}/${note.updatedAt.slice(0,4)}`}</td>

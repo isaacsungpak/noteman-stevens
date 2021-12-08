@@ -41,7 +41,7 @@ thead tr {
 }
 
 .note-title {
-    width: 40%;
+    width: 45%;
 }
 
 .note-author {
@@ -57,7 +57,11 @@ thead tr {
 }
 
 .note-actions {
-    width: 10%;
+    width: 5%;
+}
+
+.note-actions button {
+    margin-left: 20%;
 }
 
 th, td {
@@ -89,6 +93,7 @@ th, td {
     width: 100%;
     color: #303036;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .dropdown-box button.button-in-dropdown:hover {
