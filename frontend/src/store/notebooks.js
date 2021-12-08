@@ -1,7 +1,6 @@
 import { csrfFetch } from "./csrf";
 
 const SET_NOTEBOOKS = 'notebooks/SET_NOTEBOOKS';
-const DELETE_NOTEBOOK = 'notebooks/DELETE_NOTEBOOK';
 
 const setNotebooks = (notebooks) => {
     return {
