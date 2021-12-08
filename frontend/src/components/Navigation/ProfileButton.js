@@ -34,13 +34,15 @@ function ProfileButton({ user }) {
         <i className="far fa-user-circle" />
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+        <div className="dropdown-box">
+          <ul className="profile-dropdown" >
+            <li>{user.username}</li>
+            <li className="last-info">{user.email}</li>
+            <li className="button-holder">
+              <button onClick={logout} className="last-button">Log Out</button>
+            </li>
+          </ul>
+        </div>
       )}
     </>
   );

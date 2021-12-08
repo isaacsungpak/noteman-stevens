@@ -32,14 +32,16 @@ function ActionsButton({ notebook }) {
         {showRenameModal && <RenameModal notebook={notebook} setShowRenameModal={setShowRenameModal} />}
         {showDeleteModal && <DeleteModal notebook={notebook} setShowDeleteModal={setShowDeleteModal} />}
         {showActions && (
-          <ul className="actions-dropdown">
-            <li>
-                <button onClick={() => setShowRenameModal(true)}>Edit</button>
-            </li>
-            <li>
-              <button onClick={() => setShowDeleteModal(true)}>DELETE</button>
-            </li>
-          </ul>
+          <div className={`dropdown-box`}>
+            <ul className="actions-dropdown">
+              <li className="action-button-container">
+                  <button onClick={() => setShowRenameModal(true)}>Edit</button>
+              </li>
+              <li className="action-button-container">
+                <button onClick={() => setShowDeleteModal(true)}>Delete</button>
+              </li>
+            </ul>
+          </div>
         )}
       </>
     );

@@ -1,9 +1,8 @@
 #notebook-page-top-bar {
     display: flex;
-
+    justify-content: center;
     align-items: center;
     font-size: 20px;
-    margin-left: auto;
     width: 100%;
     min-height: 80px;
 }
@@ -19,11 +18,14 @@
     align-items: center;
 }
 
-th {
+.note-grid {
+    width: 100%;
+}
+thead tr {
     color: #4464AD;
     font-size: 12px;
     font-weight: lighter;
-    box-shadow: 0px 1px 1px rgba(23, 10, 28, 0.3);
+    border-bottom: 1px solid rgba(23, 10, 28, 0.1);
     height: 20px;
 }
 
@@ -31,19 +33,59 @@ th {
     background-color: rgba(156, 149, 220, 0.3);
 }
 
-.odd-row:not(th) .even-row {
+.odd-row:not(th), .even-row {
     height: 25px;
 }
 
 .note-title {
-    width: 50%;
+    width: 40%;
 }
 
-td {
+.note-author {
+    width: 20%;
+}
+
+.note-created {
+    width: 15%;
+}
+
+.note-updated {
+    width: 15%;
+}
+
+.note-actions {
+    width: 10%;
+}
+
+th, td {
     padding: 8px;
+    text-align: left;
+    width: 100%
 }
 
-table {
-    border-collapse: collapse;
+.dropdown-box {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: white;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px rgba(23, 10, 28, 0.4);
+    height: auto;
+    width: auto;
+    padding: 0;
 }
 
+.dropdown-box button {
+    background-color: white;
+    box-shadow: 0px 0px 0px white;
+    border-radius: 0px;
+    padding: 3px 20px;
+    width: 100%;
+}
+
+.dropdown-box button:hover {
+    background-color: rgba(255, 157, 0, 0.3);
+}

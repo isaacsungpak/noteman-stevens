@@ -1,0 +1,12 @@
+.last-info {
+    border-bottom: 1px solid rgba(48, 48, 54, 0.2);
+}
+
+.profile-dropdown li:not(.button-holder) {
+    padding: 0px 10px;
+}
+
+.profile-dropdown .last-button {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
