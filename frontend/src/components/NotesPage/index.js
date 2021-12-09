@@ -55,11 +55,11 @@ function NotesPage() {
                         </form>
                     </div>
 
-                    <div className='note-grid-top'>
+                    <div className='note-page-grid-top'>
                         <p id='note-count'>{`${notes.length ? notes.length : 0} notes`}</p>
-                        {/* <button className="new-note-btn" onClick={() => setShowCreateModal(true)}>
-                            New Note
-                        </button> */}
+                            <button className="new-note-btn" onClick={() => console.log('new note!')}>
+                                <i className="fas fa-plus"></i>
+                            </button>
                         {/* {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>} */}
                     </div>
                     <div className='note-collection'>
