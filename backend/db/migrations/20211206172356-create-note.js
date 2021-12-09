@@ -9,9 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-        unique: true
+        type: Sequelize.STRING(50)
       },
       content: {
         type: Sequelize.TEXT

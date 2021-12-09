@@ -21,13 +21,27 @@ function NotesPage() {
         b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
         b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
         b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
-        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)))
-        .slice(0,11);
+        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
 
-    const [selectedNote, setSelectedNote] = useState('');
+    const [selectedNote, setSelectedNote] = useState(visibleNotes[0]?.id);
     const [noteSearch, setNoteSearch] = useState('');
     const [noteTitle, setNoteTitle] = useState('');
+    const [padTitle, setPadTitle] = useState('');
     const [noteContent, setNoteContent] = useState('');
+    const [padContent, setPadContent] = useState('');
+
+    useEffect(() => {
+        if (notes && notes.length) {
+            const selected = notes.find(note => note.id === selectedNote);
+            setNoteTitle(selected.title);
+            setNoteContent(selected.content);
+        }
+    }, [selectedNote])
+
+    useEffect(() => {
+        setPadTitle(noteTitle);
+        setPadContent(noteContent);
+    }, [noteTitle, noteContent])
 
     return (
         <>
@@ -50,23 +64,26 @@ function NotesPage() {
                     </div>
                     <div className='note-collection'>
                         {notes.length > 0 && notes.map((note, i) => (
-                            <div key={i} className="note-instance">
+                            <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
                                 <div className='title-holder'>
-                                    <p className="note-instance-title">{note.title}</p>
+                                    <p className="note-instance-title">{note.title || <i>Untitled</i>}</p>
+                                </div>
+                                <div className='excerpt-holder'>
+                                    <p className="note-instance-excerpt">{note.content.length >= 15 ? note.content.slice(0,13) + "..." : (note.content || <i>(no content)</i>) }</p>
                                 </div>
                                 <div className='notebook-holder'>
                                     <p className="note-instance-notebook">({note.Notebook.title})</p>
                                 </div>
                                 <div className='update-holder'>
-                                    <p className="note-instance-updated">Updated on: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
+                                    <p className="note-instance-update">Updated: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div id="notepad-container">
-                    <input type="text" placeholder="Note title"/>
-                    <textarea placeholder="Note content" disabled={notes.length === 0}></textarea>
+                    <input onChange={(e) => setPadTitle(e.target.value)} value={padTitle} type="text" placeholder="Note title" className='note-page-title-input'/>
+                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" disabled={notes.length === 0} className='note-page-content-input'></textarea>
                 </div>
             </div>
         </>

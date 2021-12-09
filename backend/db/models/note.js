@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
   const Note = sequelize.define('Note', {
     title: {
       type: DataTypes.STRING(50),
-      allowNull: false
     },
     content: DataTypes.TEXT,
     notebookId: {
