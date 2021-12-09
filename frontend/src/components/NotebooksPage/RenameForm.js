@@ -28,16 +28,16 @@ function RenameForm({ notebook, setShowRenameModal }) {
         const errors = [];
 
         let nameExists;
-        if (newName) nameExists = notebooks.find(nb => nb.title === newName)
+        if (newName) nameExists = notebooks.find(nb => nb.title === newName.trim())
 
-        if (newName.length > 50) errors.push("Name length cannot exceed 50 characters.");
+        if (newName.trim().length > 50) errors.push("Name length cannot exceed 50 characters.");
         else if (nameExists) errors.push("Name is already in use.")
 
         setValidErrors(errors);
     }, [newName, notebooks]);
 
     useEffect(() => {
-        const submit = (validErrors.length === 0 && newName.length > 0);
+        const submit = (validErrors.length === 0 && newName.trim().length > 0);
 
         setCanSubmit(submit);
     }, [validErrors, newName]);
