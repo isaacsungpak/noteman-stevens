@@ -51,9 +51,15 @@ function NotesPage() {
                     <div className='note-collection'>
                         {notes.length > 0 && notes.map((note, i) => (
                             <div key={i} className="note-instance">
-                                <p className="note-instance-title">{note.title}</p>
-                                <p className="note-instance-notebook">({note.Notebook.title})</p>
-                                <p className="note-instance-updated">Updated on: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
+                                <div className='title-holder'>
+                                    <p className="note-instance-title">{note.title}</p>
+                                </div>
+                                <div className='notebook-holder'>
+                                    <p className="note-instance-notebook">({note.Notebook.title})</p>
+                                </div>
+                                <div className='update-holder'>
+                                    <p className="note-instance-updated">Updated on: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
+                                </div>
                             </div>
                         ))}
                     </div>

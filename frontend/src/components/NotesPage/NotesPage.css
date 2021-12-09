@@ -15,6 +15,24 @@
     grid-area: "pad";
 }
 
+.note-instance {
+    outline: 1px solid rgba(23, 10, 28, 0.2);
+    width: 100%;
+    margin: 0;
+}
+
+.note-instance p {
+    margin: 0;
+}
+
+.notebook-holder {
+    color: rgba(23, 10, 28, 0.5);
+}
+
+.update-holder {
+    color: rgba(23, 10, 28, 0.5);
+}
+
 textarea {
     border-style: none;
     resize: none;
