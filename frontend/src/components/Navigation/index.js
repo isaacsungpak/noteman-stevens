@@ -24,18 +24,16 @@ function Navigation({ isLoaded }) {
     const [count, setCount] = useState(0);
 
     const logoClick = () => {
-      if (path === '/') setCount(count + 1);
+      if (path === '/') {
+        if (specialLogo) setCount(count - 1);
+        else setCount(count + 1);
+      };
     }
 
     useEffect(() => {
       if (count === 7) setSpecialLogo(true);
+      else if (count === 0) setSpecialLogo(false);
     }, [count, specialLogo])
-
-    useEffect(() => {
-      let threeSecCount = setInterval((() => setCount(0)), 3000);
-
-      return clearInterval(threeSecCount);
-    })
     ///////////////////////////
 
 
