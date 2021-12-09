@@ -21,6 +21,18 @@ export const createNote = (title, content, notebookId) => async (dispatch) => {
     return response;
 }
 
+export const createNoteFromNotebook = (title, content, notebookId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
+        method: 'POST',
+        body: JSON.stringify({
+            title, content
+        })
+    });
+    const data = await response.json();
+    dispatch(setNotes(data.notes));
+    return response;
+}
+
 export const getAllNotes = () => async (dispatch) => {
     const response = await csrfFetch(`/api/notes/`);
     const data = await response.json();
@@ -47,8 +59,29 @@ export const updateNote = (title, content, noteId) => async (dispatch) => {
     return response;
 }
 
+export const updateNoteFromNotebook = (title, content, noteId, notebookId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/notenooks/${notebookId}/notes/${noteId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            title, content
+        })
+    });
+    const data = await response.json();
+    dispatch(setNotes(data.notes));
+    return response;
+}
+
 export const deleteNote = (noteId) => async (dispatch) => {
     const response = await csrfFetch(`/api/notes/${noteId}`, {
+        method: 'DELETE',
+    });
+    const data = await response.json();
+    dispatch(setNotes(data.notes));
+    return response;
+}
+
+export const deleteNoteFromNotebook = (noteId, notebookId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/notebooks/${notebookId}/notes/${noteId}`, {
         method: 'DELETE',
     });
     const data = await response.json();

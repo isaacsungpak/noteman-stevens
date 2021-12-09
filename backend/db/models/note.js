@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Note.associate = function(models) {
     // associations can be defined here
-    Note.belongsTo(models.Notebook, { foreignKey: 'notebookId', onDelete: 'cascade', hooks: true });
+    Note.belongsTo(models.Notebook, { foreignKey: 'notebookId' });
   };
   return Note;
 };

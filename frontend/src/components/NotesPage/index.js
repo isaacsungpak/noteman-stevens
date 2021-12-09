@@ -9,8 +9,6 @@ function NotesPage() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
     const notes = useSelector((state) => state.note.notes);
-
-    const [noteName, setNoteName] = useState('');
     // const [showCreateModal, setShowCreateModal] = useState('');
 
     useEffect(() => {
@@ -25,6 +23,10 @@ function NotesPage() {
         b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
         b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)))
         .slice(0,11);
+
+    const [selectedNote, setSelectedNote] = useState('');
+    const [noteName, setNoteName] = useState('');
+    const [noteContent, setNoteContent] = useState('');
 
     return (
         <>
@@ -72,7 +74,7 @@ function NotesPage() {
                 </div>
                 <div id="notepad-container">
                     <input type="text" placeholder="Note title"/>
-                    <textarea placeholder="Note content"></textarea>
+                    <textarea value={notes[0]?.content} placeholder="Note content" disabled={notes.length === 0}></textarea>
                 </div>
             </div>
         </>

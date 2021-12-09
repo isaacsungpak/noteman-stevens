@@ -39,20 +39,20 @@ router.post('/', requireAuth, validateTitle, asyncHandler(async (req, res, next)
     return res.json({ notebooks });
 }));
 
-router.get('/user', requireAuth, asyncHandler(async (req, res, next) => {
+router.get('/', requireAuth, asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
 
-    const user = await db.User.findByPk(userId);
+    // const user = await db.User.findByPk(userId);
 
-    if (!user || Number(userId) !== req.user.id) {
-        const err = new Error('Account does not exist');
-        err.status = 400;
-        err.title = 'Account does not exist';
-        err.errors = ['The provided account was invalid.'];
-        return next(err);
-    }
+    // if (!user || Number(userId) !== req.user.id) {
+    //     const err = new Error('Account does not exist');
+    //     err.status = 400;
+    //     err.title = 'Account does not exist';
+    //     err.errors = ['The provided account was invalid.'];
+    //     return next(err);
+    // }
 
-    const notebooks = await db.Notebook.findAll({ where: { userId: user.id }, include: db.User });
+    const notebooks = await db.Notebook.findAll({ where: { userId: userId }, include: db.User });
     return res.json({
         notebooks
     });
@@ -66,6 +66,7 @@ router.patch('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(asyn
     const notebook = await db.Notebook.findByPk(notebookId);
 
     const exists = await db.Notebook.findOne({ where: { title, userId } });
+
     if (exists) {
         const err = new Error('Title is not unique');
         err.status = 400;
@@ -73,6 +74,7 @@ router.patch('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(asyn
         err.errors = ['The provided title is already in use by another notebook belonging to this account.'];
         return next(err);
     }
+
     if (userId !== notebook.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
@@ -105,9 +107,109 @@ router.delete(`/:notebookId(\\d+)`, requireAuth, asyncHandler(async (req, res, n
     await notebook.destroy();
 
     const notebooks = await db.Notebook.findAll({ where: { userId }, include: db.User });
-    return res.json({
-        notebooks
-    });
+    return res.json({ notebooks });
+}));
+
+//======================================== notes =========================================================
+
+router.get('/:notebookId(\\d+)', requireAuth, asyncHandler(async(req, res, next) => {
+    const userId = req.user.id;
+    const {notebookId} = req.params;
+
+    const notebook = await db.Notebook.findByPk(notebookId);
+    if (userId !== notebook.userId) {
+        const err = new Error('Account does not have necessary permissions');
+        err.status = 403;
+        err.title = 'Account does not have necessary permissions';
+        err.errors = ['The provided account is not the owner of this notebook.'];
+        return next(err);
+    }
+
+    const notes = await db.Note.findAll({ where: { userId, notebookId }, include: db.Notebook });
+    return res.json({ notes });
+}))
+
+router.post('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(async(req, res, next) => {
+    const userId = req.user.id;
+    const {notebookId} = req.params;
+    const {title, content} = req.body;
+
+    const notebook = await db.Notebook.findByPk(notebookId);
+    if (userId !== notebook.userId) {
+        const err = new Error('Account does not have necessary permissions');
+        err.status = 403;
+        err.title = 'Account does not have necessary permissions';
+        err.errors = ['The provided account is not the owner of this notebook.'];
+        return next(err);
+    }
+
+    const duplicate = await db.Note.findOne({ where: { title, notebookId } });
+    if (duplicate) {
+        const err = new Error('Title is not unique');
+        err.status = 400;
+        err.title = 'Title is not unique';
+        err.errors = ['The provided title is already in use by another note in this notebook.'];
+        return next(err);
+    }
+
+    await db.Note.create({ title, content, userId, notebookId });
+
+    await notebook.update({updatedAt: new Date()});
+
+    const notes = await db.Note.findAll({ where: { userId, notebookId }, include: db.Notebook });
+    return res.json({ notes });
+}));
+
+router.patch('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, validateTitle, asyncHandler(async(req, res, next) => {
+    const userId = req.user.id;
+    const { notebookId, noteId } = req.params;
+    const {title, content} = req.body;
+
+    const prevNote = await db.Note.findByPk(noteId);
+    if (title !== prevNote.title) {
+        const duplicate = await db.Note.findOne({ where: { title, notebookId } });
+        if (duplicate) {
+            const err = new Error('Title is not unique');
+            err.status = 400;
+            err.title = 'Title is not unique';
+            err.errors = ['The provided title is already in use by another note in this notebook.'];
+            return next(err);
+        }
+    } else if (userId !== prevNote.userId) {
+        const err = new Error('Account does not have necessary permissions');
+        err.status = 403;
+        err.title = 'Account does not have necessary permissions';
+        err.errors = ['The provided account is not the owner of this note.'];
+        return next(err);
+    }
+
+    await prevNote.update({title, content, updatedAt: new Date()});
+
+    const notebook = await db.Notebook.findByPk(notebookId);
+    await notebook.update({updatedAt: new Date()});
+
+    const notes = await db.Note.findAll({ where: { notebookId, userId }, include: db.Notebook });
+    return res.json({ notes });
+}));
+
+router.delete('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) => {
+    const userId = req.user.id;
+    const { notebookId, noteId } = req.params;
+
+    const note = await db.Note.findByPk(noteId);
+    if (userId !== prevNote.userId) {
+            const err = new Error('Account does not have necessary permissions');
+            err.status = 403;
+            err.title = 'Account does not have necessary permissions';
+            err.errors = ['The provided account is not the owner of this note.'];
+            return next(err);
+    }
+
+    const notebook = await db.Notebook.findByPk(notebookId);
+    await notebook.update({updatedAt: new Date()});
+
+    const notes = await db.Note.findAll({ where: { userId, notebookId }, include: db.Notebook });
+    return res.json({ notes });
 }));
 
 
