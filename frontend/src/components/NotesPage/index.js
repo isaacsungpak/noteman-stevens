@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
-// import ActionsButton from './ActionsButton'
+import CreateModal from './CreateModal';
 import './NotesPage.css';
 
 function NotesPage() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
     const notes = useSelector((state) => state.note.notes);
-    // const [showCreateModal, setShowCreateModal] = useState('');
+
 
     let visibleNotes = notes.sort((a,b) => (
         b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
@@ -21,24 +21,20 @@ function NotesPage() {
 
     const [selectedNote, setSelectedNote] = useState('');
     const [noteSearch, setNoteSearch] = useState('');
-    const [noteTitle, setNoteTitle] = useState('');
+    // const [noteTitle, setNoteTitle] = useState('');
     const [padTitle, setPadTitle] = useState('');
-    const [noteContent, setNoteContent] = useState('');
+    // const [noteContent, setNoteContent] = useState('');
     const [padContent, setPadContent] = useState('');
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
         dispatch((noteActions.getAllNotes()));
         if (notes && notes.length) {
             const selected = notes.find(note => note.id === selectedNote);
-            setNoteTitle(selected.title);
-            setNoteContent(selected.content);
+            setPadTitle(selected.title);
+            setPadContent(selected.content);
         }
     }, [selectedNote])
-
-    useEffect(() => {
-        setPadTitle(noteTitle);
-        setPadContent(noteContent);
-    }, [noteTitle, noteContent])
 
     useEffect(() => {
         if (selectedNote !== '') dispatch(noteActions.updateNote((padTitle.length ? padTitle : ''), (padContent.length ? padContent : ''), Number(selectedNote)))
@@ -58,10 +54,10 @@ function NotesPage() {
 
                     <div className='note-page-grid-top'>
                         <p id='note-count'>{`${notes.length ? notes.length : 0} notes`}</p>
-                            <button className="new-note-btn" onClick={() => console.log('new note!')}>
+                            <button className="new-note-btn" onClick={() => setShowCreateModal(true)}>
                                 <i className="fas fa-plus"></i>
                             </button>
-                        {/* {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>} */}
+                        {showCreateModal && <CreateModal setShowCreateModal={setShowCreateModal}/>}
                     </div>
                     <div className='note-collection'>
                         {notes.length > 0 && visibleNotes.map((note, i) => (
