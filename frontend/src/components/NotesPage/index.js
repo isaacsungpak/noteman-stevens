@@ -43,6 +43,8 @@ function NotesPage() {
         setPadContent(noteContent);
     }, [noteTitle, noteContent])
 
+    
+
     return (
         <>
             {!user && <Redirect to="/" />}
@@ -66,10 +68,12 @@ function NotesPage() {
                         {notes.length > 0 && notes.map((note, i) => (
                             <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
                                 <div className='title-holder'>
-                                    <p className="note-instance-title">{note.title || <i>Untitled</i>}</p>
+                                    <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.Notebook.title || <i>Untitled</i>)}</p>
                                 </div>
                                 <div className='excerpt-holder'>
-                                    <p className="note-instance-excerpt">{note.content.length >= 15 ? note.content.slice(0,13) + "..." : (note.content || <i>(no content)</i>) }</p>
+                                    <p className="note-instance-excerpt">{selectedNote === note.id ?
+                                        (padContent.length >= 15 ? padContent.slice(0,13) + "..." : (padContent || <i>(no content)</i>))
+                                        : (note.content.length >= 15 ? note.content.slice(0,13) + "..." : (note.content || <i>(no content)</i>))}</p>
                                 </div>
                                 <div className='notebook-holder'>
                                     <p className="note-instance-notebook">({note.Notebook.title})</p>
