@@ -71,11 +71,11 @@ function NotesPage() {
                                 </div>
                                 <div className='excerpt-holder'>
                                     <p className="note-instance-excerpt">{selectedNote === note.id ?
-                                        (padContent.length >= 15 ? padContent.slice(0,13) + "..." : (padContent || <i>(no content)</i>))
-                                        : (note.content.length >= 15 ? note.content.slice(0,13) + "..." : (note.content || <i>(no content)</i>))}</p>
+                                        (padContent.length > 20 ? padContent.slice(0,21) + "..." : (padContent || <i>(no content)</i>))
+                                        : (note.content.length > 20 ? note.content.slice(0,21) + "..." : (note.content || <i>(no content)</i>))}</p>
                                 </div>
                                 <div className='notebook-holder'>
-                                    <p className="note-instance-notebook">({note.Notebook.title.length > 15 ? note.Notebook.title.slice(0,13) + '...' : note.Notebook.title})</p>
+                                    <p className="note-instance-notebook">({note.Notebook.title.length > 20 ? note.Notebook.title.slice(0,21) + '...' : note.Notebook.title})</p>
                                 </div>
                                 <div className='update-holder'>
                                     <p className="note-instance-update">Updated: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
