@@ -9,10 +9,8 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const { requireAuth } = require('../../utils/auth');
 
-const validateTitle = [
+const validateNoteTitle = [
     check('title')
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a title")
     .isLength({ max: 50 })
     .withMessage("Title length cannot exceed 50 characters."),
     handleValidationErrors
@@ -25,7 +23,7 @@ router.get('/', requireAuth, asyncHandler(async(req, res, next) => {
     return res.json({ notes });
 }));
 
-router.post('/', requireAuth, validateTitle, asyncHandler(async(req, res, next) => {
+router.post('/', requireAuth, validateNoteTitle, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
     const {title, content, notebookId} = req.body;
 
@@ -38,15 +36,6 @@ router.post('/', requireAuth, validateTitle, asyncHandler(async(req, res, next) 
         return next(err);
     }
 
-    const duplicate = await db.Note.findOne({ where: { title, notebookId } });
-    if (duplicate) {
-        const err = new Error('Title is not unique');
-        err.status = 400;
-        err.title = 'Title is not unique';
-        err.errors = ['The provided title is already in use by another note in this notebook.'];
-        return next(err);
-    }
-
     await db.Note.create({ title, content, userId, notebookId });
 
     await notebook.update({updatedAt: new Date()});
@@ -55,23 +44,14 @@ router.post('/', requireAuth, validateTitle, asyncHandler(async(req, res, next) 
     return res.json({ notes });
 }));
 
-router.patch('/:noteId(\\d+)', requireAuth, validateTitle, asyncHandler(async(req, res, next) => {
+router.patch('/:noteId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
     const { noteId } = req.params;
     const {title, content} = req.body;
 
-    const prevNote = await db.Note.findByPk(noteId);
-    const notebookId = prevNote.notebookId;
-    if (title !== prevNote.title) {
-        const duplicate = await db.Note.findOne({ where: { title, notebookId } });
-        if (duplicate) {
-            const err = new Error('Title is not unique');
-            err.status = 400;
-            err.title = 'Title is not unique';
-            err.errors = ['The provided title is already in use by another note in this notebook.'];
-            return next(err);
-        }
-    } else if (userId !== prevNote.userId) {
+    const note = await db.Note.findByPk(noteId);
+    const notebookId = note.notebookId;
+    if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -79,13 +59,14 @@ router.patch('/:noteId(\\d+)', requireAuth, validateTitle, asyncHandler(async(re
         return next(err);
     }
 
-    await prevNote.update({title, content, updatedAt: new Date()});
+    await note.update({title, content, updatedAt: new Date()});
 
     const notebook = await db.Notebook.findByPk(notebookId);
     await notebook.update({updatedAt: new Date()});
 
-    const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
-    return res.json({ notes });
+    // const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
+    // return res.json({ notes });
+    return res.json({});
 }));
 
 router.delete('/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) => {
@@ -93,8 +74,8 @@ router.delete('/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) 
     const { noteId } = req.params;
 
     const note = await db.Note.findByPk(noteId);
-    const notebookId = prevNote.notebookId;
-   if (userId !== prevNote.userId) {
+    const notebookId = note.notebookId;
+   if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';

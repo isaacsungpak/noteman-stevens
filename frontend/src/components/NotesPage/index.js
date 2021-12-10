@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
 // import ActionsButton from './ActionsButton'
@@ -11,22 +11,38 @@ function NotesPage() {
     const notes = useSelector((state) => state.note.notes);
     // const [showCreateModal, setShowCreateModal] = useState('');
 
-    useEffect(() => {
-        dispatch(noteActions.getAllNotes());
-    }, [dispatch])
-
     let visibleNotes = notes.sort((a,b) => (
         b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
         b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
         b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
         b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
         b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
-        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)))
-        .slice(0,11);
+        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
 
     const [selectedNote, setSelectedNote] = useState('');
-    const [noteName, setNoteName] = useState('');
+    const [noteSearch, setNoteSearch] = useState('');
+    const [noteTitle, setNoteTitle] = useState('');
+    const [padTitle, setPadTitle] = useState('');
     const [noteContent, setNoteContent] = useState('');
+    const [padContent, setPadContent] = useState('');
+
+    useEffect(() => {
+        dispatch((noteActions.getAllNotes()));
+        if (notes && notes.length) {
+            const selected = notes.find(note => note.id === selectedNote);
+            setNoteTitle(selected.title);
+            setNoteContent(selected.content);
+        }
+    }, [selectedNote])
+
+    useEffect(() => {
+        setPadTitle(noteTitle);
+        setPadContent(noteContent);
+    }, [noteTitle, noteContent])
+
+    useEffect(() => {
+        if (selectedNote !== '') dispatch(noteActions.updateNote((padTitle.length ? padTitle : ''), (padContent.length ? padContent : ''), Number(selectedNote)))
+    }, [dispatch, padTitle, padContent]);
 
     return (
         <>
@@ -34,47 +50,43 @@ function NotesPage() {
             <div id="note-page-container">
                 <div id="notes-collection-container">
                     <div id='notes-page-top-bar'>
-                        <div id='notes-header'>Notes</div>
+                        <div id='notes-header'>All Notes</div>
                         <form>
-                            <input onChange={(e) => setNoteName(e.target.value)} value={noteName} type='text' placeholder='Searchman' />
+                            <input onChange={(e) => setNoteSearch(e.target.value)} value={noteSearch} type='text' placeholder='Searchman' />
                         </form>
                     </div>
 
-                    <div className='note-grid-top'>
+                    <div className='note-page-grid-top'>
                         <p id='note-count'>{`${notes.length ? notes.length : 0} notes`}</p>
-                        {/* <button className="new-note-btn" onClick={() => setShowCreateModal(true)}>
-                            New Note
-                        </button> */}
+                            <button className="new-note-btn" onClick={() => console.log('new note!')}>
+                                <i className="fas fa-plus"></i>
+                            </button>
                         {/* {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>} */}
                     </div>
-
-                    <div className='note-grid'>
-                        <table>
-                            <thead>
-                                <tr className="odd-row">
-                                    <th className="note-title">TITLE</th>
-                                    <th className="note-author">LOCATED IN</th>
-                                    <th className="note-created">CREATED ON</th>
-                                    <th className="note-updated">UPDATED</th>
-                                    <th className="note-actions">ACTIONS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* {visibleNotes.length > 0 && visibleNotes.map((note, i) =>
-                                        <tr key={i} className={i % 2 === 0 ? "even-row" : "odd-row"}>
-                                            <td className="note-title">{note.title}</td>
-                                            <td className="note-author">{note.Notebook.title}</td>
-                                            <td className="note-created">{`${note.createdAt.slice(5,7)}/${note.createdAt.slice(8,10)}/${note.createdAt.slice(0,4)}`}</td>
-                                            <td className="note-updated">{`${note.updatedAt.slice(5,7)}/${note.updatedAt.slice(8,10)}/${note.updatedAt.slice(0,4)}`}</td>
-                                        </tr>
-                                )} */}
-                            </tbody>
-                        </table>
+                    <div className='note-collection'>
+                        {notes.length > 0 && visibleNotes.map((note, i) => (
+                            <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
+                                <div className='title-holder'>
+                                    <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.title || <i>Untitled</i>)}</p>
+                                </div>
+                                <div className='excerpt-holder'>
+                                    <p className="note-instance-excerpt">{selectedNote === note.id ?
+                                        (padContent.length > 20 ? padContent.slice(0,21) + "..." : (padContent || <i>(no content)</i>))
+                                        : (note.content.length > 20 ? note.content.slice(0,21) + "..." : (note.content || <i>(no content)</i>))}</p>
+                                </div>
+                                <div className='notebook-holder'>
+                                    <p className="note-instance-notebook">({note.Notebook.title.length > 20 ? note.Notebook.title.slice(0,21) + '...' : note.Notebook.title})</p>
+                                </div>
+                                <div className='update-holder'>
+                                    <p className="note-instance-update">Updated: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div id="notepad-container">
-                    <input type="text" placeholder="Note title"/>
-                    <textarea placeholder="Note content" disabled={notes.length === 0}></textarea>
+                    <input onChange={(e) => setPadTitle(e.target.value)} value={padTitle} type="text" placeholder="Note title" className='note-page-title-input'/>
+                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" disabled={notes.length === 0} className='note-page-content-input'></textarea>
                 </div>
             </div>
         </>

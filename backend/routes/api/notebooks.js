@@ -112,6 +112,13 @@ router.delete(`/:notebookId(\\d+)`, requireAuth, asyncHandler(async (req, res, n
 
 //======================================== notes =========================================================
 
+const validateNoteTitle = [
+    check('title')
+    .isLength({ max: 50 })
+    .withMessage("Title length cannot exceed 50 characters."),
+    handleValidationErrors
+];
+
 router.get('/:notebookId(\\d+)', requireAuth, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
     const {notebookId} = req.params;
@@ -129,7 +136,7 @@ router.get('/:notebookId(\\d+)', requireAuth, asyncHandler(async(req, res, next)
     return res.json({ notes });
 }))
 
-router.post('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(async(req, res, next) => {
+router.post('/:notebookId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
     const {notebookId} = req.params;
     const {title, content} = req.body;
@@ -143,15 +150,6 @@ router.post('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(async
         return next(err);
     }
 
-    const duplicate = await db.Note.findOne({ where: { title, notebookId } });
-    if (duplicate) {
-        const err = new Error('Title is not unique');
-        err.status = 400;
-        err.title = 'Title is not unique';
-        err.errors = ['The provided title is already in use by another note in this notebook.'];
-        return next(err);
-    }
-
     await db.Note.create({ title, content, userId, notebookId });
 
     await notebook.update({updatedAt: new Date()});
@@ -160,22 +158,13 @@ router.post('/:notebookId(\\d+)', requireAuth, validateTitle, asyncHandler(async
     return res.json({ notes });
 }));
 
-router.patch('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, validateTitle, asyncHandler(async(req, res, next) => {
+router.patch('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
     const { notebookId, noteId } = req.params;
     const {title, content} = req.body;
 
-    const prevNote = await db.Note.findByPk(noteId);
-    if (title !== prevNote.title) {
-        const duplicate = await db.Note.findOne({ where: { title, notebookId } });
-        if (duplicate) {
-            const err = new Error('Title is not unique');
-            err.status = 400;
-            err.title = 'Title is not unique';
-            err.errors = ['The provided title is already in use by another note in this notebook.'];
-            return next(err);
-        }
-    } else if (userId !== prevNote.userId) {
+    const note = await db.Note.findByPk(noteId);
+    if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -183,13 +172,14 @@ router.patch('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, validateTitl
         return next(err);
     }
 
-    await prevNote.update({title, content, updatedAt: new Date()});
+    await note.update({title, content, updatedAt: new Date()});
 
     const notebook = await db.Notebook.findByPk(notebookId);
     await notebook.update({updatedAt: new Date()});
 
-    const notes = await db.Note.findAll({ where: { notebookId, userId }, include: db.Notebook });
-    return res.json({ notes });
+    // const notes = await db.Note.findAll({ where: { notebookId, userId }, include: db.Notebook });
+    // return res.json({ notes });
+    return res.json({});
 }));
 
 router.delete('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) => {
@@ -197,7 +187,7 @@ router.delete('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, asyncHandle
     const { notebookId, noteId } = req.params;
 
     const note = await db.Note.findByPk(noteId);
-    if (userId !== prevNote.userId) {
+    if (userId !== note.userId) {
             const err = new Error('Account does not have necessary permissions');
             err.status = 403;
             err.title = 'Account does not have necessary permissions';
