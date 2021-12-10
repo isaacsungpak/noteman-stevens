@@ -54,9 +54,9 @@ export const updateNote = (title, content, noteId) => async (dispatch) => {
             title, content
         })
     });
-    const data = await response.json();
-    dispatch(setNotes(data.notes));
-    return response;
+    // const data = await response.json();
+    // dispatch(setNotes(data.notes));
+    return;
 }
 
 export const updateNoteFromNotebook = (title, content, noteId, notebookId) => async (dispatch) => {
@@ -66,9 +66,9 @@ export const updateNoteFromNotebook = (title, content, noteId, notebookId) => as
             title, content
         })
     });
-    const data = await response.json();
-    dispatch(setNotes(data.notes));
-    return response;
+    // const data = await response.json();
+    // dispatch(setNotes(data.notes));
+    return;
 }
 
 export const deleteNote = (noteId) => async (dispatch) => {

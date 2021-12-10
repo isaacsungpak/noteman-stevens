@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
 // import ActionsButton from './ActionsButton'
@@ -11,10 +11,6 @@ function NotesPage() {
     const notes = useSelector((state) => state.note.notes);
     // const [showCreateModal, setShowCreateModal] = useState('');
 
-    useEffect(() => {
-        dispatch(noteActions.getAllNotes());
-    }, [dispatch])
-
     let visibleNotes = notes.sort((a,b) => (
         b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
         b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
@@ -23,7 +19,7 @@ function NotesPage() {
         b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
         b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
 
-    const [selectedNote, setSelectedNote] = useState(visibleNotes[0]?.id);
+    const [selectedNote, setSelectedNote] = useState('');
     const [noteSearch, setNoteSearch] = useState('');
     const [noteTitle, setNoteTitle] = useState('');
     const [padTitle, setPadTitle] = useState('');
@@ -31,6 +27,7 @@ function NotesPage() {
     const [padContent, setPadContent] = useState('');
 
     useEffect(() => {
+        dispatch((noteActions.getAllNotes()));
         if (notes && notes.length) {
             const selected = notes.find(note => note.id === selectedNote);
             setNoteTitle(selected.title);
@@ -43,7 +40,9 @@ function NotesPage() {
         setPadContent(noteContent);
     }, [noteTitle, noteContent])
 
-    
+    useEffect(() => {
+        if (selectedNote !== '') dispatch(noteActions.updateNote((padTitle.length ? padTitle : ''), (padContent.length ? padContent : ''), Number(selectedNote)))
+    }, [dispatch, padTitle, padContent]);
 
     return (
         <>
@@ -65,10 +64,10 @@ function NotesPage() {
                         {/* {showCreateModal && <CreateModal notebooks={notebooks} setShowCreateModal={setShowCreateModal}/>} */}
                     </div>
                     <div className='note-collection'>
-                        {notes.length > 0 && notes.map((note, i) => (
+                        {notes.length > 0 && visibleNotes.map((note, i) => (
                             <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
                                 <div className='title-holder'>
-                                    <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.Notebook.title || <i>Untitled</i>)}</p>
+                                    <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.title || <i>Untitled</i>)}</p>
                                 </div>
                                 <div className='excerpt-holder'>
                                     <p className="note-instance-excerpt">{selectedNote === note.id ?
