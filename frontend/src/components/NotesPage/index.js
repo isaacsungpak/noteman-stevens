@@ -50,7 +50,7 @@ function NotesPage() {
             <div id="note-page-container">
                 <div id="notes-collection-container">
                     <div id='notes-page-top-bar'>
-                        <div id='notes-header'>Notes</div>
+                        <div id='notes-header'>All Notes</div>
                         <form>
                             <input onChange={(e) => setNoteSearch(e.target.value)} value={noteSearch} type='text' placeholder='Searchman' />
                         </form>
@@ -75,7 +75,7 @@ function NotesPage() {
                                         : (note.content.length >= 15 ? note.content.slice(0,13) + "..." : (note.content || <i>(no content)</i>))}</p>
                                 </div>
                                 <div className='notebook-holder'>
-                                    <p className="note-instance-notebook">({note.Notebook.title})</p>
+                                    <p className="note-instance-notebook">({note.Notebook.title.length > 15 ? note.Notebook.title.slice(0,13) + '...' : note.Notebook.title})</p>
                                 </div>
                                 <div className='update-holder'>
                                     <p className="note-instance-update">Updated: {note.updatedAt.slice(5,7)}/{note.updatedAt.slice(8,10)}/{note.updatedAt.slice(0,4)}</p>
