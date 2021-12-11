@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
 import CreateModal from './CreateModal';
 import './NotesPage.css';
+import DeleteButton from './DeleteButton';
 
 function NotesPage() {
     const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function NotesPage() {
                             <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
                                 <div className='title-holder'>
                                     <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.title || <i>Untitled</i>)}</p>
+                                    <DeleteButton note={note} />
                                 </div>
                                 <div className='excerpt-holder'>
                                     <p className="note-instance-excerpt">{selectedNote === note.id ?
@@ -78,6 +80,7 @@ function NotesPage() {
                                 </div>
                             </div>
                         ))}
+
                     </div>
                 </div>
                 <div id="notepad-container">

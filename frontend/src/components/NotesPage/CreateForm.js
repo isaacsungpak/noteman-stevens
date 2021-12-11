@@ -42,15 +42,15 @@ function CreateForm({ setShowCreateModal }) {
 
     return (
         <>
-            <p className="modal-title">Create a new notebook</p>
-            <p className="modal-message">Enter new notebook name:</p>
+            <p className="modal-title">Create a new note</p>
+            <p className="modal-message">Enter new note name and select a notebook:</p>
             <ul className="validation-errors">
                 {validErrors.length > 0 && validErrors.map((err, i) => (<li key={i}>{err}</li>))}
             </ul>
             <form onSubmit={newNote}>
                 <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' />
                 <select onChange={(e) => setNotebookId(e.target.value)} value={notebookId} defaultValue='' className='select-notebook'>
-                    <option value={''} disabled value=''>Select a notebook</option>
+                    <option value='' disabled>Select a notebook</option>
                     {notebooks.length > 0 && notebooks.map((nb, i) => (
                         <option key={i} value={nb.id}>{nb.title}</option>
                     ))}
@@ -60,7 +60,6 @@ function CreateForm({ setShowCreateModal }) {
                     <button onClick={cancelBtn}>Cancel</button>
                 </div>
             </form>
-
         </>
     )
 }
