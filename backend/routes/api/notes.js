@@ -74,8 +74,15 @@ router.delete('/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) 
     const { noteId } = req.params;
 
     const note = await db.Note.findByPk(noteId);
-    const notebookId = note.notebookId;
-   if (userId !== note.userId) {
+    if (!note) {
+        const err = new Error('Note does not exist');
+        err.status = 404;
+        err.title = 'Note does not exist';
+        err.errors = ['The requested note could not be found.'];
+        return next(err);
+    }
+
+    if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -83,7 +90,9 @@ router.delete('/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) 
         return next(err);
     }
 
+    const notebookId = note.notebookId;
     const notebook = await db.Notebook.findByPk(notebookId);
+    await note.destroy();
     await notebook.update({updatedAt: new Date()});
 
     const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
