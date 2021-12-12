@@ -11,20 +11,12 @@ function NotesPage() {
     const user = useSelector((state) => state.session.user);
     const notes = useSelector((state) => state.note.notes);
 
-
-    let visibleNotes = notes.sort((a,b) => (
-        b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
-        b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
-        b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
-        b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
-        b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
-        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
-
     const [selectedNote, setSelectedNote] = useState('');
-    const [noteSearch, setNoteSearch] = useState('');
     const [padTitle, setPadTitle] = useState('');
     const [padContent, setPadContent] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [noteSearch, setNoteSearch] = useState('');
+    const [visibleNotes, setVisibleNotes] = useState([]);
 
     useEffect(() => {
         dispatch((noteActions.getAllNotes()));
@@ -38,6 +30,22 @@ function NotesPage() {
     useEffect(() => {
         if (selectedNote !== '') dispatch(noteActions.updateNote((padTitle.length ? padTitle : ''), (padContent.length ? padContent : ''), Number(selectedNote)))
     }, [dispatch, padTitle, padContent]);
+
+    useEffect(() => {
+        let lowercaseSearch = noteSearch.toLowerCase();
+        if (notes.length > 0) setVisibleNotes(
+            notes.filter(n => (n.title.toLowerCase().includes(lowercaseSearch) || n.content.toLowerCase().includes(lowercaseSearch)))
+                .sort(
+                    (a,b) => (
+                        b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
+                        b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
+                        b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
+                        b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
+                        b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
+                        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19))
+                )
+        );
+    }, [noteSearch, notes])
 
     return (
         <>

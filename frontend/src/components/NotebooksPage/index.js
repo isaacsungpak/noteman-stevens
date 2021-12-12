@@ -12,28 +12,26 @@ function NotebooksPage() {
     const notebooks = useSelector((state) => state.notebook.notebooks);
     const user = useSelector((state) => state.session?.user);
 
-    const [notebookName, setNotebookName] = useState('');
     const [showCreateModal, setShowCreateModal] = useState('');
+    const [notebookSearch, setNotebookSearch] = useState('');
+    const [visibleNotebooks, setVisibleNotebooks] = useState([]);
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks());
     }, [dispatch])
 
-    let visibleNotebooks = notebooks.sort((a,b) => (
-        b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
-        b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
-        b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
-        b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
-        b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
-        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
-
-    // useEffect(() => {
-    //     if (!notebookName.trim()) visibleNotebooks = notebooks;
-    //     else visibleNotebooks = notebooks.filter(nb => nb.title.toLowerCase().includes(notebookName.trim().toLowerCase));
-    // }, [notebookName])
-
-    // const today = new Date();
-    // const todayDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+    useEffect(() => {
+        setVisibleNotebooks(
+            notebooks.filter(nb => nb.title.toLowerCase().includes(notebookSearch.toLowerCase()))
+                .sort((a,b) => (
+                b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
+                b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
+                b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
+                b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
+                b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
+                b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)))
+        );
+    }, [dispatch, notebookSearch, notebooks])
 
     return (
         <>
@@ -41,7 +39,7 @@ function NotebooksPage() {
             <div id='notebook-page-top-bar'>
                 <div id='notebook-header'>Notebooks</div>
                 <form>
-                    <input onChange={(e) => setNotebookName(e.target.value)} value={notebookName} type='text' placeholder='Searchman' />
+                    <input onChange={(e) => setNotebookSearch(e.target.value)} value={notebookSearch} type='text' placeholder='Searchman' />
                 </form>
             </div>
 
