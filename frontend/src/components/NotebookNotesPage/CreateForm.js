@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
-import * as notebookActions from '../../store/notebooks';
 
-function CreateForm({ setShowCreateModal }) {
+function CreateForm({ notebookId, setShowCreateModal }) {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [validErrors, setValidErrors] = useState([]);
-    const [notebookId, setNotebookId] = useState('');
     const [canSubmit, setCanSubmit] = useState('');
-    const notebooks = useSelector(state => state.notebook.notebooks);
-
 
     const newNote = (e) => {
         e.preventDefault();
-        dispatch(noteActions.createNote(name.trim(), '', notebookId));
-        setShowCreateModal(false);
+        dispatch(noteActions.createNoteFromNotebook(name.trim(), '', notebookId))
+            .then(() => setShowCreateModal(false));
     }
 
     const cancelBtn = (e) => {
         e.preventDefault();
         setShowCreateModal(false);
     };
-
-    useEffect(() => {
-        dispatch(notebookActions.getNotebooks());
-    }, [dispatch]);
 
     useEffect(() => {
         const errors = [];
@@ -49,15 +41,7 @@ function CreateForm({ setShowCreateModal }) {
             </ul>
             <form onSubmit={newNote}>
                 <label for='title'>Title <i>(opt.)</i>: </label>
-                <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' name='title' />
-                <br/>
-                <label>Notebook <i>(req.)</i>:</label>
-                <select onChange={(e) => setNotebookId(e.target.value)} value={notebookId} defaultValue='' className='select-notebook'>
-                    <option value='' disabled>Select a notebook</option>
-                    {notebooks.length > 0 && notebooks.map((nb, i) => (
-                        <option key={i} value={nb.id}>{nb.title}</option>
-                    ))}
-                </select>
+                <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' name='title'/>
                 <div className="submit-cancel-button-holder">
                     <button disabled={!canSubmit} id={!canSubmit ? 'disabled' : undefined}>Submit</button>
                     <button onClick={cancelBtn}>Cancel</button>

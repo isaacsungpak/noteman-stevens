@@ -31,8 +31,14 @@ export const createNotebook = (title) => async (dispatch) => {
 export const getNotebooks = () => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks`);
     const data = await response.json();
-    dispatch(setNotebooks(data.notebooks));
+    await dispatch(setNotebooks(data.notebooks));
     return response;
+}
+
+export const getSingleNotebookTitle = (notebookId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/notebooks/${notebookId}/title`);
+    const data = await response.json();
+    return {response, title: data.title};
 }
 
 export const updateNotebook = (notebookId, title) => async (dispatch) => {

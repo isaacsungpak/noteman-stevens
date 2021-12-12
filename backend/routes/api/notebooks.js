@@ -124,7 +124,13 @@ router.get('/:notebookId(\\d+)', requireAuth, asyncHandler(async(req, res, next)
     const {notebookId} = req.params;
 
     const notebook = await db.Notebook.findByPk(notebookId);
-    if (userId !== notebook.userId) {
+    if (!notebook) {
+        const err = new Error('Notebook does not exist');
+        err.status = 404;
+        err.title = 'Notebook does not exist';
+        err.errors = ['The requested notebook could not be found.'];
+        return next(err);
+    } else if (userId !== notebook.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -142,7 +148,13 @@ router.post('/:notebookId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(a
     const {title, content} = req.body;
 
     const notebook = await db.Notebook.findByPk(notebookId);
-    if (userId !== notebook.userId) {
+    if (!notebook) {
+        const err = new Error('Notebook does not exist');
+        err.status = 404;
+        err.title = 'Notebook does not exist';
+        err.errors = ['The requested notebook could not be found.'];
+        return next(err);
+    } else if (userId !== notebook.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -164,13 +176,20 @@ router.patch('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, validateNote
     const {title, content} = req.body;
 
     const note = await db.Note.findByPk(noteId);
-    if (userId !== note.userId) {
+    if (!note) {
+        const err = new Error('Note does not exist');
+        err.status = 404;
+        err.title = 'Note does not exist';
+        err.errors = ['The requested note could not be found.'];
+        return next(err);
+    } else if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
         err.errors = ['The provided account is not the owner of this note.'];
         return next(err);
     }
+
 
     await note.update({title, content, updatedAt: new Date()});
 
@@ -187,20 +206,49 @@ router.delete('/:notebookId(\\d+)/notes/:noteId(\\d+)', requireAuth, asyncHandle
     const { notebookId, noteId } = req.params;
 
     const note = await db.Note.findByPk(noteId);
-    if (userId !== note.userId) {
-            const err = new Error('Account does not have necessary permissions');
-            err.status = 403;
-            err.title = 'Account does not have necessary permissions';
-            err.errors = ['The provided account is not the owner of this note.'];
-            return next(err);
+    if (!note) {
+        const err = new Error('Note does not exist');
+        err.status = 404;
+        err.title = 'Note does not exist';
+        err.errors = ['The requested note could not be found.'];
+        return next(err);
+    } else if (userId !== note.userId) {
+        const err = new Error('Account does not have necessary permissions');
+        err.status = 403;
+        err.title = 'Account does not have necessary permissions';
+        err.errors = ['The provided account is not the owner of this note.'];
+        return next(err);
     }
 
     const notebook = await db.Notebook.findByPk(notebookId);
+    await note.destroy();
     await notebook.update({updatedAt: new Date()});
 
     const notes = await db.Note.findAll({ where: { userId, notebookId }, include: db.Notebook });
     return res.json({ notes });
 }));
 
+
+router.get('/:notebookId(\\d+)/title', requireAuth, asyncHandler(async(req, res, next) => {
+    const userId = req.user.id;
+    const {notebookId} = req.params;
+
+    const notebook = await db.Notebook.findByPk(notebookId);
+    if (!notebook) {
+        const err = new Error('Notebook does not exist');
+        err.status = 404;
+        err.title = 'Notebook does not exist';
+        err.errors = ['The requested notebook could not be found.'];
+        return next(err);
+    } else if (userId !== notebook.userId) {
+        const err = new Error('Account does not have necessary permissions');
+        err.status = 403;
+        err.title = 'Account does not have necessary permissions';
+        err.errors = ['The provided account is not the owner of this notebook.'];
+        return next(err);
+    }
+
+    return res.json({ title: notebook.title });
+}))
 
 module.exports = router;

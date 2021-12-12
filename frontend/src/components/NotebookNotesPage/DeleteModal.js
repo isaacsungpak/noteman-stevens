@@ -6,7 +6,7 @@ function DeleteModal({ note, setShowDeleteModal, deletePackage }) {
   return (
     <>
         <Modal onClose={() => setShowDeleteModal(false)}>
-          <DeleteForm note={note} setShowDeleteModal={setShowDeleteModal} deletePackage={deletePackage}/>
+          <DeleteForm note={note} setShowDeleteModal={setShowDeleteModal} deletePackage={deletePackage} />
         </Modal>
     </>
   );

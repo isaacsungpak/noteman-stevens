@@ -6,6 +6,7 @@ function DeleteForm({ note, setShowDeleteModal, deletePackage }) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const username = user.username;
+    const notebookId = note.notebookId;
     const noteId = note.id;
     const { selectedNote, setSelectedNote, setPadTitle, setPadContent } = deletePackage;
 
@@ -14,8 +15,8 @@ function DeleteForm({ note, setShowDeleteModal, deletePackage }) {
 
     const submitDeleteReq = (e) => {
         e.preventDefault();
-        dispatch(noteActions.deleteNote(noteId));
-        setShowDeleteModal(false);
+        dispatch(noteActions.deleteNoteFromNotebook(note.id, notebookId))
+            .then (() => setShowDeleteModal(false));
         if (noteId === selectedNote) {
             setSelectedNote('');
             setPadTitle('');
