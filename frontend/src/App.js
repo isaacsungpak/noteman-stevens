@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
 import UserlessHomePage from './components/UserlessHomePage';
-import LoginFormPage from './components/LoginFormPage';
-import SignupFormPage from './components/SignupFormPage';
+import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
 import NotebooksPage from './components/NotebooksPage';
 import NotesPage from './components/NotesPage';
@@ -26,13 +25,7 @@ function App() {
         {isLoaded && (
           <Switch>
             <Route exact path='/'>
-              {sessionUser ? <NotesPage /> /* temporary!!!!!!!!! */ : <UserlessHomePage />}
-            </Route>
-            <Route path="/login">
-              <LoginFormPage />
-            </Route>
-            <Route path="/signup">
-              <SignupFormPage />
+              {sessionUser ? <LoggedInHomePage sessionUser={sessionUser} /> : <UserlessHomePage />}
             </Route>
             <Route exact path="/notebooks">
               <NotebooksPage />

@@ -41,3 +41,9 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.signup-login-title {
+    font-size: 20px;
+    color: #4464AD;
+    text-align: center;
+}
