@@ -13,24 +13,14 @@ function NotebookNotesPage() {
     const user = useSelector((state) => state.session.user);
     const notes = useSelector((state) => state.note.notes);
 
-
-    let visibleNotes = notes.sort((a,b) => (
-        b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
-        b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
-        b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
-        b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
-        b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
-        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19)));
-
-    const [selectedNote, setSelectedNote] = useState('');
     const [noteSearch, setNoteSearch] = useState('');
+    const [visibleNotes, setVisibleNotes] = useState(notes);
+    const [selectedNote, setSelectedNote] = useState('');
     const [padTitle, setPadTitle] = useState('');
     const [padContent, setPadContent] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [nbIsLoaded, setNbIsLoaded] = useState(false);
     const [nbTitle, setNbTitle] = useState('');
-
-    //====================
 
     useEffect(() => {
         dispatch(notebookActions.getSingleNotebookTitle(notebookId))
@@ -38,9 +28,6 @@ function NotebookNotesPage() {
             .then(title => setNbTitle(title))
             .then(() => setNbIsLoaded(true));
     }, [dispatch, notebookId]);
-
-    //====================
-
 
     useEffect(() => {
         dispatch((noteActions.getNotesFromNotebook(notebookId)));
@@ -54,6 +41,22 @@ function NotebookNotesPage() {
     useEffect(() => {
         if (selectedNote !== '') dispatch(noteActions.updateNote((padTitle.length ? padTitle : ''), (padContent.length ? padContent : ''), Number(selectedNote)))
     }, [dispatch, padTitle, padContent]);
+
+    useEffect(() => {
+        let lowercaseSearch = noteSearch.toLowerCase();
+        if (notes.length > 0) setVisibleNotes(
+            notes.filter(n => (n.title.toLowerCase().includes(lowercaseSearch) || n.content.toLowerCase().includes(lowercaseSearch)))
+                .sort(
+                    (a,b) => (
+                        b.updatedAt.slice(0,4) - a.updatedAt.slice(0,4) ||
+                        b.updatedAt.slice(5,7) - a.updatedAt.slice(5,7) ||
+                        b.updatedAt.slice(8,10) - a.updatedAt.slice(8,10) ||
+                        b.updatedAt.slice(11,13) - a.updatedAt.slice(11,13) ||
+                        b.updatedAt.slice(14,16) - a.updatedAt.slice(14,16) ||
+                        b.updatedAt.slice(17,19) - a.updatedAt.slice(17,19))
+                )
+        );
+    }, [noteSearch, notes])
 
     return (
         <>
@@ -75,7 +78,7 @@ function NotebookNotesPage() {
                         {showCreateModal && <CreateModal notebookId={Number(notebookId)} setShowCreateModal={setShowCreateModal}/>}
                     </div>
                     <div className='note-collection'>
-                        {notes.length > 0 && visibleNotes.map((note, i) => (
+                        {visibleNotes.length > 0 && visibleNotes.map((note, i) => (
                             <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
                                 <div className='title-holder'>
                                     <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.title || <i>Untitled</i>)}</p>
