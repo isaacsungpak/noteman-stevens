@@ -29,28 +29,39 @@ function SignupFormPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((err, i) => <li key={i}>{err}</li>)}
-      </ul>
-      <label>
-        Email
-        <input onChange={(e) => setEmail(e.target.value)} type="text" value={email} required />
-      </label>
-      <label>
-        Username
-        <input onChange={(e) => setUsername(e.target.value)} type="text" value={username} required />
-      </label>
-      <label>
-        Password
-        <input onChange={(e) => setPassword(e.target.value)} type="password" value={password} required />
-      </label>
-      <label>
-        Confirm Password
-        <input onChange={(e) => setConfirmPassword(e.target.value)} type="password" value={confirmPassword} required />
-      </label>
-      <button type="submit">Sign Up</button>
-    </form>
+    <>
+      <br />
+      <p className='signup-login-title'>Sign Up</p>
+      <form onSubmit={handleSubmit}>
+        <ul className="val-errors">
+          {errors.map((err, i) => <li key={i}>{err}</li>)}
+        </ul>
+
+        <input onChange={(e) => setEmail(e.target.value)} type="text" value={email} required placeholder='Email'/>
+
+        <br />
+        <br />
+
+        <input onChange={(e) => setUsername(e.target.value)} type="text" value={username} required placeholder='Username'/>
+
+        <br />
+        <br />
+
+        <input onChange={(e) => setPassword(e.target.value)} type="password" value={password} required placeholder='Password'/>
+
+        <br />
+        <br />
+
+
+        <input onChange={(e) => setConfirmPassword(e.target.value)} type="password" value={confirmPassword} required placeholder='Confirm Password'/>
+
+        <br />
+        <br />
+
+        <button type="submit">Sign Up</button>
+      </form>
+      <br />
+    </>
   );
 }
 

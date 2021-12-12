@@ -8,15 +8,6 @@ import './Navigation.css';
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
-    let sessionLinks;
-    if (sessionUser) sessionLinks = (<ProfileButton user={sessionUser} />);
-    else sessionLinks = (
-        <div>
-          <NavLink to="/login">Log In</NavLink>
-          <NavLink to="/signup">Sign Up</NavLink>
-        </div>
-    );
-
     const [specialLogo, setSpecialLogo] = useState(false);
     /////////////////////////// easter egg
     const location = useLocation();
@@ -46,7 +37,7 @@ function Navigation({ isLoaded }) {
               <img src={specialLogo ? '/notemanx3.png' : '/noteman-stevens-logo.png'} id="ns-logo" alt="logo" disabled={path === '/'} onClick={logoClick} />
             </NavLink>
           </li>
-            {isLoaded && sessionLinks}
+            {sessionUser && <ProfileButton user={sessionUser} />}
         </ul>
       </div>
     );
