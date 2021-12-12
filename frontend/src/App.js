@@ -6,11 +6,13 @@ import SignupFormPage from './components/SignupFormPage';
 import Navigation from './components/Navigation';
 import NotebooksPage from './components/NotebooksPage';
 import NotesPage from './components/NotesPage';
+import NotebookNotesPage from './components/NotebookNotesPage';
 import * as sessionActions from './store/session';
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -30,7 +32,10 @@ function App() {
             <Route exact path="/notebooks">
               <NotebooksPage />
             </Route>
-            <Route exact path="/notes">
+            <Route path="/notebooks/:notebookId">
+              <NotebookNotesPage />
+            </Route>
+            <Route path="/notes">
               <NotesPage />
             </Route>
           </Switch>

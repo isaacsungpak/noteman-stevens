@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
+import * as notebookActions from '../../store/notebooks';
 import CreateModal from './CreateModal';
-import './NotesPage.css';
 import DeleteButton from './DeleteButton';
+import { useParams } from "react-router-dom";
 
-function NotesPage() {
+function NotebookNotesPage() {
+    const { notebookId } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
     const notes = useSelector((state) => state.note.notes);
@@ -22,20 +24,32 @@ function NotesPage() {
 
     const [selectedNote, setSelectedNote] = useState('');
     const [noteSearch, setNoteSearch] = useState('');
-    // const [noteTitle, setNoteTitle] = useState('');
     const [padTitle, setPadTitle] = useState('');
-    // const [noteContent, setNoteContent] = useState('');
     const [padContent, setPadContent] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [nbIsLoaded, setNbIsLoaded] = useState(false);
+    const [nbTitle, setNbTitle] = useState('');
+
+    //====================
 
     useEffect(() => {
-        dispatch((noteActions.getAllNotes()));
+        dispatch(notebookActions.getSingleNotebookTitle(notebookId))
+            .then(res => res.title)
+            .then(title => setNbTitle(title))
+            .then(() => setNbIsLoaded(true));
+    }, [dispatch, notebookId]);
+
+    //====================
+
+
+    useEffect(() => {
+        dispatch((noteActions.getNotesFromNotebook(notebookId)));
         if (notes && notes.length) {
             const selected = notes.find(note => note.id === selectedNote);
             setPadTitle(selected.title);
             setPadContent(selected.content);
         }
-    }, [dispatch, selectedNote])
+    }, [dispatch, notebookId, selectedNote])
 
     useEffect(() => {
         if (selectedNote !== '') dispatch(noteActions.updateNote((padTitle.length ? padTitle : ''), (padContent.length ? padContent : ''), Number(selectedNote)))
@@ -47,7 +61,7 @@ function NotesPage() {
             <div id="note-page-container">
                 <div id="notes-collection-container">
                     <div id='notes-page-top-bar'>
-                        <div id='notes-header'>All Notes</div>
+                        <div id='notes-header'>Notes in {nbIsLoaded && <b>{nbTitle}</b>}</div>
                         <form>
                             <input onChange={(e) => setNoteSearch(e.target.value)} value={noteSearch} type='text' placeholder='Searchman' />
                         </form>
@@ -58,7 +72,7 @@ function NotesPage() {
                             <button className="new-note-btn" onClick={() => setShowCreateModal(true)}>
                                 <i className="fas fa-plus"></i>
                             </button>
-                        {showCreateModal && <CreateModal setShowCreateModal={setShowCreateModal}/>}
+                        {showCreateModal && <CreateModal notebookId={Number(notebookId)} setShowCreateModal={setShowCreateModal}/>}
                     </div>
                     <div className='note-collection'>
                         {notes.length > 0 && visibleNotes.map((note, i) => (
@@ -92,4 +106,4 @@ function NotesPage() {
     )
 }
 
-export default NotesPage;
+export default NotebookNotesPage;

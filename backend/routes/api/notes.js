@@ -28,7 +28,13 @@ router.post('/', requireAuth, validateNoteTitle, asyncHandler(async(req, res, ne
     const {title, content, notebookId} = req.body;
 
     const notebook = await db.Notebook.findByPk(notebookId);
-    if (userId !== notebook.userId) {
+    if (!notebook) {
+        const err = new Error('Notebook does not exist');
+        err.status = 404;
+        err.title = 'Notebook does not exist';
+        err.errors = ['The requested notebook could not be found.'];
+        return next(err);
+    } else if (userId !== notebook.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -51,7 +57,13 @@ router.patch('/:noteId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(asyn
 
     const note = await db.Note.findByPk(noteId);
     const notebookId = note.notebookId;
-    if (userId !== note.userId) {
+    if (!note) {
+        const err = new Error('Note does not exist');
+        err.status = 404;
+        err.title = 'Note does not exist';
+        err.errors = ['The requested note could not be found.'];
+        return next(err);
+    } if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
@@ -80,9 +92,7 @@ router.delete('/:noteId(\\d+)', requireAuth, asyncHandler(async(req, res, next) 
         err.title = 'Note does not exist';
         err.errors = ['The requested note could not be found.'];
         return next(err);
-    }
-
-    if (userId !== note.userId) {
+    } else if (userId !== note.userId) {
         const err = new Error('Account does not have necessary permissions');
         err.status = 403;
         err.title = 'Account does not have necessary permissions';
