@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import DeleteModal from "./DeleteModal";
 
-function DeleteButton({ note }) {
+function DeleteButton({ note, deletePackage }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     return (
       <>
         <button onClick={() => setShowDeleteModal(true)}>
-          <i className="fas fa-ellipsis-h"></i>
+          <i class="far fa-trash-alt"></i>
         </button>
-        {showDeleteModal && <DeleteModal note={note} setShowDeleteModal={setShowDeleteModal} />}
+        {showDeleteModal && <DeleteModal note={note} setShowDeleteModal={setShowDeleteModal} deletePackage={deletePackage}/>}
       </>
     );
 }

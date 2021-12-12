@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import * as noteActions from '../../store/notes';
 
-function DeleteForm({ note, setShowDeleteModal }) {
+function DeleteForm({ note, setShowDeleteModal, deletePackage }) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const username = user.username;
+    const noteId = note.id;
+    const { selectedNote, setSelectedNote, setPadTitle, setPadContent } = deletePackage;
 
     const [confirmString, setConfirmString] = useState('');
     const [validErrors, setValidErrors] = useState([]);
 
     const submitDeleteReq = (e) => {
         e.preventDefault();
-        dispatch(noteActions.deleteNote(note.id));
+        dispatch(noteActions.deleteNote(noteId));
         setShowDeleteModal(false);
+        if (noteId === selectedNote) {
+            setSelectedNote('');
+            setPadTitle('');
+            setPadContent('');
+        }
     }
 
     const cancelBtn = (e) => {

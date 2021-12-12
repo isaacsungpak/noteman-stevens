@@ -22,15 +22,13 @@ function NotesPage() {
 
     const [selectedNote, setSelectedNote] = useState('');
     const [noteSearch, setNoteSearch] = useState('');
-    // const [noteTitle, setNoteTitle] = useState('');
     const [padTitle, setPadTitle] = useState('');
-    // const [noteContent, setNoteContent] = useState('');
     const [padContent, setPadContent] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
         dispatch((noteActions.getAllNotes()));
-        if (notes && notes.length) {
+        if (notes && notes.length && selectedNote !== '') {
             const selected = notes.find(note => note.id === selectedNote);
             setPadTitle(selected.title);
             setPadContent(selected.content);
@@ -65,7 +63,7 @@ function NotesPage() {
                             <div key={i} className="note-instance" onClick={() => setSelectedNote(note.id)} id={selectedNote === note.id ? 'selected-note' : undefined}>
                                 <div className='title-holder'>
                                     <p className="note-instance-title">{selectedNote === note.id ? (padTitle || <i>Untitled</i>) : (note.title || <i>Untitled</i>)}</p>
-                                    <DeleteButton note={note} />
+                                    <DeleteButton note={note} deletePackage={{selectedNote, setSelectedNote, setPadTitle, setPadContent}}/>
                                 </div>
                                 <div className='excerpt-holder'>
                                     <p className="note-instance-excerpt">{selectedNote === note.id ?
@@ -84,8 +82,8 @@ function NotesPage() {
                     </div>
                 </div>
                 <div id="notepad-container">
-                    <input onChange={(e) => setPadTitle(e.target.value)} value={padTitle} type="text" placeholder="Note title" className='note-page-title-input'/>
-                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" disabled={notes.length === 0} className='note-page-content-input'></textarea>
+                    <input onChange={(e) => setPadTitle(e.target.value)} value={padTitle} type="text" placeholder="Note title" disabled={selectedNote === ''} className='note-page-title-input'/>
+                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" disabled={selectedNote === ''} className='note-page-content-input'></textarea>
                 </div>
             </div>
         </>

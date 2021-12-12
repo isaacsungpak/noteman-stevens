@@ -8,7 +8,6 @@ function CreateForm({ notebookId, setShowCreateModal }) {
     const [validErrors, setValidErrors] = useState([]);
     const [canSubmit, setCanSubmit] = useState('');
 
-
     const newNote = (e) => {
         e.preventDefault();
         dispatch(noteActions.createNoteFromNotebook(name.trim(), '', notebookId))
@@ -41,7 +40,8 @@ function CreateForm({ notebookId, setShowCreateModal }) {
                 {validErrors.length > 0 && validErrors.map((err, i) => (<li key={i}>{err}</li>))}
             </ul>
             <form onSubmit={newNote}>
-                <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' />
+                <label for='title'>Title <i>(opt.)</i>: </label>
+                <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' name='title'/>
                 <div className="submit-cancel-button-holder">
                     <button disabled={!canSubmit} id={!canSubmit ? 'disabled' : undefined}>Submit</button>
                     <button onClick={cancelBtn}>Cancel</button>
