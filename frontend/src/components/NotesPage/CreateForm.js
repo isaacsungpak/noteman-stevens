@@ -48,11 +48,11 @@ function CreateForm({ setShowCreateModal }) {
                 {validErrors.length > 0 && validErrors.map((err, i) => (<li key={i}>{err}</li>))}
             </ul>
             <form onSubmit={newNote}>
-                <label for='title'>Title <i>(opt.)</i>: </label>
+                <label htmlFor='title'>Title <i>(opt.)</i>: </label>
                 <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' name='title' />
                 <br/>
-                <label>Notebook <i>(req.)</i>:</label>
-                <select onChange={(e) => setNotebookId(e.target.value)} value={notebookId} defaultValue='' className='select-notebook'>
+                <label htmlFor='notebook-choice '>Notebook <i>(req.)</i>:</label>
+                <select onChange={(e) => setNotebookId(e.target.value)} value={notebookId} defaultValue='' className='select-notebook' name='notebook-choice'>
                     <option value='' disabled>Select a notebook</option>
                     {notebooks.length > 0 && notebooks.map((nb, i) => (
                         <option key={i} value={nb.id}>{nb.title}</option>

@@ -7,7 +7,7 @@ function DeleteButton({ note, deletePackage }) {
     return (
       <>
         <button onClick={() => setShowDeleteModal(true)}>
-          <i class="far fa-trash-alt"></i>
+          <i className="far fa-trash-alt"></i>
         </button>
         {showDeleteModal && <DeleteModal note={note} setShowDeleteModal={setShowDeleteModal} deletePackage={deletePackage}/>}
       </>

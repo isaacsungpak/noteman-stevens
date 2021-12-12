@@ -40,7 +40,7 @@ function CreateForm({ notebookId, setShowCreateModal }) {
                 {validErrors.length > 0 && validErrors.map((err, i) => (<li key={i}>{err}</li>))}
             </ul>
             <form onSubmit={newNote}>
-                <label for='title'>Title <i>(opt.)</i>: </label>
+                <label htmlFor='title'>Title <i>(opt.)</i>: </label>
                 <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='Untitled' name='title'/>
                 <div className="submit-cancel-button-holder">
                     <button disabled={!canSubmit} id={!canSubmit ? 'disabled' : undefined}>Submit</button>
