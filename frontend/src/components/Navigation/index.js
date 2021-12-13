@@ -20,7 +20,7 @@ function Navigation({ isLoaded }) {
       if (path === '/') {
         if (specialLogo) setCount(count - 1);
         else setCount(count + 1);
-      };
+      } else setNavSelect('home');
     }
 
     useEffect(() => {
@@ -46,9 +46,9 @@ function Navigation({ isLoaded }) {
               <option value='notebooks'>Notebooks</option>
               <option value='notes'>Notes</option>
             </select>}
-          <li id="logo-link-container">
+          <li id="logo-link-container" disabled={path === '/'}>
             <NavLink exact to="/" id="logo-link">
-              <img src={specialLogo ? '/notemanx3.png' : '/noteman-stevens-logo.png'} id="ns-logo" alt="logo" disabled={path === '/'} onClick={logoClick} />
+              <img src={specialLogo ? '/notemanx3.png' : '/noteman-stevens-logo.png'} id="ns-logo" alt="logo" onClick={logoClick} />
             </NavLink>
           </li>
             {sessionUser && <ProfileButton user={sessionUser} />}
