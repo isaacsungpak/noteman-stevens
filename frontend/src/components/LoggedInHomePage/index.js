@@ -49,12 +49,12 @@ function LoggedInHomePage({ sessionUser }) {
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
                 <br />
-                <p className='stat-line'><u>Number of Notebooks:</u> {numNotebooks}</p>
-                <p className='stat-line'><u>Number of Notes:</u> {numNotes}</p>
-                <p className='stat-line'><u>Average Notes per Notebook:</u> {(numNotes / (numNotebooks || 1)).toFixed(2)}</p>
+                <p className='stat-line'><span className="stat-category">Number of Notebooks:</span> {numNotebooks}</p>
+                <p className='stat-line'><span className="stat-category">Number of Notes:</span> {numNotes}</p>
+                <p className='stat-line'><span className="stat-category">Avg. Notes per Notebook:</span> {(numNotes / (numNotebooks || 1)).toFixed(2)}</p>
 
                 <br />
-                <p className='stat-line'><u>Most Popular Notebook:</u><br />
+                <p className='stat-line'><span className="stat-category">Most Popular Notebook:</span><br />
                     {mostPopularNotebook === '' ?
                         <i> N/A</i>
                         : <><b><Link to={`notebooks/${mostPopularNotebook.className}`}>{mostPopularNotebook.title}</Link></b><i className="stat-line-detail"> ({notesInPopularNotebook} notes)</i></>}
@@ -68,6 +68,7 @@ function LoggedInHomePage({ sessionUser }) {
                     <p id='scratch-pad-title'>Scratch Pad</p>
                     <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" className='note-page-content-input'></textarea>
                 </div>
+                <br />
                 <button onClick={() => setShowCreateModal(true)} disabled={padContent.length === 0} id={padContent.length > 0 ? undefined : 'disabled'}>Save</button>
                 {showCreateModal && <CreateModal content={padContent} setShowCreateModal={setShowCreateModal}/>}
             </div>
