@@ -57,7 +57,7 @@ function LoggedInHomePage({ sessionUser }) {
                 <p className='stat-line'><span className="stat-category">Most Popular Notebook:</span><br />
                     {mostPopularNotebook === '' ?
                         <i> N/A</i>
-                        : <><b><Link to={`notebooks/${mostPopularNotebook.className}`}>{mostPopularNotebook.title}</Link></b><i className="stat-line-detail"> ({notesInPopularNotebook} notes)</i></>}
+                        : <><b><Link to={`notebooks/${mostPopularNotebook.id}`}>{mostPopularNotebook.title}</Link></b><i className="stat-line-detail"> ({notesInPopularNotebook} notes)</i></>}
                 </p>
                 <br />
 
