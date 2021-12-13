@@ -38,7 +38,13 @@
 }
 
 .stat-line a {
-    color: #4464AD;
+    color: #497DC1;
+    transition: color 0.3s ease-in-out;
+}
+
+.stat-line a:hover {
+    color: #EE5622;
+    text-decoration: wavy;
 }
 
 .stat-line-detail {
