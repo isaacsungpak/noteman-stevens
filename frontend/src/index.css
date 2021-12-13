@@ -56,11 +56,6 @@ a#logo-link {
     transition: all 0.3s ease-in-out;
 }
 
-#ns-logo:hover {
-    width: 100%;
-    transform: scale(101%);
-}
-
 button {
     border-style: none;
     border-radius: 5px;
