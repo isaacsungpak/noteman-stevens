@@ -228,15 +228,12 @@ input {
     font-size: 16px;
 }
 
-#github-link-holder {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-}
-
 #github-link {
     color: #9C95DC;
     transition: all 0.3s ease-in-out;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
 }
 
 #github-link:hover {

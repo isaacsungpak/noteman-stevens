@@ -39,9 +39,7 @@ function App() {
           </Switch>
         )}
       </div>
-      <div id='github-link-holder'>
         <a href='https://github.com/isaacsungpak' id='github-link'>Isaac Pak</a>
-      </div>
     </>
   );
 }
