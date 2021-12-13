@@ -8,7 +8,7 @@ In the root directory, run `npm install` to install all dependencies.
 ### Setting up
 1. Clone the GitHub repo from `https://github.com/isaacsungpak/noteman-stevens`
 2. Start PostgreSQL, if necessary
-3. Create a user with CREATEDB privileges
+3. Create a database user with CREATEDB privileges
 4. Copy the contents of `backend/.env.example` into a new `backend/.env` file, and replace the example credentials with the values used in step 3
 5. Create the database with the command: `npx dotenv sequelize db:create`
 6. Run migrations with the command: `npx dotenv sequelize db:migrations`
