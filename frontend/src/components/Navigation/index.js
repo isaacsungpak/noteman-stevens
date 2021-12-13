@@ -8,11 +8,11 @@ import './Navigation.css';
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
+    const location = useLocation();
+    const path = location.pathname;
 
     const [specialLogo, setSpecialLogo] = useState(false);
     /////////////////////////// easter egg
-    const location = useLocation();
-    const path = location.pathname;
     const [count, setCount] = useState(0);
     const [navSelect, setNavSelect] = useState('');
 
@@ -33,7 +33,7 @@ function Navigation({ isLoaded }) {
       if (navSelect === 'home') history.push('/');
       if (navSelect === 'notebooks') history.push('/notebooks');
       else if (navSelect === 'notes') history.push('/notes');
-      // setNavSelect('');
+      setNavSelect('');
     }, [navSelect])
 
     return (
@@ -41,10 +41,10 @@ function Navigation({ isLoaded }) {
         <ul id="nav-bar">
           {sessionUser &&
             <select onChange={(e) => setNavSelect(e.target.value)} value={navSelect} id='nav-select'>
-              <option value='' disabled>Navigation</option>
-              <option value='home'>Home</option>
-              <option value='notebooks'>Notebooks</option>
-              <option value='notes'>Notes</option>
+              <option value='' disabled hidden>Navigation</option>
+              <option value='home' disabled={path === '/'}>Home</option>
+              <option value='notebooks' disabled={path === '/notebooks'}>Notebooks</option>
+              <option value='notes' disabled={path === '/notes'}>Notes</option>
             </select>}
           <li id="logo-link-container" disabled={path === '/'}>
             <NavLink exact to="/" id="logo-link">
