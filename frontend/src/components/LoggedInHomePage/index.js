@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as notebookActions from '../../store/notebooks';
 import * as noteActions from '../../store/notes';
 import { Link } from "react-router-dom";
+import CreateModal from './CreateModal';
+import './LoggedInHomePage.css';
 
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
@@ -15,6 +17,8 @@ function LoggedInHomePage({ sessionUser }) {
     const [notesInPopularNotebook, setNotesInPopularNotebook] = useState('');
 
     const [padContent, setPadContent] = useState('');
+
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks());
@@ -44,21 +48,28 @@ function LoggedInHomePage({ sessionUser }) {
         <div id='logged-in-home-container'>
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
-                <p className='stat-line'>Number of Notebooks: {numNotebooks}</p>
-                <p className='stat-line'>Number of Notes: {numNotes}</p>
-                <p className='stat-line'>Average Notes per Notebook: {(numNotes / (numNotebooks || 1)).toFixed(2)}</p>
+                <br />
+                <p className='stat-line'><u>Number of Notebooks:</u> {numNotebooks}</p>
+                <p className='stat-line'><u>Number of Notes:</u> {numNotes}</p>
+                <p className='stat-line'><u>Average Notes per Notebook:</u> {(numNotes / (numNotebooks || 1)).toFixed(2)}</p>
 
                 <br />
-                <p className='stat-line'>Most Popular Notebook: {mostPopularNotebook === '' ? <i>N/A</i> : <b><Link to={`notebooks/${mostPopularNotebook.className}`}>{mostPopularNotebook.title}</Link></b>}</p>
-                {mostPopularNotebook !== '' && <p className='stat-line detail'><i>({notesInPopularNotebook} notes)</i></p>}
+                <p className='stat-line'><u>Most Popular Notebook:</u><br />
+                    {mostPopularNotebook === '' ?
+                        <i> N/A</i>
+                        : <><b><Link to={`notebooks/${mostPopularNotebook.className}`}>{mostPopularNotebook.title}</Link></b><i className="stat-line-detail"> ({notesInPopularNotebook} notes)</i></>}
+                </p>
                 <br />
 
             </div>
 
             <div id="scratchpad-container">
-                <p id='scratch-pad-title'>Scratch Pad</p>
-                <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" className='note-page-content-input'></textarea>
-                <button>Save</button>
+                <div id='scratchpad'>
+                    <p id='scratch-pad-title'>Scratch Pad</p>
+                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" className='note-page-content-input'></textarea>
+                </div>
+                <button onClick={() => setShowCreateModal(true)} disabled={padContent.length === 0} id={padContent.length > 0 ? undefined : 'disabled'}>Save</button>
+                {showCreateModal && <CreateModal content={padContent} setShowCreateModal={setShowCreateModal}/>}
             </div>
         </div>
     )
