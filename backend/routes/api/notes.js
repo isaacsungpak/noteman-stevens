@@ -50,6 +50,33 @@ router.post('/', requireAuth, validateNoteTitle, asyncHandler(async(req, res, ne
     return res.json({ notes });
 }));
 
+// router.post('/home', requireAuth, validateNoteTitle, asyncHandler(async(req, res, next) => {
+//     const userId = req.user.id;
+//     const {title, content, notebookId} = req.body;
+
+//     const notebook = await db.Notebook.findByPk(notebookId);
+//     if (!notebook) {
+//         const err = new Error('Notebook does not exist');
+//         err.status = 404;
+//         err.title = 'Notebook does not exist';
+//         err.errors = ['The requested notebook could not be found.'];
+//         return next(err);
+//     } else if (userId !== notebook.userId) {
+//         const err = new Error('Account does not have necessary permissions');
+//         err.status = 403;
+//         err.title = 'Account does not have necessary permissions';
+//         err.errors = ['The provided account is not the owner of this notebook.'];
+//         return next(err);
+//     }
+
+//     await db.Note.create({ title, content, userId, notebookId });
+
+//     await notebook.update({updatedAt: new Date()});
+
+//     const notes = await db.Note.findAll({ where: { userId }, include: db.Notebook });
+//     return res.json({ notes });
+// }));
+
 router.patch('/:noteId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
     const { noteId } = req.params;

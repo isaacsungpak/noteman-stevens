@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -7,21 +7,14 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-
-    let sessionLinks;
-    if (sessionUser) sessionLinks = (<ProfileButton user={sessionUser} />);
-    else sessionLinks = (
-        <div>
-          <NavLink to="/login">Log In</NavLink>
-          <NavLink to="/signup">Sign Up</NavLink>
-        </div>
-    );
+    const history = useHistory();
 
     const [specialLogo, setSpecialLogo] = useState(false);
     /////////////////////////// easter egg
     const location = useLocation();
     const path = location.pathname;
     const [count, setCount] = useState(0);
+    const [navSelect, setNavSelect] = useState('');
 
     const logoClick = () => {
       if (path === '/') {
@@ -36,17 +29,29 @@ function Navigation({ isLoaded }) {
     }, [count, specialLogo])
     ///////////////////////////
 
+    useEffect(() => {
+      if (navSelect === 'home') history.push('/');
+      if (navSelect === 'notebooks') history.push('/notebooks');
+      else if (navSelect === 'notes') history.push('/notes');
+      // setNavSelect('');
+    }, [navSelect])
 
     return (
       <div id="nav-div">
         <ul id="nav-bar">
-          {sessionUser && <NavLink to="/notebooks">Notebooks</NavLink>}
+          {sessionUser &&
+            <select onChange={(e) => setNavSelect(e.target.value)} value={navSelect} id='nav-select'>
+              <option value='' disabled>Navigation</option>
+              <option value='home'>Home</option>
+              <option value='notebooks'>Notebooks</option>
+              <option value='notes'>Notes</option>
+            </select>}
           <li id="logo-link-container">
             <NavLink exact to="/" id="logo-link">
               <img src={specialLogo ? '/notemanx3.png' : '/noteman-stevens-logo.png'} id="ns-logo" alt="logo" disabled={path === '/'} onClick={logoClick} />
             </NavLink>
           </li>
-            {isLoaded && sessionLinks}
+            {sessionUser && <ProfileButton user={sessionUser} />}
         </ul>
       </div>
     );

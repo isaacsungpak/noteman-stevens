@@ -1,0 +1,78 @@
+#logged-in-home-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 2.5%;
+}
+
+#stats-holder {
+    width: 35%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-right: 3%;
+    margin-right: 3%;
+    padding-left: 3%;
+    border: 2px groove rgba(156, 149, 220, 0.4);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    box-shadow: 2px 3px 4px rgba(156, 149, 220, 0.3);
+    font-size: 18px;
+}
+
+#stats-holder p {
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+#welcome-user {
+    font-size: 20px;
+    color: #9C95DC;
+}
+
+.stat-line {
+    color: #4464AD;
+}
+
+.stat-line a {
+    color: #4464AD;
+}
+
+.stat-line-detail {
+    font-size: 15px;
+}
+
+.stat-category {
+    color: #141B41;
+}
+
+#scratchpad-container {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#scratchpad {
+    border-radius: 5px;
+    background-color: rgba(156, 149, 220, 0.3);
+    box-shadow: 2px 3px 4px rgba(23, 10, 28, 0.3);
+    height: 90%;
+    width: 100%;
+}
+
+#scratchpad-title {
+    font-size: 20px;
+    color: #303036;
+    margin-left: 5%;
+}
+
+#scratchpad-content {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    width: 89%;
+}
