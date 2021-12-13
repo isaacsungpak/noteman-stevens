@@ -11,7 +11,7 @@
     padding-top: 3%;
     padding-bottom: 3%;
     padding-right: 3%;
-    margin-right: 5%;
+    margin-right: 3%;
     padding-left: 3%;
     border: 2px groove rgba(156, 149, 220, 0.4);
     border-radius: 5px;
@@ -41,12 +41,16 @@
     color: #4464AD;
 }
 
+.stat-line-detail {
+    font-size: 15px;
+}
+
 .stat-category {
     color: #141B41;
 }
 
 #scratchpad-container {
-    width: 55%;
+    width: 50%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -57,11 +61,18 @@
     background-color: rgba(156, 149, 220, 0.3);
     box-shadow: 2px 3px 4px rgba(23, 10, 28, 0.3);
     height: 90%;
-    padding: 2% 5%;
     width: 100%;
 }
 
-#scratch-pad-title {
+#scratchpad-title {
     font-size: 20px;
     color: #303036;
+    margin-left: 5%;
+}
+
+#scratchpad-content {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    width: 89%;
 }

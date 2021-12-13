@@ -65,8 +65,8 @@ function LoggedInHomePage({ sessionUser }) {
 
             <div id="scratchpad-container">
                 <div id='scratchpad'>
-                    <p id='scratch-pad-title'>Scratch Pad</p>
-                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" className='note-page-content-input'></textarea>
+                    <p id='scratchpad-title'>Scratch Pad</p>
+                    <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" className='note-page-content-input' id='scratchpad-content'></textarea>
                 </div>
                 <br />
                 <button onClick={() => setShowCreateModal(true)} disabled={padContent.length === 0} id={padContent.length > 0 ? undefined : 'disabled'}>Save</button>
