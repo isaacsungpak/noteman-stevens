@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileTab from './ProfileTab';
 import styled from 'styled-components';
 import Noteman from '../Images/NotemanSq.png';
@@ -27,7 +27,7 @@ const NavBar = styled.nav`
   }
 `
 
-const SearchBar = styled.div`
+const SearchBar = styled.form`
   padding-top: 5px;
   padding-bottom: 10px;
   width: 100%;
@@ -49,17 +49,26 @@ const NavTab = styled.li`
     flex: 1;
     height: 40px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    a {
+    a, & > div:not(.add) {
       text-decoration: none;
       flex: 1;
       padding: 10px;
       color: #F4F2F7;
       display: flex;
+      justify-content: flex-start;
+      align-items: center;
       gap: 10px;
     }
 
-    .active {
+    div.add {
+      padding: 10px;
+    }
+
+    a.active, a.active + div.add {
       background-color: #453750;
     }
 `
@@ -81,52 +90,85 @@ const Logo = styled.div`
 `
 
 function Navigation() {
-    const sessionUser = useSelector(state => state.session.user);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-    return (
-      <NavBar>
-        <ProfileTab user={sessionUser} />
-        <SearchBar>
+  const sessionUser = useSelector(state => state.session.user);
+  const [searchKey, setSearchKey] = useState("");
+  // const notebooks = useSelector(state => state.notebooks);
+  const [showNotebooks, setShowNotebooks] = useState(false);
+
+  const [showAddNotes, setShowAddNotes] = useState(false);
+  const [showAddNotebooks, setShowAddNotebooks] = useState(false);
+  const [showAddTags, setShowAddTags] = useState(false);
+
+  // dispatch(get notebooks -> setIsLoaded)
+
+  function submitSearch(e) {
+    e.preventDefault();
+    history.push(`/notes?search=${searchKey}`);
+  }
+
+  return (
+    <NavBar>
+      <ProfileTab user={sessionUser} />
+      <SearchBar onSubmit={submitSearch}>
           <input
-            placeholder='Search'
+            placeholder='Search Notes'
+            value={searchKey}
+            onChange={(e) => setSearchKey(e.target.value)}
           />
-        </SearchBar>
-        <ul id="nav-bar">
-          <NavTab>
-            <NavLink exact to="/">
-              <i class="fas fa-home"/>
-              <div>Home</div>
-            </NavLink>
-          </NavTab>
+      </SearchBar>
+      <ul id="nav-bar">
+        <NavTab>
+          <NavLink exact to="/">
+            <i class="fas fa-home"/>
+            <div>Home</div>
+          </NavLink>
+        </NavTab>
 
-          <NavTab>
-            <NavLink exact to="/notes">
-              <i class="fas fa-sticky-note"/>
-              <div>Notes</div>
-            </NavLink>
-          </NavTab>
+        <NavTab
+          onMouseEnter={() => setShowAddNotes(true)}
+          onMouseLeave={() => setShowAddNotes(false)}
+        >
+          <NavLink exact to="/notes">
+            <i class="fas fa-sticky-note"/>
+            <div>Notes</div>
+          </NavLink>
+          {showAddNotes && <div className='add' onClick={() => console.log("add note")}><i class="fas fa-plus-circle"></i></div>}
+        </NavTab>
 
-          <NavTab>
-            <NavLink exact to="/notebooks">
-              <i class="fas fa-book-open"></i>
-              <div>Notebooks</div>
-            </NavLink>
-          </NavTab>
+        <NavTab
+          onMouseEnter={() => setShowAddNotebooks(true)}
+          onMouseLeave={() => setShowAddNotebooks(false)}
+        >
+          <div onClick={() => setShowNotebooks(!showNotebooks)}>
+            <i class="fas fa-book-open"/>
+            <div>Notebooks</div>
+            {showNotebooks ? <i className="fas fa-chevron-up"/> : <i className="fas fa-chevron-down"/>}
+          </div>
+          {showAddNotebooks && <div className='add' onClick={() => console.log("add notebook")}><i class="fas fa-plus-circle"></i></div>}
+        </NavTab>
+        {showNotebooks && <div><p>[notebooks]</p></div>}
 
-          <NavTab>
-            <NavLink exact to="/tags">
-              <i class="fas fa-tag"/>
-              <div>Tags</div>
-            </NavLink>
-          </NavTab>
-        </ul>
-        <Logo>
-          <Link to="/">
-            <img src={Noteman} alt="Happy Noteman"/>
-          </Link>
-        </Logo>
-      </NavBar>
-    );
+        <NavTab
+          onMouseEnter={() => setShowAddTags(true)}
+          onMouseLeave={() => setShowAddTags(false)}
+        >
+          <NavLink exact to="/tags">
+            <i class="fas fa-tag"/>
+            <div>Tags</div>
+          </NavLink>
+          {showAddTags && <div className='add' onClick={() => console.log("add tag")}><i class="fas fa-plus-circle"></i></div>}
+        </NavTab>
+      </ul>
+      <Logo>
+        <Link to="/">
+          <img src={Noteman} alt="Happy Noteman"/>
+        </Link>
+      </Logo>
+    </NavBar>
+  );
 }
 
 export default Navigation;

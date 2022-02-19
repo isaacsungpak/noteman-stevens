@@ -49,7 +49,6 @@ function NotesPage() {
 
     return (
         <>
-            {!user && <Redirect to="/" />}
             <div id="note-page-container">
                 <div id="notes-collection-container">
                     <div id='notes-page-top-bar'>
