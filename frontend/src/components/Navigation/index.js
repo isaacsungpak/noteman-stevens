@@ -19,6 +19,9 @@ const NavBar = styled.nav`
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  & > ul {
     height: calc(100vh - 282px);
     overflow-y: auto;
   }
@@ -110,6 +113,235 @@ function Navigation() {
             </NavLink>
           </NavTab>
 
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
+          <NavTab>
+            <NavLink exact to="/tags">
+              <i class="fas fa-tag"/>
+              <div>Tags</div>
+            </NavLink>
+          </NavTab>
           <NavTab>
             <NavLink exact to="/tags">
               <i class="fas fa-tag"/>
