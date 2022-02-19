@@ -66,10 +66,15 @@ const NavTab = styled.li`
 
     div.add {
       padding: 10px;
+      color: #DFD9E8;
     }
 
     a.active, a.active + div.add {
       background-color: #453750;
+    }
+
+    div.add > i:hover {
+      color: #FFF;
     }
 `
 
