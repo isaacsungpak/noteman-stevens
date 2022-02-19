@@ -20,7 +20,7 @@ const Content = styled.div`
   flex: 1;
   display: flex;
   position: fixed;
-  left: 300px;
+  left: 250px;
 `
 
 function App() {
