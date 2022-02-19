@@ -59,7 +59,7 @@ function CreateForm({ setShowCreateModal }) {
                     ))}
                 </select>
                 <div className="submit-cancel-button-holder">
-                    <button disabled={!canSubmit} id={!canSubmit ? 'disabled' : undefined}>Submit</button>
+                    <button disabled={!canSubmit}>Submit</button>
                     <button onClick={cancelBtn}>Cancel</button>
                 </div>
             </form>

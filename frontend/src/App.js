@@ -8,6 +8,12 @@ import NotebooksPage from './components/NotebooksPage';
 import NotesPage from './components/NotesPage';
 import NotebookNotesPage from './components/NotebookNotesPage';
 import * as sessionActions from './store/session';
+import styled from "styled-components";
+
+const Body = styled.div`
+  width: 100%;
+  flex: 1;
+`
 
 function App() {
   const dispatch = useDispatch();
@@ -20,8 +26,8 @@ function App() {
 
   return (
     <>
-      <div id="big-body">
-        <Navigation isLoaded={isLoaded} id="nav-bar"/>
+      <Body id="big-body">
+        {/* <Navigation isLoaded={isLoaded} id="nav-bar"/> */}
         {isLoaded && (
           <Switch>
             <Route exact path='/'>
@@ -38,7 +44,7 @@ function App() {
             </Route>
           </Switch>
         )}
-      </div>
+      </Body>
         <a href='https://github.com/isaacsungpak' id='github-link'>Isaac Pak</a>
     </>
   );
