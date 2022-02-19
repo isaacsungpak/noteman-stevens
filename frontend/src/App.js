@@ -10,9 +10,17 @@ import NotebookNotesPage from './components/NotebookNotesPage';
 import * as sessionActions from './store/session';
 import styled from "styled-components";
 
-const Body = styled.div`
+const Page = styled.div`
   width: 100%;
   flex: 1;
+  display: flex;
+`
+
+const Content = styled.div`
+  flex: 1;
+  display: flex;
+  position: fixed;
+  left: 300px;
 `
 
 function App() {
@@ -25,28 +33,34 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Body id="big-body">
-        {/* <Navigation isLoaded={isLoaded} id="nav-bar"/> */}
-        {isLoaded && (
-          <Switch>
-            <Route exact path='/'>
-              {sessionUser ? <LoggedInHomePage sessionUser={sessionUser} /> : <UserlessHomePage />}
-            </Route>
-            <Route exact path="/notebooks">
-              <NotebooksPage />
-            </Route>
-            <Route path="/notebooks/:notebookId">
-              <NotebookNotesPage />
-            </Route>
-            <Route path="/notes">
-              <NotesPage />
-            </Route>
-          </Switch>
-        )}
-      </Body>
-        <a href='https://github.com/isaacsungpak' id='github-link'>Isaac Pak</a>
-    </>
+    <Page>
+      {sessionUser ?
+        <>
+          <Navigation isLoaded={isLoaded}/>
+          <Content>
+            {isLoaded && (
+              <Switch>
+                <Route exact path='/'>
+                  <LoggedInHomePage sessionUser={sessionUser} />
+                </Route>
+                <Route exact path="/notebooks">
+                  <NotebooksPage />
+                </Route>
+                <Route path="/notebooks/:notebookId">
+                  <NotebookNotesPage />
+                </Route>
+                <Route path="/notes">
+                  <NotesPage />
+                </Route>
+              </Switch>
+            )}
+          </Content>
+        </>
+        :
+        <UserlessHomePage />
+      }
+    </Page>
+
   );
 }
 
