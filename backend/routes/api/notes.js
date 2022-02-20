@@ -20,10 +20,9 @@ const validateNoteTitle = [
 // get notes matching search key if provided, else all notes
 router.get('/', requireAuth, asyncHandler(async(req, res, next) => {
     const userId = req.user.id;
-
     let notes;
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', req.query)
     let searchKey = req.query.search;
+
     if (searchKey) {
         notes = await db.Note.findAll({
             where: {

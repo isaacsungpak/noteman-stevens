@@ -10,13 +10,12 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING(50),
-        allowNull: false,
-        unique: true
+        allowNull: false
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        reference: { model : "Users" }
+        reference: {model : "Users" }
       },
       createdAt: {
         allowNull: false,

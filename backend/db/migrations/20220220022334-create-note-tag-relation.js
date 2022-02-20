@@ -11,7 +11,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         reference: { model : "Tags" }
-
       },
       createdAt: {
         allowNull: false,
