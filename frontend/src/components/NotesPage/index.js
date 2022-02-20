@@ -9,7 +9,7 @@ import DeleteButton from './DeleteButton';
 function NotesPage() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
-    const notes = useSelector((state) => state.note.notes);
+    const notes = useSelector((state) => state.notes.notes);
 
     const [selectedNote, setSelectedNote] = useState('');
     const [padTitle, setPadTitle] = useState('');

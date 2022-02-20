@@ -133,7 +133,7 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {} }, action) => {
         case SET_NOTES:
             // FOR SET NOTEBOOK: PAYLOAD = ARRAY OF NOTEBOOKS
             newState = Object.assign({}, state);
-            action.payload.notes.forEach(note => {
+            action.payload.forEach(note => {
                 newState.notes[note.id] = note;
             })
             return newState;
@@ -153,7 +153,7 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {} }, action) => {
         case SET_NOTETAGS:
             // FOR SET NOTETAG: PAYLOAD = ARRAY OF NOTETAGS
             newState = Object.assign({}, state);
-            action.payload.noteTags.forEach(notetag => {
+            action.payload.forEach(notetag => {
                 if (!newState.noteTagRelations[notetag.noteId]) newState.noteTagRelations[notetag.noteId] = {};
                 newState.noteTagRelations[notetag.noteId][notetag.tagId] = notetag;
             })

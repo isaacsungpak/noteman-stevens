@@ -6,8 +6,8 @@ import noteReducer from './notes';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  notebook: notebookReducer,
-  note: noteReducer
+  notebooks: notebookReducer,
+  notes: noteReducer
 });
 
 let enhancer;

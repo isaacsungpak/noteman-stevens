@@ -81,7 +81,7 @@ const notebookReducer = (state = { notebooks: {} }, action) => {
         case SET_NOTEBOOKS:
             // FOR SET NOTEBOOK: PAYLOAD = ARRAY OF NOTEBOOKS
             newState = Object.assign({}, state);
-            action.payload.notebooks.forEach((notebook) => {
+            action.payload.forEach((notebook) => {
                 newState.notebooks[notebook.id] = notebook;
             })
             return newState;

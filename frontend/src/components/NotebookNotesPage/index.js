@@ -11,7 +11,7 @@ function NotebookNotesPage() {
     const { notebookId } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
-    const notes = useSelector((state) => state.note.notes);
+    const notes = useSelector((state) => state.notes.notes);
 
     const [noteSearch, setNoteSearch] = useState('');
     const [visibleNotes, setVisibleNotes] = useState(notes);

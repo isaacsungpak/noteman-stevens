@@ -8,8 +8,8 @@ import './LoggedInHomePage.css';
 
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
-    const notebooks = useSelector((state) => state.notebook.notebooks);
-    const notes = useSelector((state) => state.note.notes);
+    const notebooks = useSelector((state) => state.notebooks.notebooks);
+    const notes = useSelector((state) => state.notes.notes);
     const [numNotebooks, setNumNotebooks] = useState(0);
     const [numNotes, setNumNotes] = useState(0);
 

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTab from './ProfileTab';
 import styled from 'styled-components';
 import Noteman from '../Images/NotemanSq.png';
+import { getNotebooks } from '../../store/notebooks';
 
 const NavBar = styled.nav`
   width: 250px;
@@ -78,6 +79,40 @@ const NavTab = styled.li`
     }
 `
 
+const NotebooksMenu = styled.div`
+    width: 100%;
+    height: min-content;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    a {
+      text-decoration: none;
+      flex: 1;
+      padding: 5px 0;
+      padding-left: 30px;
+      color: #F4F2F7;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .active {
+      background-color: #453750;
+    }
+`
+
 const Logo = styled.div`
   height: 200px;
   width: 100%;
@@ -100,19 +135,25 @@ function Navigation() {
 
   const sessionUser = useSelector(state => state.session.user);
   const [searchKey, setSearchKey] = useState("");
-  // const notebooks = useSelector(state => state.notebooks);
+  const notebooks = useSelector(state => state.notebooks.notebooks);
+
+  const [notebooksLoaded, setNotebooksLoaded] = useState(false);
   const [showNotebooks, setShowNotebooks] = useState(false);
 
   const [showAddNotes, setShowAddNotes] = useState(false);
   const [showAddNotebooks, setShowAddNotebooks] = useState(false);
   const [showAddTags, setShowAddTags] = useState(false);
 
-  // dispatch(get notebooks -> setIsLoaded)
-
   function submitSearch(e) {
     e.preventDefault();
     history.push(`/notes?search=${searchKey}`);
   }
+
+  useEffect(() => {
+    dispatch(getNotebooks()).then(() => setNotebooksLoaded(true));
+  }, [dispatch]);
+
+  const orderedNotebooks = notebooks ? Object.values(notebooks).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt))) : [];
 
   return (
     <NavBar>
@@ -127,7 +168,7 @@ function Navigation() {
       <ul id="nav-bar">
         <NavTab>
           <NavLink exact to="/">
-            <i class="fas fa-home"/>
+            <i className="fas fa-home"/>
             <div>Home</div>
           </NavLink>
         </NavTab>
@@ -137,10 +178,10 @@ function Navigation() {
           onMouseLeave={() => setShowAddNotes(false)}
         >
           <NavLink exact to="/notes">
-            <i class="fas fa-sticky-note"/>
+            <i className="fas fa-sticky-note"/>
             <div>Notes</div>
           </NavLink>
-          {showAddNotes && <div className='add' onClick={() => console.log("add note")}><i class="fas fa-plus-circle"></i></div>}
+          {showAddNotes && <div className='add' onClick={() => console.log("add note")}><i className="fas fa-plus-circle"/></div>}
         </NavTab>
 
         <NavTab
@@ -148,23 +189,31 @@ function Navigation() {
           onMouseLeave={() => setShowAddNotebooks(false)}
         >
           <div onClick={() => setShowNotebooks(!showNotebooks)}>
-            <i class="fas fa-book-open"/>
+            <i className="fas fa-book-open"/>
             <div>Notebooks</div>
             {showNotebooks ? <i className="fas fa-chevron-up"/> : <i className="fas fa-chevron-down"/>}
           </div>
-          {showAddNotebooks && <div className='add' onClick={() => console.log("add notebook")}><i class="fas fa-plus-circle"></i></div>}
+          {showAddNotebooks && <div className='add' onClick={() => console.log("add notebook")}><i className="fas fa-plus-circle"/></div>}
         </NavTab>
-        {showNotebooks && <div><p>[notebooks]</p></div>}
+        {(showNotebooks && notebooksLoaded) &&
+          <NotebooksMenu>
+            <ul>
+              {orderedNotebooks.map((notebook, idx) => (
+                <li><NavLink to={`/notebooks/${notebook.id}`} key={idx}>{notebook.title}</NavLink></li>
+              ))}
+            </ul>
+          </NotebooksMenu>
+        }
 
         <NavTab
           onMouseEnter={() => setShowAddTags(true)}
           onMouseLeave={() => setShowAddTags(false)}
         >
           <NavLink exact to="/tags">
-            <i class="fas fa-tag"/>
+            <i className="fas fa-tag"/>
             <div>Tags</div>
           </NavLink>
-          {showAddTags && <div className='add' onClick={() => console.log("add tag")}><i class="fas fa-plus-circle"></i></div>}
+          {showAddTags && <div className='add' onClick={() => console.log("add tag")}><i className="fas fa-plus-circle"></i></div>}
         </NavTab>
       </ul>
       <Logo>
