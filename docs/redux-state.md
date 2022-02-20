@@ -38,15 +38,16 @@
                     }
                 }
             },
-            tagsToNotes: {
+            noteTags: {
                 3: {
-                    id: 3,
-                    noteId: 2,
-                    tagId: 6
-                    createdAt: datetime,
-                    updatedAt: datetime
+                    6: {
+                        id: 3,
+                        noteId: 2,
+                        tagId: 6
+                        createdAt: datetime,
+                        updatedAt: datetime
+                    }
                 }
-
             }
         }
     },

@@ -6,7 +6,7 @@ const UPDATE_NOTEBOOK = 'notebooks/UPDATE_NOTEBOOK';
 
 const setNBs = (notebooks) => {
     return {
-      type: SET_ALL_NOTEBOOKS,
+      type: SET_NOTEBOOKS,
       payload: notebooks,
     };
 };
@@ -46,12 +46,6 @@ export const getNotebooks = () => async (dispatch) => {
     return response;
 }
 
-// export const getSingleNotebookTitle = (notebookId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/notebooks/${notebookId}/title`);
-//     const data = await response.json();
-//     return {response, title: data.title};
-// }
-
 export const updateNotebook = (notebookId, title) => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
         method: 'PATCH',
@@ -71,6 +65,14 @@ export const deleteNotebook = (notebookId) => async (dispatch) => {
     const data = await response.json();
     dispatch(deleteNB(data.notebook));
     return response;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const getSingleNotebookTitle = (notebookId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/notebooks/${notebookId}/title`);
+    const data = await response.json();
+    return {response, title: data.title};
 }
 
 const notebookReducer = (state = { notebooks: {} }, action) => {
