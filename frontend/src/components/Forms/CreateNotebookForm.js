@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux';
 import { createNotebook } from "../../store/notebooks";
 import ModalFormContainer from "./ModalFormContainer";
 
-function CreateNotebookForm({ setShowModal }) {
+function CreateNotebookForm({ setShowModal, setShowNotebooks }) {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [validError, setValidError] = useState('');
 
     const submitNotebook = (e) => {
         e.preventDefault();
+        setShowNotebooks(false);
         dispatch(createNotebook(title))
-            // .then(() => setShowModal(false))
-            .then(() => console.log(title))
+            .then(() => setShowModal(false))
             .catch(async(res) => {
                 const data = await res.json();
                 if (data && data.errors) setValidError(data.errors[0]);

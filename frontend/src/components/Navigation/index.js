@@ -5,6 +5,7 @@ import ProfileTab from './ProfileTab';
 import styled from 'styled-components';
 import Noteman from '../Images/NotemanSq.png';
 import { getNotebooks } from '../../store/notebooks';
+import CreateNotebookModal from '../Modals/CreateNotebookModal';
 
 const NavBar = styled.nav`
   width: 250px;
@@ -147,13 +148,14 @@ function Navigation() {
   function submitSearch(e) {
     e.preventDefault();
     if(searchKey !== '') history.push(`/notes?search=${searchKey}`);
-  }
+  };
 
   useEffect(() => {
-    dispatch(getNotebooks()).then(() => setNotebooksLoaded(true));
+    dispatch(getNotebooks())
+      .then(() => setNotebooksLoaded(true));
   }, [dispatch]);
 
-  let orderedNotebooks = notebooks ? Object.values(notebooks).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt))) : [];
+  const orderedNotebooks = Object.values(notebooks).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt)));
 
   return (
     <NavBar>
@@ -193,7 +195,7 @@ function Navigation() {
             <div>Notebooks</div>
             {showNotebooks ? <i className="fas fa-chevron-up"/> : <i className="fas fa-chevron-down"/>}
           </div>
-          {showAddNotebooks && <div className='add' onClick={() => console.log("add notebook")}><i className="fas fa-plus-circle"/></div>}
+          {showAddNotebooks && <CreateNotebookModal setShowNotebooks={setShowNotebooks}/>}
         </NavTab>
         {(showNotebooks && notebooksLoaded) &&
           <NotebooksMenu>
