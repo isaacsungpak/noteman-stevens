@@ -7,7 +7,6 @@ import CreateModal from './CreateModal';
 import './LoggedInHomePage.css';
 
 import CreateNotebookForm from "../Forms/CreateNotebookForm";
-import CreateTagForm from "../Forms/CreateTagForm";
 
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
@@ -49,9 +48,6 @@ function LoggedInHomePage({ sessionUser }) {
 
     return (
         <div id='logged-in-home-container'>
-            <CreateNotebookForm/>
-            <CreateTagForm/>
-
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
                 <br />

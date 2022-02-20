@@ -141,7 +141,6 @@ function Navigation() {
   const [notebooksLoaded, setNotebooksLoaded] = useState(false);
   const [showNotebooks, setShowNotebooks] = useState(false);
 
-  const [showAddNotes, setShowAddNotes] = useState(false);
   const [showAddNotebooks, setShowAddNotebooks] = useState(false);
   const [showAddTags, setShowAddTags] = useState(false);
 
@@ -175,15 +174,11 @@ function Navigation() {
           </NavLink>
         </NavTab>
 
-        <NavTab
-          onMouseEnter={() => setShowAddNotes(true)}
-          onMouseLeave={() => setShowAddNotes(false)}
-        >
+        <NavTab>
           <NavLink exact to="/notes">
             <i className="fas fa-sticky-note"/>
             <div>Notes</div>
           </NavLink>
-          {showAddNotes && <div className='add' onClick={() => console.log("add note")}><i className="fas fa-plus-circle"/></div>}
         </NavTab>
 
         <NavTab

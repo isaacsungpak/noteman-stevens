@@ -39,11 +39,10 @@
                 }
             },
             noteTags: {
-                3: {
-                    6: {
-                        id: 3,
+                2: {
+                    1: {
                         noteId: 2,
-                        tagId: 6
+                        tagId: 1
                         createdAt: datetime,
                         updatedAt: datetime
                     }
@@ -81,9 +80,9 @@
     },
     tags: {
         tags: {
-            6: {
-                id: 6,
-                title: "tag title",
+            1: {
+                id: 1
+                title: "example tag",
                 userId: 1,
                 createdAt: datetime,
                 updatedAt: datetime,
