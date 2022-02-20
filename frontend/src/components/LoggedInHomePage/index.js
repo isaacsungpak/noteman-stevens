@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import CreateModal from './CreateModal';
 import './LoggedInHomePage.css';
 
+import ModalFormContainer from "../Forms/ModalFormContainer";
+import CreateNotebookForm from "../Forms/CreateNotebookForm";
+
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
     const notebooks = useSelector((state) => state.notebooks.notebooks);
@@ -46,6 +49,7 @@ function LoggedInHomePage({ sessionUser }) {
 
     return (
         <div id='logged-in-home-container'>
+            <CreateNotebookForm>this is an example modal</CreateNotebookForm>
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
                 <br />
