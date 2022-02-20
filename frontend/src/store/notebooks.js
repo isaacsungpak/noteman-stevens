@@ -34,15 +34,19 @@ export const createNotebook = (title) => async (dispatch) => {
             title
         })
     });
-    const data = await response.json();
-    dispatch(updateNB(data.notebook));
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateNB(data.notebook));
+    }
     return response;
 }
 
 export const getNotebooks = () => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks`);
-    const data = await response.json();
-    await dispatch(setNBs(data.notebooks));
+    if (response.ok) {
+        const data = await response.json();
+        await dispatch(setNBs(data.notebooks));
+    }
     return response;
 }
 
@@ -53,8 +57,10 @@ export const updateNotebook = (notebookId, title) => async (dispatch) => {
             title
         })
     });
-    const data = await response.json();
-    dispatch(updateNB(data.notebook));
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateNB(data.notebook));
+    }
     return response;
 }
 
@@ -62,8 +68,10 @@ export const deleteNotebook = (notebookId) => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
         method: 'DELETE',
     });
-    const data = await response.json();
-    dispatch(deleteNB(data.notebook));
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteNB(data.notebook));
+    }
     return response;
 }
 

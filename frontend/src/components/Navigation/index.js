@@ -146,14 +146,14 @@ function Navigation() {
 
   function submitSearch(e) {
     e.preventDefault();
-    history.push(`/notes?search=${searchKey}`);
+    if(searchKey !== '') history.push(`/notes?search=${searchKey}`);
   }
 
   useEffect(() => {
     dispatch(getNotebooks()).then(() => setNotebooksLoaded(true));
   }, [dispatch]);
 
-  const orderedNotebooks = notebooks ? Object.values(notebooks).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt))) : [];
+  let orderedNotebooks = notebooks ? Object.values(notebooks).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt))) : [];
 
   return (
     <NavBar>
@@ -199,7 +199,7 @@ function Navigation() {
           <NotebooksMenu>
             <ul>
               {orderedNotebooks.map((notebook, idx) => (
-                <li><NavLink to={`/notebooks/${notebook.id}`} key={idx}>{notebook.title}</NavLink></li>
+                <li><NavLink to={`/notebooks/${notebook.id}`} key={`nb${idx}`}>{notebook.title}</NavLink></li>
               ))}
             </ul>
           </NotebooksMenu>

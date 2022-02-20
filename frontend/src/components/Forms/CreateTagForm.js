@@ -3,20 +3,20 @@ import { useDispatch } from 'react-redux';
 import { createNotebook } from "../../store/notebooks";
 import ModalFormContainer from "./ModalFormContainer";
 
-function CreateTagForm({ setShowCreateModal }) {
+function CreateTagForm({ setShowModal }) {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [validError, setValidError] = useState('');
 
     const submitNotebook = (e) => {
         e.preventDefault();
-        // dispatch(createNotebook(title)).then(() => setShowCreateModal(false));
+        // dispatch(createNotebook(title)).then(() => setShowModal(false));
         //Create tag & if errors, set errors to validError
     }
 
     const cancelBtn = (e) => {
         e.preventDefault();
-        setShowCreateModal(false);
+        setShowModal(false);
     };
 
     const updateName = (e) => {

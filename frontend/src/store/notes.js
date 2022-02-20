@@ -53,20 +53,33 @@ export const createNote = (title, content, notebookId) => async (dispatch) => {
             title, content, notebookId
         })
     });
-    const data = await response.json();
-    dispatch(updateN(data.note));
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateN(data.note));
+    }
     return response;
 }
 
 export const getAllNotes = () => async (dispatch) => {
     const response = await csrfFetch(`/api/notes/`);
-    const data = await response.json();
-    dispatch(setNs(data.notes));
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setNs(data.notes));
+    }
+    return response;
+}
+
+export const getSearchNotes = (searchKey) => async (dispatch) => {
+    const response = await csrfFetch(`/api/notes/?search=${searchKey}`);
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setNs(data.notes));
+    }
     return response;
 }
 
 export const getNotesFromNotebook = (notebookId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/${notebookId}`);
+    const response = await csrfFetch(`/api/notebooks/${notebookId}/notes`);
     const data = await response.json();
     dispatch(setNs(data.notes));
     return response;

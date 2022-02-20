@@ -3,19 +3,25 @@ import { useDispatch } from 'react-redux';
 import { createNotebook } from "../../store/notebooks";
 import ModalFormContainer from "./ModalFormContainer";
 
-function CreateNotebookForm({ setShowCreateModal }) {
+function CreateNotebookForm({ setShowModal }) {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [validError, setValidError] = useState('');
 
     const submitNotebook = (e) => {
         e.preventDefault();
-        dispatch(createNotebook(title)).then(() => setShowCreateModal(false));
+        dispatch(createNotebook(title))
+            // .then(() => setShowModal(false))
+            .then(() => console.log(title))
+            .catch(async(res) => {
+                const data = await res.json();
+                if (data && data.errors) setValidError(data.errors[0]);
+            });
     }
 
     const cancelBtn = (e) => {
         e.preventDefault();
-        setShowCreateModal(false);
+        setShowModal(false);
     };
 
     const updateTitle = (e) => {
