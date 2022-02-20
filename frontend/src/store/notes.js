@@ -166,7 +166,7 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {} }, action) => {
             newState.noteTagRelations[noteTag.noteId][noteTag.tagId] = noteTag;
             return newState;
         case DELETE_NOTETAG:
-            // FOR DELETE NOTEBOOK: PAYLOAD = DELETED NOTEID
+            // FOR DELETE NOTETAG: PAYLOAD = OBJ W NOTEID AND TAGID
             newState = Object.assign({}, state);
             noteTag = action.payload;
             delete newState.noteTagRelations[noteTag.noteId][noteTag.tagId];
