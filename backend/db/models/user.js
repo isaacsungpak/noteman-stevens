@@ -20,15 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [3, 256]
+        len: [5, 255]
       }
     },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
-      validate: {
-        len: [60, 60]
-      }
     }
   },
   {
@@ -89,6 +86,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.hasMany(models.Notebook, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
     User.hasMany(models.Note, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
+    User.hasMany(models.Tag, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
   };
   return User;
 };

@@ -11,7 +11,7 @@ In the root directory, run `npm install` to install all dependencies.
 3. Create a database user with CREATEDB privileges
 4. Copy the contents of `backend/.env.example` into a new `backend/.env` file, and replace the example credentials with the values used in step 3
 5. Create the database with the command: `npx dotenv sequelize db:create`
-6. Run migrations with the command: `npx dotenv sequelize db:migrations`
+6. Run migrations with the command: `npx dotenv sequelize db:migrate`
 7. Seed the database with the command: `npx dotenv sequelize db:seed:all`
 8. Run the backend with the command `npm start` in the `backend` directory
 9. In a new terminal, run `npm start` in the `frontend` directory
