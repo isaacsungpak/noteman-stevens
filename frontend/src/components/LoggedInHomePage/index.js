@@ -7,6 +7,7 @@ import CreateModal from './CreateModal';
 import './LoggedInHomePage.css';
 
 import NoteTab from "../NoteTab";
+import NoteBar from "../NoteBar";
 
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
@@ -48,8 +49,28 @@ function LoggedInHomePage({ sessionUser }) {
 
     return (
         <div id='logged-in-home-container'>
-            <NoteTab isSelected={true} />
-            <NoteTab isSelected={false} />
+            <NoteBar>
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                {/* <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} /> */}
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={true} />
+                <NoteTab isSelected={false} />
+            </NoteBar>
 
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>

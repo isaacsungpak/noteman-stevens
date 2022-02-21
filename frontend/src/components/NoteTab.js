@@ -13,7 +13,7 @@ const exNote = {
 const Tab = styled.div`
     width: 100%;
     height: 79px;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #BBB;
     background-color: ${props => props.isSelected ? '#D6CEDE' : '#F4F2F7'};
     box-shadow: ${props => props.isSelected ? 'inset 0 0 5px rgba(12, 9, 16, 0.5)' : 'none'};
     display: flex;
