@@ -11,20 +11,20 @@ const exNote = {
 }
 
 const Tab = styled.div`
-    // width: calc(100% - 2px);
-    width: 300px;
+    width: calc(100% - 2px);
     height: 68px;
     border: 1px solid #CCC;
     border-top: 0;
-    background-color: ${props => props.isSelected ? '#BEB2D2' : '#F4F2F7'};
+    background-color: ${props => props.isSelected ? '#D6CEDE' : '#F4F2F7'};
     box-shadow: ${props => props.isSelected ? 'inset 0 0 5px rgba(12, 9, 16, 0.5)' : 'none'};
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     div {
-        width: 95%;
+        width: 96%;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -36,12 +36,12 @@ const Tab = styled.div`
 
     #content {
         font-size: 14px;
-        color: ${props => props.isSelected ? '#333' : '#555'};
+        color: ${props => props.isSelected ? '#555' : '#777'};
     }
 
     #date {
         font-size: 12px;
-        color: ${props => props.isSelected ? '#555' : '#888'};
+        color: ${props => props.isSelected ? '#777' : '#999'};
         text-align: right;
     }
 `
