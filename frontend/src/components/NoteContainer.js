@@ -107,7 +107,8 @@ function NoteContainer({ note=defaultNote }) {
         [dispatch]
     )
 
-    const updateTitle = useCallback(e => {
+    const updateTitle = useCallback(
+        e => {
             const changedTitle = e.target.value;
             if (changedTitle.length >= 50) {
                 setNoteTitle(changedTitle);
