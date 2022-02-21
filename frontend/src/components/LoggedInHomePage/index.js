@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CreateModal from './CreateModal';
 import './LoggedInHomePage.css';
 
-import CreateNotebookForm from "../Forms/CreateNotebookForm";
+import NoteTab from "../NoteTab";
 
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
@@ -48,6 +48,9 @@ function LoggedInHomePage({ sessionUser }) {
 
     return (
         <div id='logged-in-home-container'>
+            <NoteTab isSelected={true} />
+            <NoteTab isSelected={false} />
+
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
                 <br />
