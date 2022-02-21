@@ -11,10 +11,9 @@ const exNote = {
 }
 
 const Tab = styled.div`
-    width: calc(100% - 2px);
-    height: 68px;
-    border: 1px solid #CCC;
-    border-top: 0;
+    width: 100%;
+    height: 79px;
+    border-bottom: 1px solid #CCC;
     background-color: ${props => props.isSelected ? '#D6CEDE' : '#F4F2F7'};
     box-shadow: ${props => props.isSelected ? 'inset 0 0 5px rgba(12, 9, 16, 0.5)' : 'none'};
     display: flex;
@@ -32,11 +31,13 @@ const Tab = styled.div`
 
     #title {
         font-size: 16px;
+        margin-bottom: 5px;
     }
 
     #content {
         font-size: 14px;
         color: ${props => props.isSelected ? '#555' : '#777'};
+        margin-bottom: 5px;
     }
 
     #date {
