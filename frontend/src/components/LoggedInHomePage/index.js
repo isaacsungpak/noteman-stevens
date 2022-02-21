@@ -6,8 +6,16 @@ import { Link } from "react-router-dom";
 import CreateModal from './CreateModal';
 import './LoggedInHomePage.css';
 
+
+import styled from "styled-components";
 import NoteTab from "../NoteTab";
 import NoteBar from "../NoteBar";
+import NoteContainer from "../NoteContainer";
+
+const Page = styled.div`
+    height: 100vh;
+    width: calc(100vw - 250px);
+`
 
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
@@ -48,7 +56,7 @@ function LoggedInHomePage({ sessionUser }) {
     }, [notes, notebooks])
 
     return (
-        <div id='logged-in-home-container'>
+        <Page id='logged-in-home-container'>
             <NoteBar>
                 <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} />
@@ -71,6 +79,7 @@ function LoggedInHomePage({ sessionUser }) {
                 <NoteTab isSelected={true} />
                 <NoteTab isSelected={false} />
             </NoteBar>
+            <NoteContainer />
 
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
@@ -98,7 +107,7 @@ function LoggedInHomePage({ sessionUser }) {
                 <button onClick={() => setShowCreateModal(true)} disabled={padContent.length === 0} id={padContent.length > 0 ? undefined : 'disabled'}>Save</button>
                 {showCreateModal && <CreateModal content={padContent} setShowCreateModal={setShowCreateModal}/>}
             </div>
-        </div>
+        </Page>
     )
 }
 
