@@ -13,7 +13,7 @@ const Bar = styled.div`
     z-index: 500;
 `
 
-function NoteBar({children}) {
+function NoteBar({children, newNote}) {
     return  (
         <Bar>
             { children }

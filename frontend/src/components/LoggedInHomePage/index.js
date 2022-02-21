@@ -11,6 +11,7 @@ import styled from "styled-components";
 import NoteTab from "../NoteTab";
 import NoteBar from "../NoteBar";
 import NoteContainer from "../NoteContainer";
+import NewNoteButton from "../Buttons/NewNoteButton";
 
 const Page = styled.div`
     height: 100vh;
@@ -58,6 +59,7 @@ function LoggedInHomePage({ sessionUser }) {
     return (
         <Page id='logged-in-home-container'>
             <NoteBar>
+                <NewNoteButton />
                 <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} />
