@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/isaacsungpak/noteman-stevens/issues"
   },
-  "homepage": "https://github.com/isaacsungpak/noteman-stevens#readme"
+  "homepage": "https://github.com/isaacsungpak/noteman-stevens#readme",
+  "dependencies": {
+    "lodash.debounce": "^4.0.8"
+  }
 }

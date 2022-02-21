@@ -1,6 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import debounce from 'lodash.debounce';
+import { updateNote } from "../store/notes";
+
+const defaultNote = {
+    id: 0,
+    title: "Please select a note",
+    content: "Please?"
+}
 
 const Container = styled.div`
     height: calc(100% - 20px);
@@ -38,7 +46,15 @@ const Container = styled.div`
         flex: 1;
         margin-top: 10px;
         resize: none;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
+    }
+
+    #save-message {
+        font-size: 12px;
+        width: 100%;
+        text-align: right;
+        margin-bottom: 5px;
+        color: #CCC;
     }
 
     #tag-section {
@@ -62,29 +78,61 @@ const Container = styled.div`
     }
 `
 
-function NoteContainer({ note }) {
+function NoteContainer({ note=defaultNote }) {
     const dispatch = useDispatch();
 
+    const tags = useSelector(state => state.tags.tags);
+    const noteTags = useSelector(state => state.notes.noteTagRelations[note.id]) || {};
+
+    const [noteTitle, setNoteTitle] = useState(note.title);
+    const [noteContent, setNoteContent] = useState(note.content);
+    const [saveState, setSaveState] = useState(1);
     const [tagSelect, setTagSelect] = useState(0);
-    const [noteTitle, setNoteTitle] = useState(note?.content);
-    const [noteContent, setNoteContent] = useState(note?.content);
+    const [tagsLoaded, setTagsLoaded] = useState(false);
 
     const submitTag = () => {
         return;
     }
 
-    const updateTitle = (e) => {
+    const debouncedUpdate = useMemo(
+        () =>
+          debounce((noteTitle, noteContent, note) => {
+            dispatch(updateNote(noteTitle, noteContent, note.id))
+                .then(() => setSaveState(1))
+                .catch(async(res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setSaveState(3);
+                })
+          }, 1000),
+        [dispatch]
+    )
 
-    }
+    const updateTitle = useCallback(e => {
+            const changedTitle = e.target.value;
+            if (changedTitle.length >= 50) {
+                setNoteTitle(changedTitle);
+                setSaveState(2);
+                debouncedUpdate({noteTitle, noteContent});
+            }
+        }, [noteTitle, noteContent, debouncedUpdate]
+    )
 
-    const updateContent = (e) => {
-
-    }
+    const updateContent = useCallback(
+        e => {
+            const changedContent = e.target.value;
+            setNoteContent(changedContent);
+            debouncedUpdate({noteTitle, noteContent});
+        }, [noteTitle, noteContent, debouncedUpdate]
+    )
 
     const addTag = (e) => {
         const selectVal = e.target.value;
         if (selectVal !== 0) return;
     }
+
+    useEffect(() => {
+        // dispatch(getNoteTags());
+    })
 
     return  (
         <Container>
@@ -92,13 +140,24 @@ function NoteContainer({ note }) {
                 type='text'
                 id='title'
                 placeholder="Title"
+                value={noteTitle}
+                onChange={updateTitle}
+                disabled={note.id === 0}
             />
             <textarea
                 id='content'
                 placeholder="Content"
+                value={noteContent}
+                onChange={updateContent}
+                disabled={note.id === 0}
             />
+            { note.id !== 0 &&
+                <div id="save-message">
+                    {saveState === 1 ? "Saved" : saveState === 2 ? "Saving..." : "Something went wrong"}
+                </div>
+            }
             <div id='tag-section'>
-                <select defaultValue={0} id='tag-selector' onChange={addTag}>
+                <select defaultValue={0} id='tag-selector' onChange={addTag} disabled={note.id === 0}>
                     <option
                         value={0}
                         disabled
