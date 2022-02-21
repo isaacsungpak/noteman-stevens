@@ -5,7 +5,7 @@ import styled from "styled-components";
 const exNote = {
     id: 1,
     userId: 1,
-    title: "test noteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    title: "test note",
     content: "test content aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     notebookId: 1,
     createdAt: "2022-02-20 16:29:48.062738-05",
