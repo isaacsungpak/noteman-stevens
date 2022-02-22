@@ -2,14 +2,22 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('NoteTagRelations', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       noteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        // primaryKey: true,
         reference: { model : "Notes" }
       },
       tagId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        // primaryKey: true,
         reference: { model : "Tags" }
       },
       createdAt: {

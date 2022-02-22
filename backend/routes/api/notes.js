@@ -79,6 +79,9 @@ router.patch('/:noteId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(asyn
     const userId = req.user.id;
     const { noteId } = req.params;
     const {title, content} = req.body;
+    
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', title, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', content, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
 
     const note = await db.Note.findByPk(noteId);
     const notebookId = note.notebookId;

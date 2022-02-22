@@ -6,9 +6,9 @@ const DELETE_NOTE = 'notes/DELETE_NOTE';
 
 const SET_NOTES_BY_TAG = 'notes/SET_NOTES_BY_TAG'
 
-const SET_NOTETAGS = 'notes/SET_NOTES';
-const UPDATE_NOTETAG = 'notes/UPDATE_NOTE';
-const DELETE_NOTETAG = 'notes/DELETE_NOTE';
+const SET_NOTETAGS = 'notes/SET_NOTETAGS';
+const UPDATE_NOTETAG = 'notes/UPDATE_NOTETAG';
+const DELETE_NOTETAG = 'notes/DELETE_NOTETAG';
 
 const setNs = (notes) => {
     return {

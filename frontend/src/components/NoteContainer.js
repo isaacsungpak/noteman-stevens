@@ -2,10 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import debounce from 'lodash.debounce';
-import { updateNote } from "../store/notes";
+import { getTagsByNote, updateNote } from "../store/notes";
 
 const defaultNote = {
-    id: 0,
+    id: 2,
     title: "Please select a note",
     content: "Please?"
 }
@@ -88,7 +88,12 @@ function NoteContainer({ note=defaultNote }) {
     const [noteContent, setNoteContent] = useState(note.content);
     const [saveState, setSaveState] = useState(1);
     const [tagSelect, setTagSelect] = useState(0);
-    const [tagsLoaded, setTagsLoaded] = useState(false);
+    const [noteTagsLoaded, setNoteTagsLoaded] = useState(false);
+
+    useEffect(() => {
+        dispatch(getTagsByNote(note.id))
+            .then(() => setNoteTagsLoaded(true));
+    }, [dispatch, note.id])
 
     const submitTag = () => {
         return;
@@ -113,27 +118,24 @@ function NoteContainer({ note=defaultNote }) {
             if (changedTitle.length <= 50) {
                 setNoteTitle(changedTitle);
                 setSaveState(2);
-                debouncedUpdate({noteTitle, noteContent});
+                debouncedUpdate(noteTitle, noteContent, note);
             }
-        }, [noteTitle, noteContent, debouncedUpdate]
+        }, [noteTitle, noteContent, debouncedUpdate, note]
     )
 
     const updateContent = useCallback(
         e => {
             const changedContent = e.target.value;
             setNoteContent(changedContent);
-            debouncedUpdate({noteTitle, noteContent});
-        }, [noteTitle, noteContent, debouncedUpdate]
+            setSaveState(2);
+            debouncedUpdate(noteTitle, noteContent, note);
+        }, [noteTitle, noteContent, debouncedUpdate, note]
     )
 
     const addTag = (e) => {
         const selectVal = e.target.value;
         if (selectVal !== 0) return;
     }
-
-    useEffect(() => {
-        // dispatch(getNoteTags());
-    })
 
     return  (
         <Container>
@@ -166,7 +168,7 @@ function NoteContainer({ note=defaultNote }) {
                         Select a tag
                     </option>
                 </select>
-                {}
+                {noteTagsLoaded && "Hi"}
             </div>
         </Container>
     )
