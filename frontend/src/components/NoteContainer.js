@@ -110,7 +110,7 @@ function NoteContainer({ note=defaultNote }) {
     const updateTitle = useCallback(
         e => {
             const changedTitle = e.target.value;
-            if (changedTitle.length >= 50) {
+            if (changedTitle.length <= 50) {
                 setNoteTitle(changedTitle);
                 setSaveState(2);
                 debouncedUpdate({noteTitle, noteContent});
