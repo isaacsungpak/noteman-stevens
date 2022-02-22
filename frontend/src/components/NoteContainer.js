@@ -82,8 +82,9 @@ function NoteContainer({ note=defaultNote }) {
     const dispatch = useDispatch();
 
     const tags = useSelector(state => state.tags.tags);
-    const noteTags = useSelector(state => state.notes.noteTagRelations[note.id]) || {};
+    const noteTags = useSelector(state => state.notes.noteTagRelations[note.id]);
 
+    const noteId = note.id;
     const [noteTitle, setNoteTitle] = useState(note.title);
     const [noteContent, setNoteContent] = useState(note.content);
     const [saveState, setSaveState] = useState(1);
@@ -101,8 +102,8 @@ function NoteContainer({ note=defaultNote }) {
 
     const debouncedUpdate = useMemo(
         () =>
-          debounce((noteTitle, noteContent, note) => {
-            dispatch(updateNote(noteTitle, noteContent, note.id))
+          debounce((title, content, noteId) => {
+            dispatch(updateNote(title, content, noteId))
                 .then(() => setSaveState(1))
                 .catch(async(res) => {
                     const data = await res.json();
@@ -118,9 +119,9 @@ function NoteContainer({ note=defaultNote }) {
             if (changedTitle.length <= 50) {
                 setNoteTitle(changedTitle);
                 setSaveState(2);
-                debouncedUpdate(noteTitle, noteContent, note);
+                debouncedUpdate(changedTitle, noteContent, noteId);
             }
-        }, [noteTitle, noteContent, debouncedUpdate, note]
+        }, [noteContent, debouncedUpdate, noteId]
     )
 
     const updateContent = useCallback(
@@ -128,9 +129,25 @@ function NoteContainer({ note=defaultNote }) {
             const changedContent = e.target.value;
             setNoteContent(changedContent);
             setSaveState(2);
-            debouncedUpdate(noteTitle, noteContent, note);
-        }, [noteTitle, noteContent, debouncedUpdate, note]
+            debouncedUpdate(noteTitle, changedContent, noteId);
+        }, [noteTitle, debouncedUpdate, noteId]
     )
+
+    // const updateTitle = e => {
+    //     const changedTitle = e.target.value;
+    //     if (changedTitle.length <= 50) {
+    //         setNoteTitle(changedTitle);
+    //         setSaveState(2);
+    //         debouncedUpdate(changedTitle, noteContent, noteId);
+    //     }
+    // }
+
+    // const updateContent = e => {
+    //     const changedContent = e.target.value;
+    //     setNoteContent(changedContent);
+    //     setSaveState(2);
+    //     debouncedUpdate(noteTitle, changedContent, noteId);
+    // }
 
     const addTag = (e) => {
         const selectVal = e.target.value;
@@ -168,7 +185,7 @@ function NoteContainer({ note=defaultNote }) {
                         Select a tag
                     </option>
                 </select>
-                {noteTagsLoaded && "Hi"}
+                {noteTagsLoaded}
             </div>
         </Container>
     )
