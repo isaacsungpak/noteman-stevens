@@ -3,12 +3,7 @@ import styled from "styled-components";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import debounce from 'lodash.debounce';
 import { getTagsByNote, updateNote } from "../store/notes";
-
-const defaultNote = {
-    id: 0,
-    title: "Please select a note",
-    content: "Please?"
-}
+import exampleNote from "./ExampleNote";
 
 const Container = styled.div`
     height: calc(100% - 20px);
@@ -78,7 +73,7 @@ const Container = styled.div`
     }
 `
 
-function NoteContainer({ note=defaultNote }) {
+function NoteContainer({ note }) {
     const dispatch = useDispatch();
 
     const tags = useSelector(state => state.tags.tags);
@@ -92,9 +87,16 @@ function NoteContainer({ note=defaultNote }) {
     const [noteTagsLoaded, setNoteTagsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(getTagsByNote(note.id))
-            .then(() => setNoteTagsLoaded(true));
+        if (note.id !== 0) {
+            dispatch(getTagsByNote(note.id))
+                .then(() => setNoteTagsLoaded(true));
+        }
     }, [dispatch, note.id])
+
+    useEffect(() => {
+        setNoteTitle(note.title);
+        setNoteContent(note.content);
+    }, [note])
 
     const submitTag = () => {
         return;
@@ -173,12 +175,7 @@ function NoteContainer({ note=defaultNote }) {
             />
             { note.id !== 0 &&
                 <div id="save-message">
-                    { saveState === 1 ?
-                        "Saved" :
-                        saveState === 2 ?
-                            "Saving..." :
-                            "Something went wrong"
-                    }
+                    { saveState === 1 ? "Saved" : saveState === 2 ? "Saving..." : "Something went wrong" }
                 </div>
             }
             <div id='tag-section'>

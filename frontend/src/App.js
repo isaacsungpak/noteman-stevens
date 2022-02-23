@@ -4,20 +4,22 @@ import { Route, Switch } from 'react-router-dom';
 import UserlessHomePage from './components/UserlessHomePage';
 import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
-import NotebooksPage from './components/NotebooksPage';
+import NotebooksPage from './components/X-OldNotebooksPage';
+// import NotesPage from './components/OldNotesPage';
 import NotesPage from './components/NotesPage';
-import NotebookNotesPage from './components/NotebookNotesPage';
+import NotebookNotesPage from './components/X-OldNotebookNotesPage';
 import * as sessionActions from './store/session';
 import styled from "styled-components";
 
 const Page = styled.div`
-  width: 100%;
-  flex: 1;
+  width: 100vw;
+  height: 100vh;
   display: flex;
 `
 
 const Content = styled.div`
-  flex: 1;
+  height: 100vh;
+  width: calc(100vw - 250px);
   display: flex;
   position: fixed;
   left: 250px;

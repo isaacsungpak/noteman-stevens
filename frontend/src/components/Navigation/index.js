@@ -146,7 +146,7 @@ function Navigation() {
 
   function submitSearch(e) {
     e.preventDefault();
-    if(searchKey !== '') history.push(`/notes?search=${searchKey}`);
+    if(searchKey !== '') history.push(`/notes/search?key=${searchKey}`);
   };
 
   useEffect(() => {

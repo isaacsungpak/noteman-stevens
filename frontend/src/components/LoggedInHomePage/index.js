@@ -11,7 +11,8 @@ import styled from "styled-components";
 import NoteTab from "../NoteTab";
 import NoteBar from "../NoteBar";
 import NoteContainer from "../NoteContainer";
-import NewNoteButton from "../Buttons/NewNoteButton";
+import NewNoteButton from "../Buttons/Template-NewNoteButton";
+import exampleNote from "../ExampleNote";
 
 const Page = styled.div`
     height: 100vh;
@@ -34,7 +35,7 @@ function LoggedInHomePage({ sessionUser }) {
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks());
-        dispatch(noteActions.getAllNotes());
+        dispatch(noteActions.getNotes());
     }, [dispatch]);
 
     useEffect(() => {
@@ -60,13 +61,13 @@ function LoggedInHomePage({ sessionUser }) {
         <Page id='logged-in-home-container'>
             <NoteBar>
                 <NewNoteButton />
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={false} />
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
                 {/* <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} />
@@ -77,11 +78,11 @@ function LoggedInHomePage({ sessionUser }) {
                 <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} />
                 <NoteTab isSelected={false} /> */}
-                <NoteTab isSelected={false} />
-                <NoteTab isSelected={true} />
-                <NoteTab isSelected={false} />
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote}  isSelected={true} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote}  isSelected={false} setSelectedNote={() => console.log('hey')}/>
             </NoteBar>
-            <NoteContainer />
+            <NoteContainer note={exampleNote} />
 
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>

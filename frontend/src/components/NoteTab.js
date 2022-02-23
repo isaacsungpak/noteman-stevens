@@ -1,16 +1,7 @@
 // import delete note modal
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-const exNote = {
-    id: 1,
-    userId: 1,
-    title: "test note",
-    content: "test content aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    notebookId: 1,
-    createdAt: "2022-02-20 16:29:48.062738-05",
-    updatedAt: "2022-02-20 16:29:48.062738-05"
-}
+import exampleNote from "./ExampleNote";
 
 const Tab = styled.div`
     width: 100%;
@@ -65,32 +56,45 @@ const Tab = styled.div`
     }
 `
 
-function NoteTab({note=exNote, isSelected}) {
+function NoteTab({note, isSelected, setSelectedNote}) {
     const [isHover, setIsHover] = useState(false);
+    const [noteTitle, setNoteTitle] = useState(note.title);
+    const [noteContent, setNoteContent] = useState(note.content);
 
     const noteDate = new Date(note.updatedAt);
     const noteMonth = noteDate.getMonth() + 1;
     const noteDay = noteDate.getDate();
     const noteYear = noteDate.getFullYear();
 
+    useEffect(() => {
+        setNoteTitle(note.title);
+        setNoteContent(note.content);
+    }, [note])
+
     return (
-        <Tab
-            isSelected={isSelected}
-            isHover={isHover}
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-        >
-            <div id="container">
-                <div id="title">{note.title || <i>Untitled</i>}</div>
-                <div id="content">{note.content || <i>No content</i>}</div>
-                <div id="date">{`Updated: ${noteMonth}/${noteDay}/${noteYear}`}</div>
-            </div>
-            { isHover &&
-                <div id="delete">
-                    <i className="fas fa-trash"/>
-                </div>
+        <>
+            {
+                note &&
+                <Tab
+                    isSelected={isSelected}
+                    isHover={isHover}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                    onClick={() => setSelectedNote(note)}
+                >
+                    <div id="container">
+                        <div id="title">{noteTitle || <i>Untitled</i>}</div>
+                        <div id="content">{noteContent || <i>No content</i>}</div>
+                        <div id="date">{`Updated: ${noteMonth}/${noteDay}/${noteYear}`}</div>
+                    </div>
+                    { isHover &&
+                        <div id="delete">
+                            <i className="fas fa-trash"/>
+                        </div>
+                    }
+                </Tab>
             }
-        </Tab>
+        </>
     )
 }
 

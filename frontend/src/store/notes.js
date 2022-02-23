@@ -69,17 +69,10 @@ export const createNote = (title, content, notebookId) => async (dispatch) => {
     return response;
 }
 
-export const getAllNotes = () => async (dispatch) => {
-    const response = await csrfFetch(`/api/notes/`);
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(setNs(data.notes));
-    }
-    return response;
-}
-
-export const getSearchNotes = (searchKey) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notes/?search=${searchKey}`);
+export const getNotes = (searchKey) => async (dispatch) => {
+    let url = `/api/notes/`;
+    if (searchKey !== '') url += `?search=${searchKey}`;
+    const response = await csrfFetch(url);
     if (response.ok) {
         const data = await response.json();
         dispatch(setNs(data.notes));
