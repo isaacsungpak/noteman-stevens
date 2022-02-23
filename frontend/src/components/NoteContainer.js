@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 import { getTagsByNote, updateNote } from "../store/notes";
 
 const defaultNote = {
-    id: 2,
+    id: 0,
     title: "Please select a note",
     content: "Please?"
 }
@@ -173,11 +173,21 @@ function NoteContainer({ note=defaultNote }) {
             />
             { note.id !== 0 &&
                 <div id="save-message">
-                    {saveState === 1 ? "Saved" : saveState === 2 ? "Saving..." : "Something went wrong"}
+                    { saveState === 1 ?
+                        "Saved" :
+                        saveState === 2 ?
+                            "Saving..." :
+                            "Something went wrong"
+                    }
                 </div>
             }
             <div id='tag-section'>
-                <select defaultValue={0} id='tag-selector' onChange={addTag} disabled={note.id === 0}>
+                <select
+                    defaultValue={0}
+                    id='tag-selector'
+                    onChange={addTag}
+                    disabled={note.id === 0}
+                >
                     <option
                         value={0}
                         disabled
