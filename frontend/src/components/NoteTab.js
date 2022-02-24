@@ -8,7 +8,7 @@ const Tab = styled.div`
     height: 69px;
     border-bottom: 1px solid #BBB;
     background-color: ${props => props.isSelected ? '#D6CEDE' : '#F4F2F7'};
-    box-shadow: ${props => props.isSelected ? 'inset 0 0 5px rgba(12, 9, 16, 0.5)' : 'none'};
+    box-shadow: ${props => props.isSelected ? 'inset 0 0 10px rgba(12, 9, 16, 0.3)' : 'none'};
     cursor: pointer;
     display: flex;
 

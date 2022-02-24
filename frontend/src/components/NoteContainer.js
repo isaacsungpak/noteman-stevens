@@ -49,7 +49,7 @@ const Container = styled.div`
         width: 100%;
         text-align: right;
         margin-bottom: 5px;
-        color: #CCC;
+        color: ${props => props.error ? '#cc004e' : '#aaa' };
     }
 
     #tag-section {
@@ -111,7 +111,7 @@ function NoteContainer({ note }) {
                     const data = await res.json();
                     if (data && data.errors) setSaveState(3);
                 })
-          }, 1000),
+          }, 500),
         [dispatch]
     )
 
@@ -135,29 +135,13 @@ function NoteContainer({ note }) {
         }, [noteTitle, debouncedUpdate, noteId]
     )
 
-    // const updateTitle = e => {
-    //     const changedTitle = e.target.value;
-    //     if (changedTitle.length <= 50) {
-    //         setNoteTitle(changedTitle);
-    //         setSaveState(2);
-    //         debouncedUpdate(changedTitle, noteContent, noteId);
-    //     }
-    // }
-
-    // const updateContent = e => {
-    //     const changedContent = e.target.value;
-    //     setNoteContent(changedContent);
-    //     setSaveState(2);
-    //     debouncedUpdate(noteTitle, changedContent, noteId);
-    // }
-
     const addTag = (e) => {
         const selectVal = e.target.value;
         if (selectVal !== 0) return;
     }
 
     return  (
-        <Container>
+        <Container error={saveState === 3}>
             <input
                 type='text'
                 id='title'
