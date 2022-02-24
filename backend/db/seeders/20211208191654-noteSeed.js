@@ -44,13 +44,7 @@ module.exports = {
         content: '',
         notebookId: 4,
         userId: 1
-      },
-      {
-        title: 'noteman stevens',
-        content: 'noteman, noteman, noteman, that boi up to somethin',
-        notebookId: 5,
-        userId: 1
-      },
+      }
     ], {});
   },
 

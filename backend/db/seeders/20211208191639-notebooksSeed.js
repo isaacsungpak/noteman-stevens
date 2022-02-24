@@ -18,10 +18,6 @@ module.exports = {
       {
         title: 'notebookman, notebookman, notebookman',
         userId: 1
-      },
-      {
-        title: "'/' & logo x7",
-        userId: 1
       }
     ], {});
   },

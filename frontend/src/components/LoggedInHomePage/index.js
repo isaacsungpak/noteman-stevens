@@ -6,10 +6,23 @@ import { Link } from "react-router-dom";
 import CreateModal from './CreateModal';
 import './LoggedInHomePage.css';
 
+
+import styled from "styled-components";
+import NoteTab from "../NoteTab";
+import NoteBar from "../NoteBar";
+import NoteContainer from "../NoteContainer";
+import NewNoteButton from "../Buttons/Template-NewNoteButton";
+import exampleNote from "../ExampleNote";
+
+const Page = styled.div`
+    height: 100vh;
+    width: calc(100vw - 250px);
+`
+
 function LoggedInHomePage({ sessionUser }) {
     const dispatch = useDispatch();
-    const notebooks = useSelector((state) => state.notebook.notebooks);
-    const notes = useSelector((state) => state.note.notes);
+    const notebooks = useSelector((state) => state.notebooks.notebooks);
+    const notes = useSelector((state) => state.notes.notes);
     const [numNotebooks, setNumNotebooks] = useState(0);
     const [numNotes, setNumNotes] = useState(0);
 
@@ -22,7 +35,7 @@ function LoggedInHomePage({ sessionUser }) {
 
     useEffect(() => {
         dispatch(notebookActions.getNotebooks());
-        dispatch(noteActions.getAllNotes());
+        dispatch(noteActions.getNotes());
     }, [dispatch]);
 
     useEffect(() => {
@@ -45,7 +58,32 @@ function LoggedInHomePage({ sessionUser }) {
     }, [notes, notebooks])
 
     return (
-        <div id='logged-in-home-container'>
+        <Page id='logged-in-home-container'>
+            <NoteBar>
+                <NewNoteButton />
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                {/* <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} />
+                <NoteTab isSelected={false} /> */}
+                <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote}  isSelected={true} setSelectedNote={() => console.log('hey')}/>
+                <NoteTab note={exampleNote}  isSelected={false} setSelectedNote={() => console.log('hey')}/>
+            </NoteBar>
+            <NoteContainer note={exampleNote} />
+
             <div id='stats-holder'>
                 <p id='welcome-user'>Hey, {sessionUser.username}!</p>
                 <br />
@@ -69,10 +107,10 @@ function LoggedInHomePage({ sessionUser }) {
                     <textarea onChange={(e) => setPadContent(e.target.value)} value={padContent} placeholder="Note content" className='note-page-content-input' id='scratchpad-content'></textarea>
                 </div>
                 <br />
-                <button onClick={() => setShowCreateModal(true)} disabled={padContent.length === 0} id={padContent.length > 0 ? undefined : 'disabled'}>Save</button>
+                <button onClick={() => setShowCreateModal(true)} disabled={padContent.length === 0} id={padContent.length > 0 ? '' : 'disabled'}>Save</button>
                 {showCreateModal && <CreateModal content={padContent} setShowCreateModal={setShowCreateModal}/>}
             </div>
-        </div>
+        </Page>
     )
 }
 

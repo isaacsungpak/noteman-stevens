@@ -4,10 +4,26 @@ import { Route, Switch } from 'react-router-dom';
 import UserlessHomePage from './components/UserlessHomePage';
 import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
-import NotebooksPage from './components/NotebooksPage';
+import NotebooksPage from './components/X-OldNotebooksPage';
+// import NotesPage from './components/OldNotesPage';
 import NotesPage from './components/NotesPage';
-import NotebookNotesPage from './components/NotebookNotesPage';
+import NotebookNotesPage from './components/X-OldNotebookNotesPage';
 import * as sessionActions from './store/session';
+import styled from "styled-components";
+
+const Page = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+`
+
+const Content = styled.div`
+  height: 100vh;
+  width: calc(100vw - 250px);
+  display: flex;
+  position: fixed;
+  left: 250px;
+`
 
 function App() {
   const dispatch = useDispatch();
@@ -19,28 +35,34 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <div id="big-body">
-        <Navigation isLoaded={isLoaded} id="nav-bar"/>
-        {isLoaded && (
-          <Switch>
-            <Route exact path='/'>
-              {sessionUser ? <LoggedInHomePage sessionUser={sessionUser} /> : <UserlessHomePage />}
-            </Route>
-            <Route exact path="/notebooks">
-              <NotebooksPage />
-            </Route>
-            <Route path="/notebooks/:notebookId">
-              <NotebookNotesPage />
-            </Route>
-            <Route path="/notes">
-              <NotesPage />
-            </Route>
-          </Switch>
-        )}
-      </div>
-        <a href='https://github.com/isaacsungpak' id='github-link'>Isaac Pak</a>
-    </>
+    <Page>
+      {sessionUser ?
+        <>
+          <Navigation isLoaded={isLoaded}/>
+          <Content>
+            {isLoaded && (
+              <Switch>
+                <Route exact path='/'>
+                  <LoggedInHomePage sessionUser={sessionUser} />
+                </Route>
+                <Route exact path="/notebooks">
+                  <NotebooksPage />
+                </Route>
+                <Route path="/notebooks/:notebookId">
+                  <NotebookNotesPage />
+                </Route>
+                <Route path="/notes">
+                  <NotesPage />
+                </Route>
+              </Switch>
+            )}
+          </Content>
+        </>
+        :
+        <UserlessHomePage />
+      }
+    </Page>
+
   );
 }
 

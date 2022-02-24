@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as notebookActions from '../../store/notebooks';
 import ActionsButton from './ActionsButton'
-import './NotebooksPage.css';
 import CreateModal from './CreateModal';
 
 function NotebooksPage() {
