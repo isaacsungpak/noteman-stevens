@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import exampleNote from "../ExampleNote";
-import NoteBar from "../NoteBar";
-import NoteTab from "../NoteTab";
-import NoteContainer from "../NoteContainer";
+import exampleNote from "../NoteComponents/ExampleNote";
+import NoteBar from "../NoteComponents/NoteBar";
+import NoteTab from "../NoteComponents/NoteTab";
+import NoteContainer from "../NoteComponents/NoteContainer";
 
 const useQuery = () => {
     const { search } = useLocation();

@@ -8,11 +8,11 @@ import './LoggedInHomePage.css';
 
 
 import styled from "styled-components";
-import NoteTab from "../NoteTab";
-import NoteBar from "../NoteBar";
-import NoteContainer from "../NoteContainer";
+import NoteTab from "../NoteComponents/NoteTab";
+import NoteBar from "../NoteComponents/NoteBar";
+import NoteContainer from "../NoteComponents/NoteContainer";
 import NewNoteButton from "../Buttons/Template-NewNoteButton";
-import exampleNote from "../ExampleNote";
+import exampleNote from "../NoteComponents/ExampleNote";
 
 const Page = styled.div`
     height: 100vh;

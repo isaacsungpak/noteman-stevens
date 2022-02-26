@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import debounce from 'lodash.debounce';
-import { getTagsByNote, updateNote } from "../store/notes";
+import { getTagsByNote, updateNote } from "../../store/notes";
 import exampleNote from "./ExampleNote";
 
 const Container = styled.div`
