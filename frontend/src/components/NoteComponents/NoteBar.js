@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Bar = styled.div`
     width: 319px;
-    height: 100%;
+    height: 100vh;
     background-color: #D5D0DD;
     box-shadow: inset 0 0 10px rgba(12, 9, 16, 0.3);
     border-right: 1px solid #d5d0dd;
@@ -13,9 +13,9 @@ const Bar = styled.div`
     z-index: 500;
 `
 
-function NoteBar({children, newNote}) {
+function NoteBar({children, addNote=false}) {
     return  (
-        <Bar>
+        <Bar addNote={addNote}>
             { children }
         </Bar>
     )

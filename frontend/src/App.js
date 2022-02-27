@@ -10,6 +10,7 @@ import NotesPage from './components/NotesPage';
 import NotebookNotesPage from './components/X-OldNotebookNotesPage';
 import * as sessionActions from './store/session';
 import styled from "styled-components";
+import { getTags } from './store/tags';
 
 const Page = styled.div`
   width: 100vw;
@@ -28,15 +29,22 @@ const Content = styled.div`
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [tagsLoaded, setTagsLoaded] = useState(false);
   const sessionUser = useSelector((state) => state.session?.user);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+
   }, [dispatch]);
+
+  useEffect(() => {
+    if (sessionUser) dispatch(getTags()).then(() => setTagsLoaded(true));
+  }, [dispatch, sessionUser])
 
   return (
     <Page>
       {sessionUser ?
+        tagsLoaded &&
         <>
           <Navigation isLoaded={isLoaded}/>
           <Content>
