@@ -71,7 +71,9 @@ router.post('/', requireAuth, validateNoteTitle, asyncHandler(async(req, res, ne
     const note = await db.Note.create({ title, content, userId, notebookId });
     await notebook.update({updatedAt: new Date()});
 
-    return res.json({ note });
+    // create with include not working; temporary measure until better solution is found
+    const resNote = await db.Note.findByPk(note.id, { include: db.Notebook });
+    return res.json({ note: resNote });
 }));
 
 // edit note
@@ -80,7 +82,7 @@ router.patch('/:noteId(\\d+)', requireAuth, validateNoteTitle, asyncHandler(asyn
     const { noteId } = req.params;
     const {title, content} = req.body;
 
-    const note = await db.Note.findByPk(noteId);
+    let note = await db.Note.findByPk(noteId, { include: db.Notebook });
     const notebookId = note.notebookId;
     if (!note) {
         const err = new Error('Note does not exist');
