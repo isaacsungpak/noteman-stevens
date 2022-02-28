@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
-import UserlessHomePage from './components/UserlessHomePage';
+import AuthPage from './components/AuthPage';
 import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
 import NotebooksPage from './components/X-OldNotebooksPage';
@@ -74,7 +74,7 @@ function App() {
           </Content>
         </>
         :
-        <UserlessHomePage />
+        <AuthPage />
       }
     </Page>
 

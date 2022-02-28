@@ -65,6 +65,7 @@ const Container = styled.div`
 
     #tag-selector {
         width: 200px;
+        max-width: 200px;
         height: 28px;
         background-color: #CCC;
         padding: 5px;
@@ -72,10 +73,6 @@ const Container = styled.div`
         border-radius: 15px;
         outline: none;
         font-family: 'Montserrat', sans-serif;
-    }
-
-    #tag {
-
     }
 `
 

@@ -1,13 +1,22 @@
 import { deleteNotebook } from "../../store/notebooks";
 import ModalFormContainer from "./ModalFormContainer";
 import { useDispatch } from "react-redux";
+import { useLocation, useHistory } from "react-router-dom";
 
 
 function DeleteNotebookForm({ notebook, setShowModal }) {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const currentPath = location.pathname;
+    const history = useHistory();
+    const notebookId = notebook.id;
+
     const delNotebook = () => {
         dispatch(deleteNotebook(notebook.id))
-            .then(() => setShowModal(false))
+            .then(() => {
+                setShowModal(false);
+                if (currentPath === `/notebooks/${notebookId}`) history.push('/')
+            });
     }
 
     const cancel = () => {

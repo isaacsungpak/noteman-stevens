@@ -8,6 +8,7 @@ import NoteBar from "../NoteComponents/NoteBar";
 import NoteTab from "../NoteComponents/NoteTab";
 import NoteContainer from "../NoteComponents/NoteContainer";
 import NoNotesMessage from "../NoteComponents/NoNotesMessage";
+import CreateNoteModal from "../Modals/CreateNoteModal";
 
 const useQuery = () => {
     const { search } = useLocation();
@@ -33,12 +34,15 @@ function NotesPage() {
     return (
         <>
             <NoteBar>
+                <CreateNoteModal />
                 {
                     isLoaded &&
+
                         orderedNotes.length > 0 ?
                             orderedNotes.map((note, idx) => (
                                 <NoteTab
                                     note={note}
+                                    notebookTitle={note.Notebook.title}
                                     selectedNoteId={selectedNote.id}
                                     setSelectedNote={setSelectedNote}
                                     key={idx}

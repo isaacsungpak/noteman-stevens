@@ -6,6 +6,7 @@ import exampleNote from "../NoteComponents/ExampleNote";
 function DeleteNoteForm({ note, setIsHover, setShowModal, selectedNoteId, setSelectedNote }) {
     const dispatch = useDispatch();
 
+    // note: assigning here in case id variable gets lost is deletion bc note is defined by
     const noteId = note.id;
     const snid = selectedNoteId;
 
@@ -14,7 +15,7 @@ function DeleteNoteForm({ note, setIsHover, setShowModal, selectedNoteId, setSel
             .then(() => setShowModal(false))
             .then(() => setIsHover(false))
             .then(() => {
-                if (noteId === selectedNoteId) setSelectedNote(exampleNote);
+                if (noteId === snid) setSelectedNote(exampleNote);
             })
     }
 

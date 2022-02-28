@@ -10,6 +10,8 @@ const SET_NOTETAGS = 'notes/SET_NOTETAGS';
 const UPDATE_NOTETAG = 'notes/UPDATE_NOTETAG';
 const DELETE_NOTETAG = 'notes/DELETE_NOTETAG';
 
+const SET_NOTEBOOK_OPTIONS = 'notes/SET_NOTEBOOK_OPTIONS'
+
 const setNs = (notes) => {
     return {
       type: SET_NOTES,
@@ -52,6 +54,12 @@ const deleteNT = (notetag) => {
     return {
       type: DELETE_NOTETAG,
       payload: notetag,
+    };
+};
+const setNbOpts = (notebooks) => {
+    return {
+      type: SET_NOTEBOOK_OPTIONS,
+      payload: notebooks,
     };
 };
 
@@ -152,6 +160,17 @@ export const deleteNoteTag = (noteId, tagId) => async (dispatch) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+export const getNotebookOptions = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/notebooks`);
+    if (response.ok) {
+        const data = await response.json();
+        await dispatch(setNbOpts(data.notebooks));
+    }
+    return response;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 export const createNoteFromNotebook = (title, content, notebookId) => async (dispatch) => {
     const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
         method: 'POST',
@@ -183,7 +202,7 @@ export const deleteNoteFromNotebook = (noteId, notebookId) => async (dispatch) =
     return response;
 }
 
-const noteReducer = (state = { notes: {}, noteTagRelations: {} }, action) => {
+const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions: {} }, action) => {
     let newState;
     let notes;
     let noteTag;
@@ -245,6 +264,16 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {} }, action) => {
             newState = Object.assign({}, state);
             noteTag = action.payload;
             delete newState.noteTagRelations[noteTag.noteId][noteTag.tagId];
+            return newState;
+
+        case SET_NOTEBOOK_OPTIONS:
+            // FOR SET NOTEBOOKS: PAYLOAD = ARRAY OF NOTEBOOKS
+            newState = Object.assign({}, state);
+            const notebooks = {};
+            action.payload.forEach((notebook) => {
+                notebooks[notebook.id] = notebook;
+            })
+            newState.notebookOptions = notebooks;
             return newState;
 
         default:

@@ -6,7 +6,7 @@ import exampleNote from "./ExampleNote";
 
 const Tab = styled.div`
     width: 100%;
-    height: 69px;
+    height: ${props => props.includeNotebook ? "74" : "69px"};
     border-bottom: 1px solid #BBB;
     background-color: ${props => props.isSelected ? '#D6CEDE' : '#F4F2F7'};
     box-shadow: ${props => props.isSelected ? 'inset 0 0 10px rgba(12, 9, 16, 0.3)' : 'none'};
@@ -59,9 +59,20 @@ const Tab = styled.div`
     #delete:hover {
         color: #B80046;
     }
+
+    #notebook {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    #notebook-title {
+        height: fit-content;
+        flex: 1;
+        color: ${props => props.isSelected ? '#555' : '#777'};
+    }
 `
 
-function NoteTab({note, selectedNoteId, setSelectedNote}) {
+function NoteTab({note, notebookTitle="", selectedNoteId, setSelectedNote}) {
     const [isHover, setIsHover] = useState(false);
     const [noteTitle, setNoteTitle] = useState(note.title);
     const [noteContent, setNoteContent] = useState(note.content);
@@ -86,10 +97,12 @@ function NoteTab({note, selectedNoteId, setSelectedNote}) {
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
                     onClick={() => setSelectedNote(note)}
+                    includeNotebook={notebookTitle !== ""}
                 >
                     <div id="container">
                         <div id="title">{noteTitle || <i>Untitled</i>}</div>
                         <div id="content">{noteContent || <i>No content</i>}</div>
+                        { notebookTitle && <div id="notebook">from: <span id="notebook-title">{ notebookTitle }</span></div> }
                         <div id="date">{`Updated: ${noteMonth}/${noteDay}/${noteYear}`}</div>
                     </div>
                     { isHover &&
