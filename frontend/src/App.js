@@ -11,6 +11,7 @@ import NotebookPage from './components/NotebookPage';
 import * as sessionActions from './store/session';
 import styled from "styled-components";
 import { getTags } from './store/tags';
+import TagsPage from './components/TagPage';
 
 const Page = styled.div`
   width: 100vw;
@@ -61,6 +62,12 @@ function App() {
                 </Route>
                 <Route path="/notes">
                   <NotesPage />
+                </Route>
+                <Route path="/tags">
+                  <TagsPage />
+                </Route>
+                <Route>
+                  <LoggedInHomePage />
                 </Route>
               </Switch>
             )}

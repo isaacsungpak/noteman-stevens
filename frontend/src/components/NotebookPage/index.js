@@ -7,6 +7,7 @@ import NoteBar from "../NoteComponents/NoteBar";
 import NoteTab from "../NoteComponents/NoteTab";
 import NoteContainer from "../NoteComponents/NoteContainer";
 import { useParams } from "react-router-dom";
+import NoNotesMessage from "../NoteComponents/NoNotesMessage";
 
 function NoteBookPage() {
     const dispatch = useDispatch();
@@ -27,14 +28,16 @@ function NoteBookPage() {
             <NoteBar>
                 {
                     isLoaded &&
-                    orderedNotes.map((note, idx) => (
-                        <NoteTab
-                            note={note}
-                            isSelected={selectedNote.id === note.id}
-                            setSelectedNote={setSelectedNote}
-                            key={idx}
-                        />
-                    ))
+                        orderedNotes.length > 0 ?
+                            orderedNotes.map((note, idx) => (
+                                <NoteTab
+                                    note={note}
+                                    isSelected={selectedNote.id === note.id}
+                                    setSelectedNote={setSelectedNote}
+                                    key={idx}
+                                />
+                            )) :
+                            <NoNotesMessage />
                 }
             </NoteBar>
             <NoteContainer note={selectedNote ? selectedNote : exampleNote} />

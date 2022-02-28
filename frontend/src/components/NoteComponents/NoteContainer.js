@@ -7,7 +7,7 @@ import { createNoteTag } from "../../store/notes";
 import TagTab from "./TagTab";
 
 const Container = styled.div`
-    height: calc(100% - 10px);
+    height: calc(100vh - 10px);
     width: calc(100% - 340px);
     background-color: #f4f2f7;
     position: absolute;
@@ -146,6 +146,10 @@ function NoteContainer({ note }) {
         }
     }
 
+    const filteredTags = Object.values(tags).filter(tag => (!noteTags[noteId] || !noteTags[noteId][tag.id])).sort();
+    const associatedTags = Object.values(noteTags[noteId] || {});
+
+
     return  (
         <Container error={saveState === 3}>
             <input
@@ -183,7 +187,7 @@ function NoteContainer({ note }) {
                         Select a tag
                     </option>
                     {
-                        Object.values(tags).filter(tag => (!noteTags[noteId] || !noteTags[noteId][tag.id])).map(tag => (
+                        filteredTags.map(tag => (
                             <option value={tag.id} key={`tag${tag.id}`}>
                                 {tag.title}
                             </option>
@@ -191,7 +195,7 @@ function NoteContainer({ note }) {
                     }
                 </select>
                 {
-                    (noteTagsLoaded && noteTags[noteId]) && Object.values(noteTags[noteId]).map(tag => (
+                    (noteTagsLoaded && noteTags[noteId]) && associatedTags.map(tag => (
                         <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
                     ))
                 }

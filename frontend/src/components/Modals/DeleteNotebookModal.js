@@ -6,7 +6,7 @@ function DeleteNotebookModal({ notebook }){
     const [showModal, setShowModal] = useState(false);
     return (
         <>
-            <div id='delete' onClick={() => setShowModal(true)}>
+            <div className='delete' onClick={() => setShowModal(true)}>
                 <i className="fas fa-trash"/>
             </div>
             {showModal && (

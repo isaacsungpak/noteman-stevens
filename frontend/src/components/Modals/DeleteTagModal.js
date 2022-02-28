@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { Modal } from "../../context/Modal";
-import DeleteNoteForm from "../Forms/DeleteNoteForm";
+import DeleteTagForm from "../Forms/DeleteTagForm";
 
-function DeleteNoteModal({ note, setIsHover }){
+function DeleteTagModal({ tag, selectedTagId, setSelectedTagId }){
     const [showModal, setShowModal] = useState(false);
     return (
         <>
@@ -11,10 +11,15 @@ function DeleteNoteModal({ note, setIsHover }){
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteNoteForm note={note} setIsHover={setIsHover} setShowModal={setShowModal} />
+                    <DeleteTagForm
+                        tag={tag}
+                        selectedTagId={selectedTagId}
+                        setSelectedTagId={setSelectedTagId}
+                        setShowModal={setShowModal}
+                    />
                 </Modal>
             )}
         </>
     );
 }
-export default DeleteNoteModal;
+export default DeleteTagModal;

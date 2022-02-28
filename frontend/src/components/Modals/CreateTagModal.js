@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { Modal } from "../../context/Modal";
-import CreateNotebookForm from "../Forms/CreateNotebookForm";
+import CreateTagForm from "../Forms/CreateTagForm";
 
-function CreateNotebookModal(){
+function CreateTagModal() {
     const [showModal, setShowModal] = useState(false);
     return (
         <>
@@ -11,10 +11,11 @@ function CreateNotebookModal(){
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <CreateNotebookForm setShowModal={setShowModal} />
+                    <CreateTagForm setShowModal={setShowModal} />
                 </Modal>
             )}
         </>
     );
 }
-export default CreateNotebookModal;
+
+export default CreateTagModal;

@@ -29,8 +29,8 @@ function CreateTagForm({ setShowModal }) {
         const trimmedTitle = titleString.replaceAll(/[ ​]+/g, '');
         setTitle(titleString);
 
-        if (titleString.length > 50) vError ='Title length cannot exceed 50 characters';
-        else if (trimmedTitle.length < 1) vError = 'Title must contain at least 1 non-space character';
+        if (titleString.length > 50) vError ='Name length cannot exceed 50 characters';
+        else if (trimmedTitle.length < 1) vError = 'Name must contain at least 1 non-space character';
         setValidError(vError);
     }
 
@@ -38,14 +38,14 @@ function CreateTagForm({ setShowModal }) {
         <ModalFormContainer>
             <div id="title">Create a new tag</div>
             <div id="instructions" className={validError === '' ? '' : "bad"}>
-                {validError === '' ? 'Enter tag title' : validError}
+                {validError === '' ? 'Enter tag name' : validError}
             </div>
             <form onSubmit={submitNotebook}>
                 <input
                     onChange={updateTitle}
                     value={title}
                     type='text'
-                    placeholder='Title'
+                    placeholder='Name'
                 />
                 <div id="button-holder">
                     <button disabled={title === '' || validError !== ''}>Submit</button>

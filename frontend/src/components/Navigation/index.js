@@ -7,6 +7,7 @@ import Noteman from '../Images/NotemanSq.png';
 import { getNotebooks } from '../../store/notebooks';
 import CreateNotebookModal from '../Modals/CreateNotebookModal';
 import DeleteNotebookModal from '../Modals/DeleteNotebookModal';
+import CreateTagModal from '../Modals/CreateTagModal';
 
 const NavBar = styled.nav`
   width: 250px;
@@ -110,11 +111,11 @@ const NotebooksMenu = styled.div`
       text-overflow: ellipsis;
     }
 
-    a.active, a.active + div#delete {
+    a.active, a.active + div.delete {
       background-color: #453750;
     }
 
-    div#delete {
+    div.delete {
       visibility: hidden;
       width: 0;
       display: flex;
@@ -122,13 +123,13 @@ const NotebooksMenu = styled.div`
       justify-content: center;
     }
 
-    li:hover > div#delete {
+    li:hover > div.delete {
       visibility: visible;
       width: fit-content;
       padding: 0 10px;
     }
 
-    div#delete:hover {
+    div.delete:hover {
       color: #B80046;
       cursor: pointer;
     }
@@ -233,7 +234,7 @@ function Navigation() {
             <i className="fas fa-tag"/>
             <div>Tags</div>
           </NavLink>
-          {showAddTags && <div className='add' onClick={() => console.log("add tag")}><i className="fas fa-plus-circle"></i></div>}
+          {showAddTags && <CreateTagModal />}
         </NavTab>
       </ul>
       <Logo>
