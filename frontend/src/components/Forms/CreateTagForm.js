@@ -36,7 +36,7 @@ function CreateTagForm({ setShowModal }) {
 
     return (
         <ModalFormContainer>
-            <div id="title">Create a new tag</div>
+            <div id="title">Create a New Tag</div>
             <div id="instructions" className={validError === '' ? '' : "bad"}>
                 {validError === '' ? 'Enter tag name' : validError}
             </div>
@@ -48,7 +48,7 @@ function CreateTagForm({ setShowModal }) {
                     placeholder='Name'
                 />
                 <div id="button-holder">
-                    <button disabled={title === '' || validError !== ''}>Submit</button>
+                    <button disabled={title === '' || validError !== ''}>Create</button>
                     <button onClick={cancelBtn}>Cancel</button>
                 </div>
             </form>

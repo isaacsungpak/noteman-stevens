@@ -26,7 +26,9 @@ const Container = styled.div`
     #instructions {
         font-size: 16px;
         text-align: center;
+        margin-bottom: 10px;
     }
+
     #instruction-title {
         font-size: 16px;
         display: inline;

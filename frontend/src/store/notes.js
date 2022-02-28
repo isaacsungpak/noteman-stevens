@@ -169,39 +169,6 @@ export const getNotebookOptions = () => async (dispatch) => {
     return response;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-
-export const createNoteFromNotebook = (title, content, notebookId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
-        method: 'POST',
-        body: JSON.stringify({
-            title, content
-        })
-    });
-    const data = await response.json();
-    dispatch(setNs(data.notes));
-    return response;
-}
-
-export const updateNoteFromNotebook = (title, content, noteId, notebookId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notenooks/${notebookId}/notes/${noteId}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-            title, content
-        })
-    });
-    return response;
-}
-
-export const deleteNoteFromNotebook = (noteId, notebookId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/${notebookId}/notes/${noteId}`, {
-        method: 'DELETE',
-    });
-    const data = await response.json();
-    dispatch(deleteN(data.notes));
-    return response;
-}
-
 const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions: {} }, action) => {
     let newState;
     let notes;

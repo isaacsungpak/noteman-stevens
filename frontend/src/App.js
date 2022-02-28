@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import AuthPage from './components/AuthPage';
 import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
-import NotebooksPage from './components/X-OldNotebooksPage';
 
 import NotesPage from './components/NotesPage';
 import NotebookPage from './components/NotebookPage';
@@ -12,6 +11,7 @@ import * as sessionActions from './store/session';
 import styled from "styled-components";
 import { getTags } from './store/tags';
 import TagsPage from './components/TagPage';
+import HomePage from './components/HomePage';
 
 const Page = styled.div`
   width: 100vw;
@@ -52,10 +52,7 @@ function App() {
             {isLoaded && (
               <Switch>
                 <Route exact path='/'>
-                  <LoggedInHomePage sessionUser={sessionUser} />
-                </Route>
-                <Route exact path="/notebooks">
-                  <NotebooksPage />
+                  <HomePage />
                 </Route>
                 <Route path="/notebooks/:notebookId">
                   <NotebookPage />

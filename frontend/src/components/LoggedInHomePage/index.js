@@ -11,7 +11,6 @@ import styled from "styled-components";
 import NoteTab from "../NoteComponents/NoteTab";
 import NoteBar from "../NoteComponents/NoteBar";
 import NoteContainer from "../NoteComponents/NoteContainer";
-import NewNoteButton from "../Buttons/Template-NewNoteButton";
 import exampleNote from "../NoteComponents/ExampleNote";
 import CreateNoteModal from "../Modals/CreateNoteModal";
 

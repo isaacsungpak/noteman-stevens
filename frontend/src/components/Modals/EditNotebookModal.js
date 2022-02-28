@@ -1,20 +1,20 @@
 import React, {useState} from "react";
 import { Modal } from "../../context/Modal";
-import DeleteNotebookForm from "../Forms/DeleteNotebookForm";
+import EditNotebookForm from "../Forms/EditNotebookForm";
 
-function DeleteNotebookModal({ notebook }){
+function EditNotebookModal({ notebook }){
     const [showModal, setShowModal] = useState(false);
     return (
         <>
             <div className='option' onClick={() => setShowModal(true)}>
-                <i className="fas fa-trash"/>
+                <i className="fas fa-pen"/>
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteNotebookForm notebook={notebook} setShowModal={setShowModal} />
+                    <EditNotebookForm notebook={notebook} setShowModal={setShowModal} />
                 </Modal>
             )}
         </>
     );
 }
-export default DeleteNotebookModal;
+export default EditNotebookModal;

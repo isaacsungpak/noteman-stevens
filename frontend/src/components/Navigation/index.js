@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Noteman from '../Images/NotemanSq.png';
 import { getNotebooks } from '../../store/notebooks';
 import CreateNotebookModal from '../Modals/CreateNotebookModal';
+import EditNotebookModal from '../Modals/EditNotebookModal';
 import DeleteNotebookModal from '../Modals/DeleteNotebookModal';
 import CreateTagModal from '../Modals/CreateTagModal';
 
@@ -111,11 +112,11 @@ const NotebooksMenu = styled.div`
       text-overflow: ellipsis;
     }
 
-    a.active, a.active + div.delete {
+    a.active, a.active ~ div.option {
       background-color: #453750;
     }
 
-    div.delete {
+    div.option {
       visibility: hidden;
       width: 0;
       display: flex;
@@ -123,13 +124,13 @@ const NotebooksMenu = styled.div`
       justify-content: center;
     }
 
-    li:hover > div.delete {
+    li:hover > div.option {
       visibility: visible;
       width: fit-content;
       padding: 0 10px;
     }
 
-    div.delete:hover {
+    div.option:hover {
       color: #B80046;
       cursor: pointer;
     }
@@ -219,6 +220,7 @@ function Navigation() {
               {orderedNotebooks.map((notebook, idx) => (
                 <li className="notebook-nav">
                   <NavLink to={`/notebooks/${notebook.id}`} key={`nb${idx}`}>{notebook.title}</NavLink>
+                  <EditNotebookModal notebook={notebook} />
                   <DeleteNotebookModal notebook={notebook} />
                 </li>
               ))}

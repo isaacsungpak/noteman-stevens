@@ -48,7 +48,7 @@ function CreateNotebookForm({ setShowModal }) {
                     placeholder='Title'
                 />
                 <div id="button-holder">
-                    <button disabled={title === '' || validError !== ''}>Submit</button>
+                    <button disabled={title === '' || validError !== ''}>Create</button>
                     <button onClick={cancelBtn}>Cancel</button>
                 </div>
             </form>

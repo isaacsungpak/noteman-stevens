@@ -29,7 +29,7 @@ function NotesPage() {
         dispatch(getNotes(searchKey || '')).then(() => setIsLoaded(true));
     }, [dispatch, searchKey])
 
-    const orderedNotes = useMemo(() => Object.values(notes).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt))), [notes, selectedNote]);
+    const orderedNotes = Object.values(notes).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt)));
 
     return (
         <>

@@ -51,7 +51,7 @@ function CreateNoteForm({ setShowModal }) {
                     }
                 </select>
                 <div id="button-holder">
-                    <button disabled={selectedNotebookId === 0} onClick={submitNote}>Submit</button>
+                    <button disabled={selectedNotebookId === 0} onClick={submitNote}>Create</button>
                     <button onClick={cancelBtn}>Cancel</button>
                 </div>
             </form>

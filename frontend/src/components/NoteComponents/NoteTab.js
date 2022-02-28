@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import DeleteNoteModal from "../Modals/DeleteNoteModal";
-import exampleNote from "./ExampleNote";
 
 const Tab = styled.div`
     width: 100%;
