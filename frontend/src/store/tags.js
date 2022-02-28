@@ -48,8 +48,8 @@ export const getTags = () => async (dispatch) => {
     return response;
 }
 
-export const updateTag = (notebookId, title) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
+export const updateTag = (tagId, title) => async (dispatch) => {
+    const response = await csrfFetch(`/api/tags/${tagId}`, {
         method: 'PATCH',
         body: JSON.stringify({ title })
     });
@@ -60,8 +60,8 @@ export const updateTag = (notebookId, title) => async (dispatch) => {
     return response;
 }
 
-export const deleteTag = (notebookId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
+export const deleteTag = (tagId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/tags/${tagId}`, {
         method: 'DELETE',
     });
     if (response.ok) {

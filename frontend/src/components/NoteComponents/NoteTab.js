@@ -1,11 +1,11 @@
 // import delete note modal
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import exampleNote from "./ExampleNote";
+import DeleteNoteModal from "../Modals/DeleteNoteModal";
 
 const Tab = styled.div`
     width: 100%;
-    height: 69px;
+    height: ${props => props.includeNotebook ? "74" : "69px"};
     border-bottom: 1px solid #BBB;
     background-color: ${props => props.isSelected ? '#D6CEDE' : '#F4F2F7'};
     box-shadow: ${props => props.isSelected ? 'inset 0 0 10px rgba(12, 9, 16, 0.3)' : 'none'};
@@ -52,11 +52,26 @@ const Tab = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: default;
+        cursor: pointer;
+    }
+
+    #delete:hover {
+        color: #B80046;
+    }
+
+    #notebook {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    #notebook-title {
+        height: fit-content;
+        flex: 1;
+        color: ${props => props.isSelected ? '#555' : '#777'};
     }
 `
 
-function NoteTab({note, isSelected, setSelectedNote}) {
+function NoteTab({note, notebookTitle="", selectedNoteId, setSelectedNote}) {
     const [isHover, setIsHover] = useState(false);
     const [noteTitle, setNoteTitle] = useState(note.title);
     const [noteContent, setNoteContent] = useState(note.content);
@@ -69,28 +84,33 @@ function NoteTab({note, isSelected, setSelectedNote}) {
     useEffect(() => {
         setNoteTitle(note.title);
         setNoteContent(note.content);
-    }, [note])
+    }, [note.title, note.content])
 
     return (
         <>
             {
                 note &&
                 <Tab
-                    isSelected={isSelected}
+                    isSelected={selectedNoteId === note.id}
                     isHover={isHover}
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
                     onClick={() => setSelectedNote(note)}
+                    includeNotebook={notebookTitle !== ""}
                 >
                     <div id="container">
                         <div id="title">{noteTitle || <i>Untitled</i>}</div>
                         <div id="content">{noteContent || <i>No content</i>}</div>
+                        { notebookTitle && <div id="notebook">from: <span id="notebook-title">{ notebookTitle }</span></div> }
                         <div id="date">{`Updated: ${noteMonth}/${noteDay}/${noteYear}`}</div>
                     </div>
                     { isHover &&
-                        <div id="delete">
-                            <i className="fas fa-trash"/>
-                        </div>
+                        <DeleteNoteModal
+                            note={note}
+                            setIsHover={setIsHover}
+                            selectedNoteId={selectedNoteId}
+                            setSelectedNote={setSelectedNote}
+                        />
                     }
                 </Tab>
             }

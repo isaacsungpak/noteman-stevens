@@ -8,27 +8,21 @@ const Container = styled.div`
     max-height: 400px;
     padding: 20px;
     color: #0C0910;
-    background-color: #F4F2F7;
-    border: 1px solid #44001A;
-    border-radius: 3px;
-    filter: drop-shadow(2px 4px 5px rgba(12, 9, 16, 0.5));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     #title {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 10px;
+        font-size: 30px;
+        margin-bottom: 30px;
+        color: #A393BF;
     }
 
     #instructions {
         font-size: 16px;
         text-align: center;
-        margin-bottom: 10px;
     }
-
     #instruction-title {
         font-size: 16px;
         display: inline;
@@ -38,13 +32,14 @@ const Container = styled.div`
     }
 
     .bad {
-        color: #660027;
+        color: #B80046;
     }
 
     form {
         padding: 0;
         margin: 0;
         width: 100%;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -54,12 +49,11 @@ const Container = styled.div`
     input {
         outline: none;
         border: 0;
-        background-color: #F4F2F7;
         font-size: 16px;
         font-family: 'Montserrat', sans-serif;
-        border-bottom: 1px solid rgba(12, 9, 16, 0.5);
+        border-bottom: 1px solid rgba(12, 9, 16, 0.3);
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 30px;
     }
 
     button {
@@ -89,24 +83,18 @@ const Container = styled.div`
         align-items: center;
     }
 
-    select {
-        margin-top: 10px;
-        width: 300px;
-        height: 28px;
-        background-color: #CCC;
-        padding: 5px;
-        border: 0;
-        border-radius: 15px;
-        outline: none;
-        font-family: 'Montserrat', sans-serif;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 `
 
-function ModalFormContainer({children}) {
+function AuthFormContainer({children}) {
     return (
         <Container>
             {children}
         </Container>
     )
 }
-export default ModalFormContainer
+export default AuthFormContainer

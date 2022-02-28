@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import './LoginForm.css';
+import AuthFormContainer from "./AuthFormContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import * as sessionActions from "../../store/session";
 
-function LoginFormPage() {
+function LogInForm() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
@@ -34,31 +34,22 @@ function LoginFormPage() {
     }
 
     return (
-        <>
-            <br />
-            <p className='signup-login-title'>Log In</p>
+        <AuthFormContainer>
+            <div id='title'>Log In</div>
             <form onSubmit={handleSubmit}>
-                <ul className="val-errors">
+                <ul className="bad">
                     {errors.map((err, i) => <li key={i}>{err}</li>)}
                 </ul>
                 <input onChange={(e) => setCredential(e.target.value)} type="text" value={credential} required placeholder='Username/Email'/>
-
-                <br />
-                <br />
-
                 <input onChange={(e) => setPassword(e.target.value)} type="password" value={password} required placeholder='Password'/>
 
-                <br />
-                <br />
-
-                <div id='login-button-holder'>
+                <div id='button-holder'>
                     <button type="submit">Log In</button>
                     <button onClick={demoUser}>Demo User</button>
                 </div>
             </form>
-            <br />
-        </>
+        </AuthFormContainer>
     )
 }
 
-export default LoginFormPage;
+export default LogInForm;

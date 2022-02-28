@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
-import UserlessHomePage from './components/UserlessHomePage';
+import AuthPage from './components/AuthPage';
 import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
-import NotebooksPage from './components/X-OldNotebooksPage';
-// import NotesPage from './components/OldNotesPage';
+
 import NotesPage from './components/NotesPage';
-import NotebookNotesPage from './components/X-OldNotebookNotesPage';
+import NotebookPage from './components/NotebookPage';
 import * as sessionActions from './store/session';
 import styled from "styled-components";
+import { getTags } from './store/tags';
+import TagsPage from './components/TagPage';
+import HomePage from './components/HomePage';
 
 const Page = styled.div`
   width: 100vw;
@@ -28,38 +30,48 @@ const Content = styled.div`
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [tagsLoaded, setTagsLoaded] = useState(false);
   const sessionUser = useSelector((state) => state.session?.user);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+
   }, [dispatch]);
+
+  useEffect(() => {
+    if (sessionUser) dispatch(getTags()).then(() => setTagsLoaded(true));
+  }, [dispatch, sessionUser])
 
   return (
     <Page>
       {sessionUser ?
+        tagsLoaded &&
         <>
           <Navigation isLoaded={isLoaded}/>
           <Content>
             {isLoaded && (
               <Switch>
                 <Route exact path='/'>
-                  <LoggedInHomePage sessionUser={sessionUser} />
-                </Route>
-                <Route exact path="/notebooks">
-                  <NotebooksPage />
+                  <HomePage />
                 </Route>
                 <Route path="/notebooks/:notebookId">
-                  <NotebookNotesPage />
+                  <NotebookPage />
                 </Route>
                 <Route path="/notes">
                   <NotesPage />
+                </Route>
+                <Route path="/tags">
+                  <TagsPage />
+                </Route>
+                <Route>
+                  <LoggedInHomePage />
                 </Route>
               </Switch>
             )}
           </Content>
         </>
         :
-        <UserlessHomePage />
+        <AuthPage />
       }
     </Page>
 

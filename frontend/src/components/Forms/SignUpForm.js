@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import "./SignupFormPage.css";
+import AuthFormContainer from "./AuthFormContainer";
 
-function SignupFormPage() {
+function SignUpForm() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -29,40 +29,22 @@ function SignupFormPage() {
   };
 
   return (
-    <>
-      <br />
-      <p className='signup-login-title'>Sign Up</p>
+    <AuthFormContainer>
+      <div id='title'>Sign Up</div>
       <form onSubmit={handleSubmit}>
-        <ul className="val-errors">
+        <ul className="bad">
           {errors.map((err, i) => <li key={i}>{err}</li>)}
         </ul>
 
         <input onChange={(e) => setEmail(e.target.value)} type="text" value={email} required placeholder='Email'/>
-
-        <br />
-        <br />
-
         <input onChange={(e) => setUsername(e.target.value)} type="text" value={username} required placeholder='Username'/>
-
-        <br />
-        <br />
-
         <input onChange={(e) => setPassword(e.target.value)} type="password" value={password} required placeholder='Password'/>
-
-        <br />
-        <br />
-
-
         <input onChange={(e) => setConfirmPassword(e.target.value)} type="password" value={confirmPassword} required placeholder='Confirm Password'/>
-
-        <br />
-        <br />
-
         <button type="submit">Sign Up</button>
       </form>
       <br />
-    </>
+    </AuthFormContainer>
   );
 }
 
-export default SignupFormPage;
+export default SignUpForm;

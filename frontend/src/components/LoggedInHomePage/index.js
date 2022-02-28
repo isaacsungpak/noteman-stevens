@@ -11,8 +11,8 @@ import styled from "styled-components";
 import NoteTab from "../NoteComponents/NoteTab";
 import NoteBar from "../NoteComponents/NoteBar";
 import NoteContainer from "../NoteComponents/NoteContainer";
-import NewNoteButton from "../Buttons/Template-NewNoteButton";
 import exampleNote from "../NoteComponents/ExampleNote";
+import CreateNoteModal from "../Modals/CreateNoteModal";
 
 const Page = styled.div`
     height: 100vh;
@@ -60,7 +60,7 @@ function LoggedInHomePage({ sessionUser }) {
     return (
         <Page id='logged-in-home-container'>
             <NoteBar>
-                <NewNoteButton />
+                <CreateNoteModal />
                 <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
                 <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>
                 <NoteTab note={exampleNote} isSelected={false} setSelectedNote={() => console.log('hey')}/>

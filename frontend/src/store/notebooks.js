@@ -75,14 +75,6 @@ export const deleteNotebook = (notebookId) => async (dispatch) => {
     return response;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const getSingleNotebookTitle = (notebookId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/notebooks/${notebookId}/title`);
-    const data = await response.json();
-    return {response, title: data.title};
-}
-
 const notebookReducer = (state = { notebooks: {} }, action) => {
     let newState;
     switch (action.type) {

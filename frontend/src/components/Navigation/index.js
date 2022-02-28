@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import Noteman from '../Images/NotemanSq.png';
 import { getNotebooks } from '../../store/notebooks';
 import CreateNotebookModal from '../Modals/CreateNotebookModal';
+import EditNotebookModal from '../Modals/EditNotebookModal';
+import DeleteNotebookModal from '../Modals/DeleteNotebookModal';
+import CreateTagModal from '../Modals/CreateTagModal';
 
 const NavBar = styled.nav`
   width: 250px;
@@ -109,8 +112,27 @@ const NotebooksMenu = styled.div`
       text-overflow: ellipsis;
     }
 
-    .active {
+    a.active, a.active ~ div.option {
       background-color: #453750;
+    }
+
+    div.option {
+      visibility: hidden;
+      width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    li:hover > div.option {
+      visibility: visible;
+      width: fit-content;
+      padding: 0 10px;
+    }
+
+    div.option:hover {
+      color: #B80046;
+      cursor: pointer;
     }
 `
 
@@ -190,13 +212,17 @@ function Navigation() {
             <div>Notebooks</div>
             {showNotebooks ? <i className="fas fa-chevron-up"/> : <i className="fas fa-chevron-down"/>}
           </div>
-          {showAddNotebooks && <CreateNotebookModal setShowNotebooks={setShowNotebooks}/>}
+          {showAddNotebooks && <CreateNotebookModal />}
         </NavTab>
         {(showNotebooks && notebooksLoaded) &&
           <NotebooksMenu>
             <ul>
               {orderedNotebooks.map((notebook, idx) => (
-                <li><NavLink to={`/notebooks/${notebook.id}`} key={`nb${idx}`}>{notebook.title}</NavLink></li>
+                <li className="notebook-nav">
+                  <NavLink to={`/notebooks/${notebook.id}`} key={`nb${idx}`}>{notebook.title}</NavLink>
+                  <EditNotebookModal notebook={notebook} />
+                  <DeleteNotebookModal notebook={notebook} />
+                </li>
               ))}
             </ul>
           </NotebooksMenu>
@@ -210,7 +236,7 @@ function Navigation() {
             <i className="fas fa-tag"/>
             <div>Tags</div>
           </NavLink>
-          {showAddTags && <div className='add' onClick={() => console.log("add tag")}><i className="fas fa-plus-circle"></i></div>}
+          {showAddTags && <CreateTagModal />}
         </NavTab>
       </ul>
       <Logo>
