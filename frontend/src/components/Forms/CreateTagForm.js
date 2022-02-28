@@ -10,7 +10,6 @@ function CreateTagForm({ setShowModal }) {
 
     const submitNotebook = (e) => {
         e.preventDefault();
-        setShowNotebooks(false);
         dispatch(createTag(title))
             .then(() => setShowModal(false))
             .catch(async(res) => {

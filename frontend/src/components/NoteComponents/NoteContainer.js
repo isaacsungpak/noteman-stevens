@@ -192,50 +192,7 @@ function NoteContainer({ note }) {
                 </select>
                 {
                     (noteTagsLoaded && noteTags[noteId]) && Object.values(noteTags[noteId]).map(tag => (
-                        <>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                            <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
-                        </>
+                        <TagTab noteId={noteId} tagId={tag.tagId} key={`n${noteId}-t${tag.tagId}`}/>
                     ))
                 }
             </div>

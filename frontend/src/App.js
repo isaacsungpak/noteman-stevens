@@ -5,9 +5,9 @@ import UserlessHomePage from './components/UserlessHomePage';
 import LoggedInHomePage from './components/LoggedInHomePage';
 import Navigation from './components/Navigation';
 import NotebooksPage from './components/X-OldNotebooksPage';
-// import NotesPage from './components/OldNotesPage';
+
 import NotesPage from './components/NotesPage';
-import NotebookNotesPage from './components/X-OldNotebookNotesPage';
+import NotebookPage from './components/NotebookPage';
 import * as sessionActions from './store/session';
 import styled from "styled-components";
 import { getTags } from './store/tags';
@@ -57,7 +57,7 @@ function App() {
                   <NotebooksPage />
                 </Route>
                 <Route path="/notebooks/:notebookId">
-                  <NotebookNotesPage />
+                  <NotebookPage />
                 </Route>
                 <Route path="/notes">
                   <NotesPage />

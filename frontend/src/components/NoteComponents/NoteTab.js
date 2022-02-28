@@ -1,6 +1,7 @@
 // import delete note modal
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import DeleteNoteModal from "../Modals/DeleteNoteModal";
 import exampleNote from "./ExampleNote";
 
 const Tab = styled.div`
@@ -52,7 +53,11 @@ const Tab = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: default;
+        cursor: pointer;
+    }
+
+    #delete:hover {
+        color: #B80046;
     }
 `
 
@@ -69,7 +74,7 @@ function NoteTab({note, isSelected, setSelectedNote}) {
     useEffect(() => {
         setNoteTitle(note.title);
         setNoteContent(note.content);
-    }, [note])
+    }, [note.title, note.content])
 
     return (
         <>
@@ -88,9 +93,7 @@ function NoteTab({note, isSelected, setSelectedNote}) {
                         <div id="date">{`Updated: ${noteMonth}/${noteDay}/${noteYear}`}</div>
                     </div>
                     { isHover &&
-                        <div id="delete">
-                            <i className="fas fa-trash"/>
-                        </div>
+                        <DeleteNoteModal note={note} setIsHover={setIsHover}/>
                     }
                 </Tab>
             }

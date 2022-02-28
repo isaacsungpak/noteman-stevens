@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { Modal } from "../../context/Modal";
 import CreateNotebookForm from "../Forms/CreateNotebookForm";
 
-function CreateNotebookModal({setShowNotebooks}){
+function CreateNotebookModal(){
     const [showModal, setShowModal] = useState(false);
     return (
         <>
@@ -12,7 +12,7 @@ function CreateNotebookModal({setShowNotebooks}){
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <CreateNotebookForm setShowModal={setShowModal} setShowNotebooks={setShowNotebooks} />
+                    <CreateNotebookForm setShowModal={setShowModal} />
                 </Modal>
             )}
         </>

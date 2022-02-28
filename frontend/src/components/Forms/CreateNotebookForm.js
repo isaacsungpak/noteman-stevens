@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 import { createNotebook } from "../../store/notebooks";
 import ModalFormContainer from "./ModalFormContainer";
 
-function CreateNotebookForm({ setShowModal, setShowNotebooks }) {
+function CreateNotebookForm({ setShowModal }) {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [validError, setValidError] = useState('');
 
     const submitNotebook = (e) => {
         e.preventDefault();
-        setShowNotebooks(false);
         dispatch(createNotebook(title))
             .then(() => setShowModal(false))
             .catch(async(res) => {
@@ -37,7 +36,7 @@ function CreateNotebookForm({ setShowModal, setShowNotebooks }) {
 
     return (
         <ModalFormContainer>
-            <div id="title">Create a new notebook</div>
+            <div id="title">Create a Notebook</div>
             <div id="instructions" className={validError === '' ? '' : "bad"}>
                 {validError === '' ? 'Enter notebook title' : validError}
             </div>

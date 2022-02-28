@@ -25,7 +25,14 @@ const Container = styled.div`
 
     #instructions {
         font-size: 16px;
-        margin-bottom: 10px;
+        text-align: center;
+    }
+    #instruction-title {
+        font-size: 16px;
+        display: inline;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .bad {
@@ -72,6 +79,7 @@ const Container = styled.div`
     }
 
     #button-holder {
+        margin-top: 10px;
         width: 100%;
         display: flex;
         flex-direction: row-reverse;

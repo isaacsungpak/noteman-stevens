@@ -7,12 +7,12 @@ const Button = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #BBB;
-    background-color: #F4F2F7;
+    background-color: #FFEBF2;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 
     :hover {
-        background-color: #FFEBF2;
+        background-color: #FFC2D9;
     }
 `
 
