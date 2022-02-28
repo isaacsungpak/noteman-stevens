@@ -28,7 +28,7 @@ function NotesPage() {
         dispatch(getNotes(searchKey || '')).then(() => setIsLoaded(true));
     }, [dispatch, searchKey])
 
-    const orderedNotes = Object.values(notes).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt)));
+    const orderedNotes = useMemo(() => Object.values(notes).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt))), [notes, selectedNote]);
 
     return (
         <>
@@ -39,7 +39,7 @@ function NotesPage() {
                             orderedNotes.map((note, idx) => (
                                 <NoteTab
                                     note={note}
-                                    isSelected={selectedNote.id === note.id}
+                                    selectedNoteId={selectedNote.id}
                                     setSelectedNote={setSelectedNote}
                                     key={idx}
                                 />

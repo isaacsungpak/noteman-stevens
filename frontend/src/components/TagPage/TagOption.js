@@ -27,7 +27,7 @@ const Option = styled.div`
     padding: 5px 7px;
     border-radius: 15px;
     background-color: ${props => props.selected ? "#cac0d8" : "#dfd9e8"};
-    box-shadow:  ${props => props.selected ? "inset 0 0 8px rgba(12, 9, 16, 0.4)" : "none"};
+    box-shadow:  ${props => props.selected ? "inset 0 0 4px rgba(12, 9, 16, 0.4)" : "none"};
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

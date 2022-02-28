@@ -32,7 +32,7 @@ function NoteBookPage() {
                             orderedNotes.map((note, idx) => (
                                 <NoteTab
                                     note={note}
-                                    isSelected={selectedNote.id === note.id}
+                                    selectedNoteId={selectedNote.id}
                                     setSelectedNote={setSelectedNote}
                                     key={idx}
                                 />

@@ -61,7 +61,7 @@ const Tab = styled.div`
     }
 `
 
-function NoteTab({note, isSelected, setSelectedNote}) {
+function NoteTab({note, selectedNoteId, setSelectedNote}) {
     const [isHover, setIsHover] = useState(false);
     const [noteTitle, setNoteTitle] = useState(note.title);
     const [noteContent, setNoteContent] = useState(note.content);
@@ -81,7 +81,7 @@ function NoteTab({note, isSelected, setSelectedNote}) {
             {
                 note &&
                 <Tab
-                    isSelected={isSelected}
+                    isSelected={selectedNoteId === note.id}
                     isHover={isHover}
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
@@ -93,7 +93,12 @@ function NoteTab({note, isSelected, setSelectedNote}) {
                         <div id="date">{`Updated: ${noteMonth}/${noteDay}/${noteYear}`}</div>
                     </div>
                     { isHover &&
-                        <DeleteNoteModal note={note} setIsHover={setIsHover}/>
+                        <DeleteNoteModal
+                            note={note}
+                            setIsHover={setIsHover}
+                            selectedNoteId={selectedNoteId}
+                            setSelectedNote={setSelectedNote}
+                        />
                     }
                 </Tab>
             }

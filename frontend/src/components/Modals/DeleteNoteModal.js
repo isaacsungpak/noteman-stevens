@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Modal } from "../../context/Modal";
 import DeleteNoteForm from "../Forms/DeleteNoteForm";
 
-function DeleteNoteModal({ note, setIsHover }){
+function DeleteNoteModal({ note, setIsHover, selectedNoteId, setSelectedNote }){
     const [showModal, setShowModal] = useState(false);
     return (
         <>
@@ -11,7 +11,13 @@ function DeleteNoteModal({ note, setIsHover }){
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteNoteForm note={note} setIsHover={setIsHover} setShowModal={setShowModal} />
+                    <DeleteNoteForm
+                        note={note}
+                        setIsHover={setIsHover}
+                        setShowModal={setShowModal}
+                        selectedNoteId={selectedNoteId}
+                        setSelectedNote={setSelectedNote}
+                    />
                 </Modal>
             )}
         </>
