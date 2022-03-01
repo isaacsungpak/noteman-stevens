@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { createNote, getNotebookOptions } from "../../store/notes";
+import { createNote } from "../../store/notes";
 import ModalFormContainer from "./ModalFormContainer";
 
 function CreateNoteForm({ setShowModal }) {
     const dispatch = useDispatch();
     const [selectedNotebookId, setSelectedNotebookId] = useState(0);
-    const [isLoaded, setIsLoaded] = useState('');
 
-    const notebookOptions = useSelector(state => state.notes.notebookOptions);
+    const notebooks = useSelector(state => state.notebooks.notebooks);
 
     const submitNote = (e) => {
         e.preventDefault();
@@ -21,15 +20,12 @@ function CreateNoteForm({ setShowModal }) {
         setShowModal(false);
     }
 
-    useEffect(() => {
-        dispatch(getNotebookOptions()).then(() => setIsLoaded(true));
-    }, [dispatch])
-    const organizedNotebooks = Object.values(notebookOptions);
+    const organizedNotebooks = Object.values(notebooks).sort((a, b) => a.title.localeCompare(b.title));
 
     return (
         <ModalFormContainer>
             <div id="title">Create a Note</div>
-            <div id="instructions">Select a notebook</div>
+            {/* <div id="instructions">Select a notebook</div> */}
             <form onSubmit={createNote}>
                 <select
                     value={selectedNotebookId}
@@ -39,10 +35,9 @@ function CreateNoteForm({ setShowModal }) {
                         value={0}
                         disabled
                     >
-                        Select a tag
+                        Select a notebook
                     </option>
                     {
-                        isLoaded &&
                         organizedNotebooks.map(notebook => (
                             <option value={notebook.id} key={`notebook${notebook.id}`}>
                                 {notebook.title}

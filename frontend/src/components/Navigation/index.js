@@ -176,7 +176,7 @@ function Navigation() {
       .then(() => setNotebooksLoaded(true));
   }, [dispatch]);
 
-  const orderedNotebooks = Object.values(notebooks).sort((a,b) => (new Date(b.updatedAt) - new Date(a.updatedAt)));
+  const orderedNotebooks = Object.values(notebooks).sort((a, b) => a.title.localeCompare(b.title));
 
   return (
     <NavBar>

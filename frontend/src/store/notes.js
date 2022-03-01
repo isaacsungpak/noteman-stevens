@@ -171,7 +171,7 @@ export const getNotebookOptions = () => async (dispatch) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions: {} }, action) => {
+const noteReducer = (state = { notes: {}, noteTagRelations: {} }, action) => {
     let newState
     let notes;
     let noteTag;
@@ -233,16 +233,6 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions:
             newState = {...state, noteTagRelations: {...state.noteTagRelations}};
             noteTag = action.payload;
             delete newState.noteTagRelations[noteTag.noteId][noteTag.tagId];
-            return newState;
-
-        case SET_NOTEBOOK_OPTIONS:
-            // FOR SET NOTEBOOKS: PAYLOAD = ARRAY OF NOTEBOOKS
-            newState = {...state};
-            const notebooks = {};
-            action.payload.forEach((notebook) => {
-                notebooks[notebook.id] = notebook;
-            })
-            newState.notebookOptions = notebooks;
             return newState;
 
         default:
