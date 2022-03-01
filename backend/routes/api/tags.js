@@ -86,7 +86,7 @@ router.delete(`/:tagId(\\d+)`, requireAuth, asyncHandler(async (req, res, next) 
     }
 
     await tag.destroy();
-    return res.json({ tag: tagId });
+    return res.json({ tagId });
 }));
 
 // get notes by tag

@@ -70,7 +70,7 @@ export const deleteNotebook = (notebookId) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        dispatch(deleteNB(data.notebook));
+        dispatch(deleteNB(data.notebookId));
     }
     return response;
 }
@@ -80,20 +80,20 @@ const notebookReducer = (state = { notebooks: {} }, action) => {
     switch (action.type) {
         case SET_NOTEBOOKS:
             // FOR SET NOTEBOOK: PAYLOAD = ARRAY OF NOTEBOOKS
-            newState = Object.assign({}, state);
+            newState = {...state, notebooks: {...state.notebooks}};
             action.payload.forEach((notebook) => {
                 newState.notebooks[notebook.id] = notebook;
             })
             return newState;
         case UPDATE_NOTEBOOK:
             // FOR UPDATE NOTEBOOK: PAYLOAD = UPDATED NOTEBOOKID
-            newState = Object.assign({}, state);
+            newState = {...state, notebooks: {...state.notebooks}};
             let notebook = action.payload;
             newState.notebooks[notebook.id] = notebook;
             return newState;
         case DELETE_NOTEBOOK:
             // FOR DELETE NOTEBOOK: PAYLOAD = DELETED NOTEBOOKID
-            newState = Object.assign({}, state);
+            newState = {...state, notebooks: {...state.notebooks}};
             let notebookId = action.payload;
             delete newState.notebooks[notebookId];
             return newState;

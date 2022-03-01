@@ -29,7 +29,7 @@ function DeleteNotebookForm({ notebook, setShowModal }) {
             <div id="instructions">
                 Are you sure that you want to delete
                 <br />
-                "<div id="instruction-title">{notebook.title}</div>""
+                "<div id="instruction-title">{notebook.title}</div>"
             </div>
             <div id="button-holder">
                 <button onClick={delNotebook}>Yes</button>

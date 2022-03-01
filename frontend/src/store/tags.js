@@ -66,7 +66,7 @@ export const deleteTag = (tagId) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        dispatch(deleteT(data.tag));
+        dispatch(deleteT(data.tagId));
     }
     return response;
 }
@@ -76,20 +76,20 @@ const tagReducer = (state = { tags: {} }, action) => {
     switch (action.type) {
         case SET_TAGS:
             // FOR SET TAG: PAYLOAD = ARRAY OF TAGS
-            newState = Object.assign({}, state);
+            newState = {tags: {}}
             action.payload.forEach((tag) => {
                 newState.tags[tag.id] = tag;
             })
             return newState;
         case UPDATE_TAG:
             // FOR UPDATE TAG: PAYLOAD = UPDATED TAG
-            newState = Object.assign({}, state);
+            newState = {tags: {...state.tags}}
             let tag = action.payload;
             newState.tags[tag.id] = tag;
             return newState;
         case DELETE_TAG:
             // FOR DELETE TAG: PAYLOAD = DELETED TAGID
-            newState = Object.assign({}, state);
+            newState = {tags: {...state.tags}}
             let tagId = action.payload;
             delete newState.tags[tagId];
             return newState;

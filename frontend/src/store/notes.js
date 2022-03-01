@@ -121,7 +121,7 @@ export const deleteNote = (noteId) => async (dispatch) => {
         method: 'DELETE',
     });
     const data = await response.json();
-    dispatch(deleteN(data.note));
+    dispatch(deleteN(data.noteId));
     return response;
 }
 
@@ -169,14 +169,16 @@ export const getNotebookOptions = () => async (dispatch) => {
     return response;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
 const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions: {} }, action) => {
-    let newState;
+    let newState
     let notes;
     let noteTag;
     switch (action.type) {
         case SET_NOTES:
             // FOR SET NOTES: PAYLOAD = ARRAY OF NOTES
-            newState = Object.assign({}, state);
+            newState = {...state};
             notes = {}
             action.payload.forEach(note => {
                 notes[note.id] = note;
@@ -186,14 +188,14 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions:
 
         case UPDATE_NOTE:
             // FOR UPDATE NOTE: PAYLOAD = UPDATED NOTE
-            newState = Object.assign({}, state);
+            newState = {...state, notes: {...state.notes}};
             let note = action.payload;
             newState.notes[note.id] = note;
             return newState;
 
         case DELETE_NOTE:
             // FOR DELETE NOTE: PAYLOAD = DELETED NOTEID
-            newState = Object.assign({}, state);
+            newState = {...state, notes: {...state.notes}};
             let noteId = action.payload;
             delete newState.notes[noteId];
             return newState;
@@ -201,7 +203,7 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions:
         case SET_NOTES_BY_TAG:
             // FOR SET NOTES BY TAG: PAYLOAD = ARRAY OF NOTETAGS
             // SPECIAL CASE: NEED TO EXTRACT NOTE FROM NOTETAG OBJ
-            newState = Object.assign({}, state);
+            newState = {...state};
             notes = {};
             action.payload.forEach(noteTag => {
                 notes[noteTag.Note.id] = noteTag.Note;
@@ -211,7 +213,7 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions:
 
         case SET_NOTETAGS:
             // FOR SET NOTETAG: PAYLOAD = ARRAY OF NOTETAGS
-            newState = Object.assign({}, state);
+            newState = {...state};
             action.payload.forEach(notetag => {
                 if (!newState.noteTagRelations[notetag.noteId]) newState.noteTagRelations[notetag.noteId] = {};
                 newState.noteTagRelations[notetag.noteId][notetag.tagId] = notetag;
@@ -220,7 +222,7 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions:
 
         case UPDATE_NOTETAG:
             // FOR UPDATE NOTETAG: PAYLOAD = UPDATED NOTETAG
-            newState = Object.assign({}, state);
+            newState = {...state, noteTagRelations: {...state.noteTagRelations}};
             noteTag = action.payload;
             if (!newState.noteTagRelations[noteTag.noteId]) newState.noteTagRelations[noteTag.noteId] = {};
             newState.noteTagRelations[noteTag.noteId][noteTag.tagId] = noteTag;
@@ -228,14 +230,14 @@ const noteReducer = (state = { notes: {}, noteTagRelations: {}, notebookOptions:
 
         case DELETE_NOTETAG:
             // FOR DELETE NOTETAG: PAYLOAD = OBJ W NOTEID AND TAGID
-            newState = Object.assign({}, state);
+            newState = {...state, noteTagRelations: {...state.noteTagRelations}};
             noteTag = action.payload;
             delete newState.noteTagRelations[noteTag.noteId][noteTag.tagId];
             return newState;
 
         case SET_NOTEBOOK_OPTIONS:
             // FOR SET NOTEBOOKS: PAYLOAD = ARRAY OF NOTEBOOKS
-            newState = Object.assign({}, state);
+            newState = {...state};
             const notebooks = {};
             action.payload.forEach((notebook) => {
                 notebooks[notebook.id] = notebook;
