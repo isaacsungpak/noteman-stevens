@@ -220,8 +220,8 @@ function Navigation() {
               {orderedNotebooks.map((notebook, idx) => (
                 <li className="notebook-nav">
                   <NavLink to={`/notebooks/${notebook.id}`} key={`nb${idx}`}>{notebook.title}</NavLink>
-                  <EditNotebookModal notebook={notebook} />
-                  <DeleteNotebookModal notebook={notebook} />
+                  <EditNotebookModal notebook={notebook} key={`edit-nb${idx}`}/>
+                  <DeleteNotebookModal notebook={notebook} key={`delete-nb${idx}`}/>
                 </li>
               ))}
             </ul>
