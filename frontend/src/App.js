@@ -27,6 +27,35 @@ const Content = styled.div`
   left: 250px;
 `
 
+const LinkContainer = styled.div`
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2000;
+
+  a {
+    font-size: 40px;
+    color: #d5cbe2;
+    opacity: 50%;
+    margin-right: 10px;
+    transition: all 0.2s ease-in-out;
+
+    :hover {
+      opacity: 100%;
+    }
+  }
+
+  #gh:hover {
+    color: #bd2c00;
+  }
+  #li:hover {
+    color: #0072b1
+  }
+`
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -71,7 +100,13 @@ function App() {
           </Content>
         </>
         :
-        <AuthPage />
+        <>
+          <AuthPage />
+          <LinkContainer isLoggedIn={!!sessionUser}>
+            <a id="gh" href='https://github.com/isaacsungpak/noteman-stevens' target="_blank"><i className="fab fa-github-square"></i></a>
+            <a id="li" href='https://www.linkedin.com/in/isaac-pak-b4324421b/' target="_blank"><i className="fab fa-linkedin"></i></a>
+          </LinkContainer>
+        </>
       }
     </Page>
 
