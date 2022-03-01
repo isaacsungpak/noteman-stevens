@@ -4,28 +4,25 @@ import ScratchPad from "./ScratchPad";
 import QuickLinks from "./QuickLinks";
 
 const Page = styled.div`
-    height: 100vh;
-    width: calc(100vw - 250px);
+    height: calc(100vh - 50px);
+    width: calc(100vw - 290px);
     background-color: #F4F2F7;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 40px 1fr;
+    gap: 20px;
+    padding: 20px;
+    padding-bottom: 30px;
 
     #welcome {
-        height: calc(10vh - 20px);
-        width: calc(100% - 20px);
-        padding: 10px;
+        height: fit-content;
         font-size: 30px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-    }
 
-    #body {
-        display: flex;
-        justify-content: center;
-        align-items: start;
+        grid-column: 1/6;
+        grid-row: 1;
     }
 `
 
@@ -37,10 +34,8 @@ function HomePage() {
             <div id="welcome">
                 <div>Welcome, {user.username}!</div>
             </div>
-            <div id="body">
-                <QuickLinks />
-                <ScratchPad />
-            </div>
+            <QuickLinks />
+            <ScratchPad />
         </Page>
     )
 }

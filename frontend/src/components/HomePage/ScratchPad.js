@@ -4,16 +4,19 @@ import { useState } from "react";
 import { createNote } from "../../store/notes";
 
 const Section = styled.div`
-    height: 90vh;
-    width: calc(50vw - 125px);
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
     flex-direction: column;
 
+    grid-column: 3/6;
+    grid-row: 2;
+
     #select-bar {
-        width: 80%;
-        margin: 10px 0;
+        width: 100%;
+        margin-top: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -54,8 +57,8 @@ const Section = styled.div`
 `
 
 const Pad = styled.div`
-    height: calc(100% - 118px);
-    width: 80%;
+    flex: 1;
+    width: calc(100% - 20px);
     background-color: #FEF5EB;
     border: 1px solid #FDE1C4;
     border-radius: 3px;

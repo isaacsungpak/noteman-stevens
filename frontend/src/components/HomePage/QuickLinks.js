@@ -3,16 +3,19 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Section = styled.div`
-    height: 90vh;
-    width: calc(50vw - 125px);
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: start;
+
+    grid-column: 1/3;
+    grid-row: 2;
 `
 
 const List = styled.div`
-    height: calc(100% - 60px);
-    width: 80%;
+    height: 100%;
+    width: 100%;
     background-color: #DED8E8;
     border: 1px solid #b3a5ca;
     border-radius: 3px;
