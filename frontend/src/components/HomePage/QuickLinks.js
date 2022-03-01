@@ -11,7 +11,7 @@ const Section = styled.div`
 `
 
 const List = styled.div`
-    height: calc(100% - 20px);
+    height: calc(100% - 60px);
     width: 80%;
     background-color: #DED8E8;
     border: 1px solid #b3a5ca;

@@ -13,7 +13,6 @@ const Section = styled.div`
 
     #select-bar {
         width: 80%;
-        flex: 1;
         margin: 10px 0;
         display: flex;
         justify-content: space-between;
@@ -55,7 +54,7 @@ const Section = styled.div`
 `
 
 const Pad = styled.div`
-    height: calc(100% - 58px);
+    height: calc(100% - 118px);
     width: 80%;
     background-color: #FEF5EB;
     border: 1px solid #FDE1C4;
@@ -147,7 +146,7 @@ function ScratchPad() {
                     {
                         saved ?
                             <div id="success"><i className="fas fa-check-circle"/></div> :
-                            <button onClick={convertNote} disabled={selectedNotebookId === 0 || !noteTitle && !noteContent }>Convert to Note</button>
+                            <button onClick={convertNote} disabled={selectedNotebookId === 0 || (!noteTitle && !noteContent) }>Convert to Note</button>
                     }
                 </div>
         </Section>
