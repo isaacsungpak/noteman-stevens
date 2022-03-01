@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Tab = styled.div`
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 30px);
     display: flex;
     justify-content: center;
     align-items: center;

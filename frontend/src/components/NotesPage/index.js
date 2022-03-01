@@ -34,7 +34,7 @@ function NotesPage() {
     return (
         <>
             <NoteBar>
-                <CreateNoteModal />
+                {!searchKey && <CreateNoteModal />}
                 {
                     isLoaded &&
 
